@@ -9,5 +9,5 @@ public:
 	virtual ~GameState() = default;
 	virtual void getInput(Input) = 0;
 	virtual void update() = 0;
-	virtual void render() = 0
+	virtual void render() = 0;
 };
