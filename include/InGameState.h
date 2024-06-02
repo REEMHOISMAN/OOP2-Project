@@ -1,7 +1,7 @@
 #pragma once
 #include <GameStates.h>
 
-class InGameState : public GameState
+class InGameState : public GameStates
 {
 public:
 	InGameState() = default; //just for now..

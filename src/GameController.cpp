@@ -1,8 +1,11 @@
 #include "GameController.h"
 #include "Macros.h"
+#include "GameStates.h"
+
 GameController::GameController()
 	:m_window(sf::VideoMode{WIDTH,HEIGHT},"PAPA LOUIE: WHEN PIZZAS ATTACK")
 {
+	m_state = &m_inGameState;
 	m_window.setFramerateLimit(60);
 }
 
