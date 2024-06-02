@@ -27,8 +27,10 @@ void GameController::run()
 			{
 				m_state = state;
 			}
-			m_state->update(clock.getElapsedTime());
-			m_state->render(m_window);
 		}
+		m_state->update(clock.getElapsedTime());
+		m_window.clear();
+		m_state->render(m_window);
+		m_window.display();
 	}
 }

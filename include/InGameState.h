@@ -1,5 +1,6 @@
 #pragma once
 #include <GameState.h>
+#include "Player.h"
 
 class InGameState : public GameState
 {
@@ -10,5 +11,5 @@ public:
 	virtual void render(sf::RenderWindow&) override;
 
 private:
-	// will hold entities, Platyer, and all game objects
+	Player m_player;
 };
