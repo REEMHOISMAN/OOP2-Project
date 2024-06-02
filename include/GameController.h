@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "InGameState.h"
-class GameStates;
+class GameState;
 
 class GameController
 {
@@ -11,6 +11,6 @@ public:
 
 private:
 	sf::RenderWindow m_window;
-	GameStates* m_state;
+	GameState* m_state;
 	InGameState m_inGameState;
 };
