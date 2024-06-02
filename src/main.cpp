@@ -3,10 +3,11 @@
  * Re'em Hoisman - 211694146 
  *---------------------------------------------**/
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include "GameController.h"
 
 int main()
 {
-	auto w = sf::RenderWindow(sf::VideoMode(1280, 1280), "game");
+	GameController game;
+	game.run();
 	return 0;
 }
