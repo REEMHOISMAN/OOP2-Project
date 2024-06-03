@@ -1,1 +1,5 @@
 ﻿configure_file ("playerSpriteSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("background.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("tileMap.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("mainGround.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ground.png" ${CMAKE_BINARY_DIR} COPYONLY)
