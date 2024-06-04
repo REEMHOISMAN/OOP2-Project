@@ -32,6 +32,5 @@ void GameController::run()
 		m_window.clear();
 		m_state->render(m_window);
 		m_window.display();
-		//
 	}
 }

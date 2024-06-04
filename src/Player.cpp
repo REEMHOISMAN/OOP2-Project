@@ -11,8 +11,8 @@ Player::Player()
 	
 	m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(165, 45), sf::Vector2i(344, 440)));
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
-	m_sprite.setPosition(500, 675);
-	m_sprite.setScale(0.1f, 0.1f);
+	m_sprite.setPosition(700, 645);
+	m_sprite.scale(0.4f, 0.4f);
 }
 
 void Player::move(sf::Time time)
@@ -31,8 +31,8 @@ Input Player::getInput() const
 
 void Player::draw(sf::RenderWindow& window) const
 {
-	auto center = m_sprite.getPosition();
-	window.setView(sf::View(center, sf::Vector2f(300, 200)));
+	auto center = sf::Vector2f(m_sprite.getPosition().x, HEIGHT/2);
+	window.setView(sf::View(center, sf::Vector2f(WIDTH, HEIGHT)));
 	window.draw(m_sprite);
 }
 
