@@ -28,15 +28,17 @@ void InGameState::initTileMap()
 			{
 				m_tileMap[i].push_back(sf::Sprite(ResourceManager::instance().getTexture("mainGround")));
 				m_tileMap[i].back().setPosition(factor_x, factor_y);
+				m_tileMap[i].back().setScale(0.2, 0.2);
 			}
 			else if (image.getPixel(x, y) == sf::Color::Black) //if the current pixel is red than the sprite will be without grass
 			{
 				m_tileMap[i].push_back(sf::Sprite(ResourceManager::instance().getTexture("ground")));
 				m_tileMap[i].back().setPosition(factor_x, factor_y);
+				m_tileMap[i].back().setScale(0.2, 0.2);
 			}
-			factor_x += 85.f; //the width of each texture
+			factor_x += 17.f; //the width of each texture
 		}
-		factor_y -= 90.f; //the height of each texture
+		factor_y -= 18.f; //the height of each texture
 		i++; 
 	}
 }
@@ -46,7 +48,7 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 {
 	if (event.type == sf::Event::KeyReleased)
 	{
-	
+		
 	}
 
 	return nullptr;
@@ -54,11 +56,11 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 
 void InGameState::update(sf::Time dt)
 {
-	//m_player.move(dt);
 }
 
 void InGameState::render(sf::RenderWindow&window)
 {
+	window.setView(window.getDefaultView());
 	window.draw(m_background);
 	drawBoard(window);
 	m_player.draw(window);

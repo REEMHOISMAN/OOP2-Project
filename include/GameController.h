@@ -12,5 +12,6 @@ public:
 private:
 	sf::RenderWindow m_window;
 	GameState* m_state;
+	
 	InGameState m_inGameState;
 };

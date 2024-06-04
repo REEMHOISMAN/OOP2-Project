@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-enum Input
-{
-
-};
+//enum Input
+//{
+//
+//};
 
 class GameState
 {

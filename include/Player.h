@@ -1,13 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "PlayerState.h"
+
 
 class Player
 {
 public:
 	Player();
+	void move(sf::Time);
+	Input getInput() const;
 	void draw(sf::RenderWindow&)const;
+	void setObjectPosition(const sf::Vector2f&); //for now - will be moved to entity/GameObject
 
 private:
-	sf::Sprite m_sprite;
-	sf::Texture m_texture;
+	std::unique_ptr<PlayerState> m_state;
+	sf::Sprite m_sprite; //for now
 };
