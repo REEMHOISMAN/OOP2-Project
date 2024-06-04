@@ -2,13 +2,14 @@
 #include "States/PlayerState/WalkState.h"
 #include "Player.h"
 
-StandState::StandState(Player& player) : PlayerState(player){}
+StandState::StandState(Player& player, Input input) : PlayerState(player, input){}
 
-std::unique_ptr<PlayerState> StandState::handleEvent(Input key, Player& player)
+std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
-   // if (key == LEFT || key == RIGHT) return std::make_unique<WalkState>(player);
+    if (input == LEFT || input == RIGHT) 
+        return std::make_unique<WalkState>(player, input);
     //if (key == SPACE) return std::make_unique<JumpState>(player);
-    return std::unique_ptr<PlayerState>();
+   return std::make_unique<StandState>(player, NONE);
 }
 
 void StandState::update(sf::Time){}

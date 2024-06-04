@@ -6,6 +6,7 @@ InGameState::InGameState()
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
 	m_background.setSize({float(WIDTH), float(HEIGHT)});
+	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
 	initTileMap();
 }
 
@@ -52,12 +53,14 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 	return nullptr;
 }
 
-void InGameState::update(sf::Time dt)
+void InGameState::update(sf::Time time)
 {
+	m_player.move(time);
 }
 
 void InGameState::render(sf::RenderWindow&window)
 {
+	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
 	drawBoard(window);
 	m_player.draw(window);

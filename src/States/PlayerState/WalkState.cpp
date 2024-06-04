@@ -1,16 +1,26 @@
 #include "States/PlayerState/WalkState.h"
+#include "States/PlayerState/StandState.h"
 
-WalkState::WalkState(Player& player) : PlayerState(player)
+WalkState::WalkState(Player& player, Input input) : PlayerState(player, input)
 {
 }
 
-std::unique_ptr<PlayerState> WalkState::handleEvent(Input, Player&)
+std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    return std::unique_ptr<PlayerState>();
+
+    if (input == NONE) 
+        return std::make_unique<StandState>(player, input);
+
+    return std::make_unique<WalkState>(player, input);
 }
 
-void WalkState::update(sf::Time)
+void WalkState::update(sf::Time time)
 {
-    //fjdfodidjfoi
-    //setPosition()
+    auto sec = time.asSeconds();
+    auto input = getInput();
+    float newX = sec * 1500;
+
+    if (input == LEFT) newX *= -1.f;
+
+    setPosition({ newX, 0.f });
 }

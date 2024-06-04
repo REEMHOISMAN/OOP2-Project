@@ -1,11 +1,12 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "States/PlayerState/StandState.h"
+#include "States/PlayerState/WalkState.h"
 #include "Macros.h"
 
-Player::Player()
+Player::Player(): m_rightDirection(false)
 {
-	m_state = std::make_unique<StandState>(*this);
+	m_state = std::make_unique<StandState>(*this, NONE);
 
 	m_sprite.setTexture(ResourceManager::instance().getTexture("playerSpriteSheet"));
 	
@@ -18,15 +19,16 @@ Player::Player()
 void Player::move(sf::Time time)
 {
 	auto input = getInput();
-	//m_state = m_state->handleEvent(input, *this);
+	m_state = m_state->handleEvent(input, *this);
 	m_state->update(time);
 }
 
-Input Player::getInput() const
+Input Player::getInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
+	return NONE;
 }
 
 void Player::draw(sf::RenderWindow& window) const
