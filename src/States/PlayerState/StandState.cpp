@@ -1,5 +1,5 @@
-#include "StandState.h"
-#include "WalkState.h"
+#include "States/PlayerState/StandState.h"
+#include "States/PlayerState/WalkState.h"
 #include "Player.h"
 
 StandState::StandState(Player& player) : PlayerState(player){}

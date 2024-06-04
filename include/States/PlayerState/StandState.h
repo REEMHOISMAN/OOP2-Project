@@ -1,11 +1,10 @@
 #pragma once
-#include "PlayerState.h"
+#include "States/PlayerState/PlayerState.h"
 
-class WalkState : public PlayerState
+class StandState : public PlayerState
 {
 public:
-	WalkState(Player&);
+	StandState(Player&);
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) override;
 	virtual void update(sf::Time) override;
-
 };

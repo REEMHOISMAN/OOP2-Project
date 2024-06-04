@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "PlayerState.h"
-
+#include "States/PlayerState/PlayerState.h"
 
 class Player
 {

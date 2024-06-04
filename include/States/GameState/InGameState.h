@@ -1,12 +1,12 @@
 #pragma once
-#include <GameState.h>
+#include "States/GameState/GameState.h"
 #include "Player.h"
 #include <vector>
 
 class InGameState : public GameState
 {
 public:
-	InGameState(); //just for now..
+	InGameState();
 	virtual GameState* handleEvent(sf::Event&, sf::RenderWindow& window) override;
 	virtual void update(sf::Time) override;
 	virtual void render(sf::RenderWindow&) override;

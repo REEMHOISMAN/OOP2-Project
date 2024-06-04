@@ -1,4 +1,4 @@
-#include "InGameState.h"
+#include "States/GameState/InGameState.h"
 #include "ResourceManager.h"
 #include "Macros.h"
 

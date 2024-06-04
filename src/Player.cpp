@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "ResourceManager.h"
-#include "StandState.h"
+#include "States/PlayerState/StandState.h"
 #include "Macros.h"
 
 Player::Player()

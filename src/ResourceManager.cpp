@@ -1,7 +1,7 @@
 #include "ResourceManager.h"
 #include "Macros.h"
 #include <iostream>
-#include <Array>
+#include <array>
 
 /*================== instance =================*/
 /**----------------------------------------------
