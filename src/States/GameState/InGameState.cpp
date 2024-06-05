@@ -14,12 +14,10 @@ InGameState::InGameState()
 void InGameState::initTileMap()
 {
 	auto image = sf::Image();
-	int i = 0;
-	float factor_y = 710.f; 
+	float factor_y = 710.f;
 
 	image.loadFromFile("tileMap.png");
-	m_tileMap.resize(image.getSize().y); // as the number of rows in the image
-
+	sf::Sprite sprite;
 	for (int y = int(image.getSize().y)-1; y >= 0; y--) // read from the end because print from the begin
 	{
 		float factor_x = 0.f;
@@ -27,18 +25,28 @@ void InGameState::initTileMap()
 		{
 			if (image.getPixel(x, y) == sf::Color::Green) //if the current pixel is green than the sprite will be with grass
 			{
-				m_tileMap[i].push_back(sf::Sprite(ResourceManager::instance().getTexture("mainGround")));
-				m_tileMap[i].back().setPosition(factor_x, factor_y);
+				sprite = sf::Sprite(ResourceManager::instance().getTexture("mainGround"));
+				sprite.setPosition(factor_x, factor_y);
+				m_objects.emplace_back(std::move(std::make_unique<StaticObject>(sprite)));
 			}
 			else if (image.getPixel(x, y) == sf::Color::Black) //if the current pixel is red than the sprite will be without grass
 			{
-				m_tileMap[i].push_back(sf::Sprite(ResourceManager::instance().getTexture("ground")));
-				m_tileMap[i].back().setPosition(factor_x, factor_y);
+				sprite = sf::Sprite(ResourceManager::instance().getTexture("ground"));
+				sprite.setPosition(factor_x, factor_y);
+				m_objects.emplace_back(std::move(std::make_unique<StaticObject>(sprite)));
+			}
+			else if (image.getPixel(x, y) == sf::Color::Red)
+			{
+				sprite = sf::Sprite(ResourceManager::instance().getTexture("PlayerSpriteSheet"));
+				sprite.setPosition(factor_x, factor_y);
+				sprite.setTextureRect(sf::IntRect(sf::Vector2i(165, 45), sf::Vector2i(344, 440)));
+				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+				sprite.scale(0.4f, 0.4f);
+				m_entities.emplace_back(std::move(std::make_unique<Player>(sprite)));
 			}
 			factor_x += 85.f; //the width of each texture
 		}
 		factor_y -= 90.f; //the height of each texture
-		i++; 
 	}
 }
 
@@ -55,7 +63,7 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 
 void InGameState::update(sf::Time time)
 {
-	m_player.move(time);
+	std::for_each(m_entities.begin(), m_entities.end(), [time](auto& entity) {entity->move(time); });
 }
 
 void InGameState::render(sf::RenderWindow&window)
@@ -63,16 +71,10 @@ void InGameState::render(sf::RenderWindow&window)
 	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
 	drawBoard(window);
-	m_player.draw(window);
 }
 
 void InGameState::drawBoard(sf::RenderWindow& window) const
 {
-	for (int i = 0; i < m_tileMap.size(); i++)
-	{
-		for (int j = 0; j < m_tileMap[i].size(); j++)
-		{
-			window.draw(m_tileMap[i][j]);
-		}
-	}
+	std::for_each(m_entities.begin(), m_entities.end(), [&window](auto& entity) {entity->draw(window); });
+	std::for_each(m_objects.cbegin(), m_objects.cend(), [&window](const auto& object) {object->draw(window); });
 }

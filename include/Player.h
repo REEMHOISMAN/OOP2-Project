@@ -1,18 +1,17 @@
 #pragma once
 #include "States/PlayerState/PlayerState.h"
-#include "GameObject.h"
+#include "Entity.h"
 
-class Player//:public GameObject
+class Player :public Entity
 {
 public:
-	Player();
+    Player(sf::Sprite&);
 	void move(sf::Time);
 	Input getInput();
-	void draw(sf::RenderWindow&)const;
-	void setObjectPosition(const sf::Vector2f&); //for now - will be moved to entity/GameObject
+	void draw(sf::RenderWindow&)const override ;
+	void setPosition(const sf::Vector2f& pos);
 
 private:
 	std::unique_ptr<PlayerState> m_state;
-	sf::Sprite m_sprite; //for now
 	bool m_rightDirection;
 };

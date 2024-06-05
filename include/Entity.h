@@ -4,6 +4,7 @@
 class Entity :public GameObject
 {
 public:
-	Entity(sf::Vector2f& position, sf::Texture& texture);
-	void setEntityPosition(sf::Vector2f& Pos);
+	Entity() = default;
+	Entity(sf::Sprite&);
+	virtual void move(sf::Time) = 0;
 };
