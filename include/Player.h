@@ -1,7 +1,8 @@
 #pragma once
 #include "States/PlayerState/PlayerState.h"
+#include "GameObject.h"
 
-class Player
+class Player//:public GameObject
 {
 public:
 	Player();
