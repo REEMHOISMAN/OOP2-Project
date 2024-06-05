@@ -14,7 +14,6 @@ void GameController::run()
 	sf::Clock clock;
 	while (m_window.isOpen())
 	{
-		clock.restart();
 		m_window.clear();
 		while (m_window.pollEvent(event)) 
 		{
@@ -30,6 +29,7 @@ void GameController::run()
 			}
 		}
 		m_state->update(clock.getElapsedTime());
+		clock.restart();
 		m_state->render(m_window);
 		m_window.display();
 	}

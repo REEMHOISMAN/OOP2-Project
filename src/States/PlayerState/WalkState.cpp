@@ -19,8 +19,7 @@ void WalkState::update(sf::Time time)
 {
     auto sec = time.asSeconds();
     auto input = getInput();
-    float newX = sec * 150;
-    if (input == LEFT) newX *= -1.f;
+    if (input == LEFT) sec *= -1.f;
 
-    setPosition({ newX, 0.f });
+    setPosition({ sec, 0.f });
 }
