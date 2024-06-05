@@ -40,5 +40,6 @@ void Player::draw(sf::RenderWindow& window) const
 
 void Player::setObjectPosition(const sf::Vector2f& pos)
 {
-	m_sprite.setPosition(m_sprite.getPosition() + pos);
+	sf::Vector2f newPos = { pos.x * m_sprite.getLocalBounds().getSize().x,0.f };
+	m_sprite.setPosition(m_sprite.getPosition() + newPos);
 }

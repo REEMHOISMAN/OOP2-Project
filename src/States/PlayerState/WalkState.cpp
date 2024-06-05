@@ -1,6 +1,7 @@
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/StandState.h"
 
+
 WalkState::WalkState(Player& player, Input input) : PlayerState(player, input)
 {
 }
@@ -18,8 +19,7 @@ void WalkState::update(sf::Time time)
 {
     auto sec = time.asSeconds();
     auto input = getInput();
-    float newX = sec * 1500;
-
+    float newX = sec * 150;
     if (input == LEFT) newX *= -1.f;
 
     setPosition({ newX, 0.f });
