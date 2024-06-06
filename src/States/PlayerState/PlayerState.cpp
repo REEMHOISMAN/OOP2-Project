@@ -10,9 +10,9 @@ Input PlayerState::getInput()const
 
 void PlayerState::setPosition(const sf::Vector2f& pos)
 {
-	auto sprite = m_player.getObjectSprite();
 	if (m_player.isHeadDirectionRight() xor (m_input == RIGHT))
 	{
+		auto sprite = m_player.getObjectSprite();
 		m_player.setOrigin({ sprite.getGlobalBounds().width / 2.f,sprite.getOrigin().y});
 		m_player.setScale();
 		m_player.setHeadDirection();
