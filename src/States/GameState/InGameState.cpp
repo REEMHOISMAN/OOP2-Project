@@ -38,7 +38,7 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
 				sprite = sf::Sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
-				sprite.setTextureRect(sf::IntRect(sf::Vector2i(165, 45), sf::Vector2i(344, 440)));
+				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 				sprite.scale(0.4f, 0.4f);
 				sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height / 2);
 				sprite.setPosition(factor_x, PLAYER_MIN_Y - 210.5f);
@@ -75,6 +75,6 @@ void InGameState::render(sf::RenderWindow&window)
 
 void InGameState::drawBoard(sf::RenderWindow& window) const
 {
-	std::for_each(m_entities.begin(), m_entities.end(), [&window](auto& entity) {entity->draw(window); });
+	std::for_each(m_entities.cbegin(), m_entities.cend(), [&window](const auto& entity) {entity->draw(window); });
 	std::for_each(m_objects.cbegin(), m_objects.cend(), [&window](const auto& object) {object->draw(window); });
 }

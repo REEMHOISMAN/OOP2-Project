@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
-#include "Macros.h"
 #include <iostream>
+#include "States/PlayerState/WalkState.h"
 #include <array>
 
 /*================== instance =================*/
@@ -18,12 +18,20 @@ ResourceManager& ResourceManager::instance()
 ResourceManager::ResourceManager()
 {
     initTextures();
+    m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
+                                            sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(170, 390)) };
 }
 
 /*================== getTexture =================*/
 sf::Texture& ResourceManager::getTexture(const std::string type)
 {
     return m_textures[type];
+}
+
+sf::IntRect& ResourceManager::getAnimationRect(PlayerStateTypes)
+{
+    auto s = sf::IntRect();
+    return s;
 }
 
 /*================== initTextures =================*/

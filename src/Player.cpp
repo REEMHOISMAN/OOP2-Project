@@ -13,7 +13,8 @@ Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false)
 void Player::move(sf::Time time)
 {
 	auto input = getUserInput();
-	m_state = std::move(m_state->handleEvent(input, *this));
+	auto state = m_state->handleEvent(input, *this);
+	if (state) m_state = std::move(state);
 	m_state->update(time);
 }
 
