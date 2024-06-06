@@ -7,6 +7,7 @@
 Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0)
 {
 	m_state = std::make_unique<StandState>(*this, NONE);
+	m_animation[PlayerStateTypes::STAND] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)) };
 	m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
 										   sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(170, 390)) };
 }
