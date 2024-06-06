@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <unordered_map>
+#include "Macros.h"
 class Player;
 
 enum Input
@@ -20,6 +21,7 @@ public:
 	virtual void update(sf::Time) = 0;
 	
 	void setPosition(const sf::Vector2f&);
+	void setAnimation(PlayerStateTypes, sf::Time);
 	Input getInput() const;
 
 private:

@@ -10,6 +10,8 @@ public:
 	sf::Sprite getObjectSprite()const;
 	void setScale();
 	void setOrigin(const sf::Vector2f& origin);
+	void setTextureRect(const sf::IntRect&);
+
 private:
 	sf::Sprite m_sprite;
 };

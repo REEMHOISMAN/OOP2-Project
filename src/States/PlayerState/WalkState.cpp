@@ -1,6 +1,6 @@
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/StandState.h"
-
+#include "Macros.h"
 
 WalkState::WalkState(Player& player, Input input) : PlayerState(player, input)
 {
@@ -27,4 +27,5 @@ void WalkState::update(sf::Time time)
         newX *= -1.f;
 
     setPosition({ newX, 0.f });
+    setAnimation(PlayerStateTypes::WALK, time);
 }

@@ -15,23 +15,15 @@ ResourceManager& ResourceManager::instance()
 }
 
 /*================== ResourcesManager constructor =================*/
-ResourceManager::ResourceManager() : m_animationIndex(0), m_elapsed{}
+ResourceManager::ResourceManager()
 {
     initTextures();
-    m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
-                                            sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(170, 390)) };
 }
 
 /*================== getTexture =================*/
 sf::Texture& ResourceManager::getTexture(const std::string type)
 {
     return m_textures[type];
-}
-
-sf::IntRect& ResourceManager::getAnimationRect(PlayerStateTypes state, sf::Time)
-{
-    auto s = sf::IntRect();
-    return s;
 }
 
 /*================== initTextures =================*/
