@@ -7,7 +7,7 @@ class JumpState:public PlayerState
 public:
 	JumpState(Player& player, Input);
 	std::unique_ptr<PlayerState>handleEvent(Input,Player&)override;
-	void update(sf::Time);
+	void update(sf::Time)override;
 private:
 	float m_pressingTime;
 };

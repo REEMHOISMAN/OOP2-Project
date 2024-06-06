@@ -41,7 +41,7 @@ void InGameState::initTileMap()
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 				sprite.scale(0.4f, 0.4f);
 				sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height / 2);
-				sprite.setPosition(factor_x, PLAYER_MIN_Y - 210.5f);
+				sprite.setPosition(factor_x, PLAYER_MIN_Y);
 				m_entities.emplace_back(std::move(std::make_unique<Player>(sprite)));
 			}
 			factor_x += 85.f; //the width of each texture
@@ -63,7 +63,7 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 
 void InGameState::update(sf::Time time)
 {
-	std::for_each(m_entities.begin(), m_entities.end(), [time](auto& entity) {entity->move(time); });
+	std::for_each(m_entities.begin(), m_entities.end(), [&time](auto& entity) {entity->move(time); });
 }
 
 void InGameState::render(sf::RenderWindow&window)

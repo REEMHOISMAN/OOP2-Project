@@ -7,7 +7,7 @@ Input PlayerState::getInput()const
 {
 	return m_input;
 }
-
+//---------------------------------------------------------
 void PlayerState::setPosition(const sf::Vector2f& pos)
 {
 	auto sprite = m_player.getObjectSprite();
@@ -20,7 +20,12 @@ void PlayerState::setPosition(const sf::Vector2f& pos)
 	m_player.setPosition(pos);
 
 }
-
+//---------------------------------------------------------
+sf::Vector2f PlayerState::getPlayerPosition() const
+{
+	return m_player.getObjectSprite().getPosition();
+}
+//---------------------------------------------------------
 void PlayerState::setAnimation(PlayerStateTypes type, sf::Time time)
 {
 	m_player.setAnimationRect(type, time);

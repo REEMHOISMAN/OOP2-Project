@@ -12,8 +12,8 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     if (input == NONE) 
         return std::make_unique<StandState>(player, input);
 
-    if (input != getInput())
-       return std::make_unique<WalkState>(player, input);
+    if (input !=getInput())
+        return std::make_unique<WalkState>(player, input);
     
     return nullptr;
 }

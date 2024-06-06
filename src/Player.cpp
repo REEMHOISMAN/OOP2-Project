@@ -2,6 +2,7 @@
 #include "ResourceManager.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
+//#include "States/PlayerState/JumpState.h"
 #include <iostream>
 
 Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0)
@@ -14,7 +15,7 @@ Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_a
 
 void Player::move(sf::Time time)
 {
-	auto input = getUserInput();
+ 	auto input = getUserInput();
 	auto state = m_state->handleEvent(input, *this);
 	if (state) m_state = std::move(state);
 	m_state->update(time);

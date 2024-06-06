@@ -21,8 +21,10 @@ public:
 	virtual void update(sf::Time) = 0;
 	
 	void setPosition(const sf::Vector2f&);
+	sf::Vector2f getPlayerPosition()const;
 	void setAnimation(PlayerStateTypes, sf::Time);
 	Input getInput() const;
+
 
 private:
 	Player& m_player;
