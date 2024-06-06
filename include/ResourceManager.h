@@ -6,6 +6,7 @@
 #include "States/PlayerState/PlayerState.h"
 #include "Macros.h"
 
+const float ANIMATION_TIME = 0.4f;
 using AnimationType = std::vector<sf::IntRect>;
 
 class ResourceManager
@@ -13,7 +14,7 @@ class ResourceManager
 public:
 	static ResourceManager& instance();
 	sf::Texture& getTexture(const std::string);
-	sf::IntRect& getAnimationRect(PlayerStateTypes);
+	sf::IntRect& getAnimationRect(PlayerStateTypes, sf::Time);
 
 private:
 	ResourceManager(const ResourceManager&) = delete;
@@ -25,4 +26,7 @@ private:
 	std::unordered_map<std::string, sf::Texture>m_textures;
 	std::unordered_map<PlayerStateTypes, AnimationType> m_animation;
 	sf::Font m_font;
+
+	int m_animationIndex;
+	sf::Time m_elapsed;
 };
