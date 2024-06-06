@@ -8,7 +8,6 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
 {
     if (input == LEFT || input == RIGHT) 
         return std::make_unique<WalkState>(player, input);
-    //if (key == SPACE) return std::make_unique<JumpState>(player);
    return nullptr;
 }
 
