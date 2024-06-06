@@ -10,11 +10,19 @@ Input PlayerState::getInput()const
 
 void PlayerState::setPosition(const sf::Vector2f& pos)
 {
-	//m_player.setObjectPosition(pos);
-	m_player.setPosition(pos);
+	auto prevOrigin = m_player.getObjectSprite().getOrigin();
+
 	if (m_player.isHeadDirectionRight() xor (m_input == RIGHT))
 	{
+		
+		m_player.setScale(-1.f,1.f);
 		m_player.setHeadDirection();
-		m_player.setScale();
 	}
+	else 
+	{
+		m_player.setOrigin({ m_player.getObjectSprite().getGlobalBounds().width/2.f,prevOrigin.y});
+		m_player.setScale(1.f, 1.f);
+	}
+	m_player.setPosition(pos);
+
 }
