@@ -37,8 +37,8 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
-				sprite = sf::Sprite(ResourceManager::instance().getTexture("PlayerSpriteSheet"));
-				sprite.setPosition(factor_x, factor_y);
+				sprite = sf::Sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
+				sprite.setPosition(factor_x, PLAYER_MIN_Y);
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(165, 45), sf::Vector2i(344, 440)));
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				sprite.scale(0.4f, 0.4f);

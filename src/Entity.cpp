@@ -4,3 +4,4 @@ Entity::Entity(sf::Sprite& sprite)
 	:GameObject(sprite)
 {
 }
+

@@ -35,7 +35,6 @@ void Player::draw(sf::RenderWindow& window)const
 
 void Player::setPosition(const sf::Vector2f& pos)
 {
-	// setEntityPosition(pos) <-------> this is the implemantation after conecting the three  
 	auto sprite = getObjectSprite();
 	sf::Vector2f newPos = { pos.x * sprite.getLocalBounds().getSize().x,0.f };
 	setObjectPosition(sprite.getPosition() + newPos);
