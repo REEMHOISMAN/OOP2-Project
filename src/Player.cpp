@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
-//#include "States/PlayerState/JumpState.h"
+#include "States/PlayerState/JumpState.h"
 #include <iostream>
 
 Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0)
@@ -23,9 +23,9 @@ void Player::move(sf::Time time)
 
 Input Player::getUserInput()const
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
 	return NONE;
 }
 

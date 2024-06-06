@@ -10,10 +10,7 @@ JumpState::JumpState(Player& player, Input input)
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {
 
-	if (input ==SPACE) 
-	{
-		return std::make_unique<JumpState>(player, input);
-	}
+	return nullptr;
 		
 }
 //---------------------------------------------------------
@@ -21,6 +18,7 @@ void JumpState::update(sf::Time elapsedTime)
 {
 	auto jumpSpeed = elapsedTime.asSeconds()*1.2f;
 	sf::Vector2f velocity(getPlayerPosition().x, PLAYER_MIN_Y);
-	setPosition({ velocity.x,velocity.y-jumpSpeed});
+	if (velocity.y - jumpSpeed < 10)
+       setPosition({ velocity.x,velocity.y-jumpSpeed});
 
 }
