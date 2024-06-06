@@ -12,12 +12,12 @@ Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false)
 
 void Player::move(sf::Time time)
 {
-	auto input = getInput();
+	auto input = getUserInput();
 	m_state = std::move(m_state->handleEvent(input, *this));
 	m_state->update(time);
 }
 
-Input Player::getInput()
+Input Player::getUserInput()const
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;

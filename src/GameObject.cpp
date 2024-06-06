@@ -1,10 +1,9 @@
 #include "GameObject.h"
 #include "GameObject.h"
 #include "Player.h"
+#include <iostream> 
 
-GameObject::GameObject(sf::Sprite& sprite): m_sprite(sprite)
-{
-}
+GameObject::GameObject(sf::Sprite& sprite): m_sprite(sprite){}
 
 void GameObject::setObjectPosition(const sf::Vector2f& pos)
 {
@@ -20,5 +19,10 @@ void GameObject::draw(sf::RenderWindow& window)const
 sf::Sprite GameObject::getObjectSprite()const
 {
 	return m_sprite;
+}
+//---------------------------------------------------------
+void GameObject::setScale()
+{
+	m_sprite.scale(-1.f, 1.f);
 }
 

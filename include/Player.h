@@ -7,7 +7,7 @@ class Player :public Entity
 public:
     Player(sf::Sprite&);
 	void move(sf::Time);
-	Input getInput();
+	Input getUserInput()const;
 	void draw(sf::RenderWindow&)const override ;
 	void setPosition(const sf::Vector2f& pos);
 

@@ -12,6 +12,7 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     if (input == NONE) 
         return std::make_unique<StandState>(player, input);
 
+    
     return std::make_unique<WalkState>(player, input);
 }
 
@@ -20,7 +21,10 @@ void WalkState::update(sf::Time time)
     auto sec = time.asSeconds();
     auto input = getInput();
     float newX = sec * 1.2f;
-    if (input == LEFT) newX *= -1.f;
+    if (input == LEFT)
+    {
+        newX *= -1.f;
+    }
 
     setPosition({ newX, 0.f });
 }

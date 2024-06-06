@@ -12,4 +12,9 @@ void PlayerState::setPosition(const sf::Vector2f& pos)
 {
 	//m_player.setObjectPosition(pos);
 	m_player.setPosition(pos);
+	if (m_player.isHeadDirectionRight() xor (m_input == RIGHT))
+	{
+		m_player.setHeadDirection();
+		m_player.setScale();
+	}
 }
