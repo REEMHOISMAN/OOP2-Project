@@ -20,3 +20,8 @@ void PlayerState::setPosition(const sf::Vector2f& pos)
 	m_player.setPosition(pos);
 
 }
+
+void PlayerState::setAnimation(PlayerStateTypes type, sf::Time time)
+{
+	m_player.setAnimationRect(type, time);
+}

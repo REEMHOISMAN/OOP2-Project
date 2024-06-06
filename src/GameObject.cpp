@@ -31,3 +31,9 @@ void GameObject::setOrigin(const sf::Vector2f& origin)
 	m_sprite.setOrigin(origin);
 }
 
+//---------------------------------------------------------
+void GameObject::setTextureRect(const sf::IntRect& rect)
+{
+	m_sprite.setTextureRect(rect);
+}
+
