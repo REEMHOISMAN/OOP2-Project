@@ -4,4 +4,4 @@ const int HEIGHT = 800;
 
 const int NUM_OF_TEXTURES = 5;
 
-const float PLAYER_MIN_Y = 642.5f;
+const float PLAYER_MIN_Y = 800.f;

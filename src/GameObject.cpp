@@ -21,10 +21,9 @@ sf::Sprite GameObject::getObjectSprite()const
 	return m_sprite;
 }
 //---------------------------------------------------------
-void GameObject::setScale(float x,float y)
+void GameObject::setScale()
 {
-	//m_sprite.scale(-1.f, 1.f);
-	m_sprite.scale(x,y);
+	m_sprite.scale(-1.f,1.f);
 }
 //---------------------------------------------------------
 void GameObject::setOrigin(const sf::Vector2f& origin)

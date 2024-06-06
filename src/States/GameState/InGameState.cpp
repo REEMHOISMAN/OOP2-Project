@@ -38,10 +38,10 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
 				sprite = sf::Sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
-				sprite.setPosition(factor_x, PLAYER_MIN_Y);
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(165, 45), sf::Vector2i(344, 440)));
-				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				sprite.scale(0.4f, 0.4f);
+				sprite.setOrigin(0, sprite.getGlobalBounds().height / 2);
+				sprite.setPosition(factor_x, PLAYER_MIN_Y - 210.5f);
 				m_entities.emplace_back(std::move(std::make_unique<Player>(sprite)));
 			}
 			factor_x += 85.f; //the width of each texture
