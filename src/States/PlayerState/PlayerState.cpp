@@ -11,9 +11,10 @@ Input PlayerState::getInput()const
 void PlayerState::setPosition(const sf::Vector2f& pos)
 {
 	auto sprite = m_player.getObjectSprite();
-	if (m_player.isHeadDirectionRight() xor (m_input == RIGHT))
+	
+	if ((m_player.isHeadDirectionRight() xor (pos.x > 0)) && pos.x != 0) // so the head will change direction even when he is in the air
 	{
-		m_player.setOrigin({sprite.getGlobalBounds().width / 2.f,sprite.getOrigin().y});
+		m_player.setOrigin({ sprite.getGlobalBounds().width / 2.f,sprite.getOrigin().y });
 		m_player.setScale();
 		m_player.setHeadDirection();
 	}

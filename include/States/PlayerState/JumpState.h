@@ -10,4 +10,5 @@ public:
 	void update(sf::Time)override;
 private:
 	float m_jumpSpeed;
+	float m_rightLeftSpeed;
 };
