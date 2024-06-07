@@ -29,7 +29,6 @@ void WalkState::update(sf::Time time)
     float newX = sec * 1.2f;
     if (input == LEFT)
         newX *= -1.f;
-
     setPosition({ newX, 0.f });
     setAnimation(PlayerStateTypes::WALK, time);
 }

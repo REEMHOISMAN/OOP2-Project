@@ -40,8 +40,12 @@ void Player::draw(sf::RenderWindow& window)const
 void Player::setPosition(const sf::Vector2f& pos)
 {
 	auto sprite = getObjectSprite();
-	sf::Vector2f newPos = { pos.x * sprite.getLocalBounds().getSize().x,0.f };
-	setObjectPosition(sprite.getPosition() + newPos);
+	sf::Vector2f newPos = pos;
+	if (m_state->getInput() != SPACE)
+	{
+		newPos = { pos.x * sprite.getLocalBounds().getSize().x,0.f };
+	}
+ 	setObjectPosition(sprite.getPosition() + newPos);
 }
 
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)

@@ -17,6 +17,7 @@ class PlayerState
 {
 public:
 	PlayerState(Player& player, Input);
+	virtual ~PlayerState() = default;
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) = 0;
 	virtual void update(sf::Time) = 0;
 	

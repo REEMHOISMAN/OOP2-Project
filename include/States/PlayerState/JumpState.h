@@ -9,5 +9,5 @@ public:
 	std::unique_ptr<PlayerState>handleEvent(Input,Player&)override;
 	void update(sf::Time)override;
 private:
-	float m_pressingTime;
+	float m_jumpSpeed;
 };
