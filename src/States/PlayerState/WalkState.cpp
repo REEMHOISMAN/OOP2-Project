@@ -20,7 +20,7 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     if (input !=getInput())
         return std::make_unique<WalkState>(player, input);
 
-    if (m_walkTimer >= 3.f)
+    if (m_walkTimer >= 2.f)
         return std::make_unique<RunState>(player, input);
     
     return nullptr;

@@ -1,5 +1,6 @@
 #include "States/GameState/InGameState.h"
 #include "ResourceManager.h"
+#include "CollisionHandling.h"
 #include "Macros.h"
 
 InGameState::InGameState()
@@ -64,6 +65,7 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 void InGameState::update(sf::Time time)
 {
 	std::for_each(m_entities.begin(), m_entities.end(), [&time](auto& entity) {entity->move(time); });
+	checkCollision();
 }
 
 void InGameState::render(sf::RenderWindow&window)
@@ -77,4 +79,24 @@ void InGameState::drawBoard(sf::RenderWindow& window) const
 {
 	std::for_each(m_entities.cbegin(), m_entities.cend(), [&window](const auto& entity) {entity->draw(window); });
 	std::for_each(m_objects.cbegin(), m_objects.cend(), [&window](const auto& object) {object->draw(window); });
+}
+
+void InGameState::checkCollision()
+{
+	//sf::FloatRect collisionRect{ 0,0,0,0 };
+	for (auto entity1 = m_entities.begin(); entity1 != m_entities.end(); ++entity1)
+	{
+		for (auto entity2 = entity1+1; entity2!= m_entities.end(); ++entity2)
+		{
+		
+		}
+	}
+
+	//for (auto entity = m_entities.begin(); entity != m_entities.end(); ++entity)
+	//{
+	//	for (auto object = m_objects.begin(); object != m_objects.end(); ++object)
+	//	{
+
+	//	}
+	//}
 }

@@ -16,8 +16,11 @@ public:
 private:
 	void initTileMap();
 	void drawBoard(sf::RenderWindow&) const;
+	void checkCollision();
+
 
 	sf::RectangleShape m_background;
 	std::vector<std::unique_ptr<Entity>> m_entities;
 	std::vector<std::unique_ptr<StaticObject>> m_objects;
 };
+

@@ -4,7 +4,7 @@
 #include "Macros.h"
 
 JumpState::JumpState(Player& player, Input input)
-	: PlayerState(player, input),m_jumpSpeed(0), m_rightLeftSpeed(0)
+	: PlayerState(player, input),m_jumpSpeed(0), m_rightLeftSpeed(0), m_gravity(0)
 {
 }
 //---------------------------------------------------------
@@ -29,16 +29,15 @@ void JumpState::update(sf::Time elapsedTime)
 {
 	m_jumpSpeed = elapsedTime.asSeconds()*570.f;
 	float newX = elapsedTime.asSeconds() * m_rightLeftSpeed; //can be 0 if the user didnt press left/right
-	static float gravity = 0;
 	auto playerPostion = getPlayerPosition();
 	if (playerPostion.y >= PLAYER_MIN_Y)
 	{
-		gravity = 0;
-		//setPosition({0,0});     // why is it for ? {0,0} in "setPosition" dont do anything
+		m_gravity = 0;
 	}
-	setPosition({newX,-m_jumpSpeed + gravity }); // new x (it was "0" before)
+	setPosition({newX,-m_jumpSpeed + m_gravity }); // new x (it was "0" before)
+	setAnimation(PlayerStateTypes::JUMP, elapsedTime);
 	if (playerPostion.y < PLAYER_MIN_Y) {
-		gravity+=0.1f;
+		m_gravity +=0.1f;
 	}
 	m_rightLeftSpeed = 0; // if the user wants to stop move left/right while he is in the air
 }

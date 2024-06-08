@@ -8,7 +8,9 @@
 Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0)
 {
 	m_state = std::make_unique<StandState>(*this, NONE);
+	
 	m_animation[PlayerStateTypes::STAND] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)) };
+	m_animation[PlayerStateTypes::JUMP] = { sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
 	m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
 										   sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
 	m_animation[PlayerStateTypes::RUN] = { sf::IntRect(sf::Vector2i(1130, 50), sf::Vector2i(170, 390)),
@@ -59,4 +61,9 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 		m_animationIndex %= m_animation.find(state)->second.size();
 		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
 	}
+}
+
+void Player::PlayerGroundCollision(GameObject& ground)
+{
+	setPosition({ 0, 0 });
 }
