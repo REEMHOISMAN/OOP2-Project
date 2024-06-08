@@ -10,7 +10,10 @@ Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_a
 	m_state = std::make_unique<StandState>(*this, NONE);
 	m_animation[PlayerStateTypes::STAND] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)) };
 	m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
-										   sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(170, 390)) };
+										   sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
+	m_animation[PlayerStateTypes::RUN] = { sf::IntRect(sf::Vector2i(1130, 50), sf::Vector2i(170, 390)),
+										   sf::IntRect(sf::Vector2i(1600, 50), sf::Vector2i(205, 390)),
+										   sf::IntRect(sf::Vector2i(174, 530), sf::Vector2i(170, 390)) };
 }
 
 void Player::move(sf::Time time)
@@ -46,10 +49,12 @@ void Player::setPosition(const sf::Vector2f& pos)
 
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 {
+	sf::Time animationTime;
+	state == PlayerStateTypes::RUN ? animationTime = sf::seconds(0.08f) : animationTime = sf::seconds(0.1f);
 	m_elapsed += delta;
-	if (m_elapsed >= ANIMATION_TIME)
+	if (m_elapsed >= animationTime)
 	{
-		m_elapsed -= ANIMATION_TIME;
+		m_elapsed -= animationTime;
 		++m_animationIndex;
 		m_animationIndex %= m_animation.find(state)->second.size();
 		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
