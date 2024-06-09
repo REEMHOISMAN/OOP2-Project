@@ -2,6 +2,8 @@
 #include "States/PlayerState/PlayerState.h"
 #include "Entity.h"
 #include "Macros.h"
+#include "Player.h"
+#include "Obstacle.h"
 
 class Player :public Entity
 {
@@ -13,7 +15,6 @@ public:
 	void setPosition(const sf::Vector2f& pos);
 
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
-	void PlayerGroundCollision(GameObject& ground);
 
 private:
 	std::unique_ptr<PlayerState> m_state;

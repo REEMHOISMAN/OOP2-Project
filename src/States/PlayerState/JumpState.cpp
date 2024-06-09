@@ -10,8 +10,10 @@ JumpState::JumpState(Player& player, Input input)
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {
-	if (input == NONE && getPlayerPosition().y>=PLAYER_MIN_Y)
+	if (input == NONE && getPlayerPosition().y >= 585)
+	{
 		return std::make_unique<StandState>(player, input);
+	}		
 	
 	// if the user press left/right and he's on the GROUND
 	if ((input == LEFT || input == RIGHT) && getPlayerPosition().y >= PLAYER_MIN_Y)
@@ -33,7 +35,7 @@ void JumpState::update(sf::Time elapsedTime)
 	setPosition({newX,-m_jumpSpeed + m_gravity }); // new x (it was "0" before)
 	setAnimation(PlayerStateTypes::JUMP, elapsedTime);
 	if (playerPostion.y < PLAYER_MIN_Y) {
-		m_gravity +=0.1f;
+		m_gravity +=0.2f;
 	}
 	m_rightLeftSpeed = 0; // if the user wants to stop move left/right while he is in the air
 }

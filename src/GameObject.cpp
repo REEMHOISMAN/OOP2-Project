@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "GameObject.h"
-#include "Player.h"
 #include <iostream> 
 
 GameObject::GameObject(sf::Sprite& sprite): m_sprite(sprite){}
@@ -40,5 +39,7 @@ void GameObject::setTextureRect(const sf::IntRect& rect)
 bool GameObject::isCollide(const sf::Sprite& sprite) const
 {
 	auto rect = sprite.getGlobalBounds();
+	auto pos = sprite.getPosition();
+	auto pos2 = m_sprite.getPosition();
 	return m_sprite.getGlobalBounds().intersects(rect);
 }

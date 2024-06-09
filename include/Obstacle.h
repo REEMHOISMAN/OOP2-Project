@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "StaticObject.h"
 
-class Obstacle : public GameObject
+class Obstacle : public StaticObject
 {
 public:
-	Obstacle(sf::Sprite sprite) : GameObject(sprite){}
+	Obstacle(sf::Sprite sprite) : StaticObject(sprite){}
 };

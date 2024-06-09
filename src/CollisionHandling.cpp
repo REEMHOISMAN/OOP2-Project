@@ -6,14 +6,16 @@
 
 void initCollisionFunctions()
 {
-	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), playerObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(Obstacle), typeid(Player), &playerObstacle);
 }
 
-void playerObstacle(GameObject& object1, GameObject& obstacle)
+void playerObstacle(GameObject& object1, GameObject& object2)
 {
-	Player& player= dynamic_cast<Player&>(object1);
+	Player& player = dynamic_cast<Player&>(object1);
+	
 	sf::FloatRect intersect;
-	auto obstacleSprite = obstacle.getObjectSprite();
+	auto obstacleSprite = object2.getObjectSprite();
 	auto pos = player.getObjectSprite().getPosition();
 	auto newPos = sf::Vector2f();
 
@@ -21,9 +23,9 @@ void playerObstacle(GameObject& object1, GameObject& obstacle)
 	
 	if (intersect.height < intersect.width)
 	{
-		newPos.y = -intersect.height;
+		newPos.y =- intersect.height;
 	}
-	else
+	else if (intersect.height > intersect.width)
 	{
 		newPos.x = -intersect.width;
 	}

@@ -30,13 +30,13 @@ void InGameState::initTileMap()
 			{
 				sprite = sf::Sprite(ResourceManager::instance().getTexture("mainGround"));
 				sprite.setPosition(factor_x, factor_y);
-				m_objects.emplace_back(std::move(std::make_unique<StaticObject>(sprite)));
+				m_objects.emplace_back(std::move(std::make_unique<Obstacle>(sprite)));
 			}
 			else if (image.getPixel(x, y) == sf::Color::Black) //if the current pixel is red than the sprite will be without grass
 			{
 				sprite = sf::Sprite(ResourceManager::instance().getTexture("ground"));
 				sprite.setPosition(factor_x, factor_y);
-				m_objects.emplace_back(std::move(std::make_unique<StaticObject>(sprite)));
+				m_objects.emplace_back(std::move(std::make_unique<Obstacle>(sprite)));
 			}
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
@@ -99,10 +99,11 @@ void InGameState::checkCollision()
 		{
 			if ((*entity)->isCollide((*object)->getObjectSprite()))
 			{
-				auto func = GameCollisions::instance().CollusionFunc(typeid(entity), typeid(object));
+				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity), typeid(**object));
 				if (func)
 				{
 					func(*(*entity).get(),*(*object).get());
+					break;
 				}
 			}
 		}
