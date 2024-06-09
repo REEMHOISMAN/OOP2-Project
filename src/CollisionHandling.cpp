@@ -24,12 +24,10 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	if (intersect.height < intersect.width)
 	{
 		player.exitJumpState();
-		newPos.y =- intersect.height;
-	
+		newPos.y = -intersect.height;
 	}
 	if (intersect.height > intersect.width)
 	{
-		player.exitJumpState();
 		newPos.x = -intersect.width;
 	}
 	player.setPosition(newPos);

@@ -1,16 +1,23 @@
 #include "States/PlayerState/PlayerState.h"
 #include "Player.h"
 
-PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input), m_gravity{ 0 } {}
+PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input), m_gravity(0), m_onGround(true) {}
 
 Input PlayerState::getInput()const
 {
 	return m_input;
 }
+void PlayerState::setPlayerOnGround()
+{
+	m_onGround = false;
+}
+bool PlayerState::isOnGround() const
+{
+	return m_onGround;
+}
 //---------------------------------------------------------
 void PlayerState::activateGravity(float gravity)
 {
-	if (m_player.inJumpState())
 		m_gravity += gravity;
 }
 //---------------------------------------------------------

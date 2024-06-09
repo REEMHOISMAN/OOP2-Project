@@ -19,6 +19,7 @@ public:
 	bool inJumpState()const;
 
 
+
 private:
 	std::unique_ptr<PlayerState> m_state;
 	bool m_rightDirection;

@@ -26,11 +26,13 @@ public:
 	sf::Vector2f getPlayerPosition()const;
 	void setAnimation(PlayerStateTypes, sf::Time);
 	Input getInput() const;
+	void setPlayerOnGround();
+	bool isOnGround()const;
 
 
 private:
 	Player& m_player;
 	Input m_input;
 	float m_gravity;
-	bool m_collide;
+	bool m_onGround;
 };

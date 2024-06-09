@@ -5,7 +5,8 @@
 #include "States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0), m_inJumpState(false)
+Player::Player(sf::Sprite& sprite): Entity(sprite), 
+	m_rightDirection(false), m_animationIndex(0), m_inJumpState(false)
 {
 	m_state = std::make_unique<StandState>(*this, NONE);
 	
@@ -57,8 +58,6 @@ void Player::exitJumpState()
 {
 	m_inJumpState = false;
 }
-
-
 
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 {
