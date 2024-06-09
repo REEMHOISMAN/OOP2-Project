@@ -32,4 +32,5 @@ private:
 	Player& m_player;
 	Input m_input;
 	float m_gravity;
+	bool m_collide;
 };

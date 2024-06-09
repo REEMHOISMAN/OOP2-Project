@@ -16,5 +16,6 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
 
 void StandState::update(sf::Time time)
 {
+    setPosition({ 0, time.asSeconds() * 500.5f});
     setAnimation(PlayerStateTypes::STAND, time);
 }

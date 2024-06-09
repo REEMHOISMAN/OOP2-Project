@@ -10,8 +10,8 @@ Input PlayerState::getInput()const
 //---------------------------------------------------------
 void PlayerState::activateGravity(float gravity)
 {
-	
-	m_gravity +=gravity;
+	if (m_player.inJumpState())
+		m_gravity += gravity;
 }
 //---------------------------------------------------------
 float PlayerState::getGravity() const

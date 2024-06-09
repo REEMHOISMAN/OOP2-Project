@@ -11,7 +11,7 @@ WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
 
-    if (input == NONE) 
+    if (input == NONE && getGravity() == 0) 
         return std::make_unique<StandState>(player, input);
 
     if (input == SPACE)
@@ -28,11 +28,8 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 
 void WalkState::update(sf::Time time)
 {
-   /* auto playerPosition = getPlayerPosition();
+   auto playerPosition = getPlayerPosition();
     
-    activateGravity(0.2f);
-    
-    auto gravity = getGravity();*/
     auto input = getInput();
     float sec = time.asSeconds();
     float newX = sec * 150.5f;
@@ -40,6 +37,6 @@ void WalkState::update(sf::Time time)
     m_walkTimer += sec;
     if (input == LEFT)
         newX *= -1.f;
-    setPosition({ newX,0 });// gravity
+    setPosition({ newX,  0 });
     setAnimation(PlayerStateTypes::WALK, time);
 }
