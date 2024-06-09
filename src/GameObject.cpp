@@ -37,12 +37,8 @@ void GameObject::setTextureRect(const sf::IntRect& rect)
 	m_sprite.setTextureRect(rect);
 }
 
-bool GameObject::isCollide(const sf::Sprite& sprite, sf::FloatRect& intersect) const
+bool GameObject::isCollide(const sf::Sprite& sprite) const
 {
 	auto rect = sprite.getGlobalBounds();
-	if (m_sprite.getGlobalBounds().intersects(rect, intersect))
-	{
-		return true;
-	}
-	return false;
+	return m_sprite.getGlobalBounds().intersects(rect);
 }

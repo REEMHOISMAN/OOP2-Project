@@ -62,8 +62,3 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
 	}
 }
-
-void Player::PlayerGroundCollision(GameObject& ground)
-{
-	setPosition({ 0, 0 });
-}

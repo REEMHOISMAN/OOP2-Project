@@ -30,10 +30,6 @@ void JumpState::update(sf::Time elapsedTime)
 	m_jumpSpeed = elapsedTime.asSeconds()*570.f;
 	float newX = elapsedTime.asSeconds() * m_rightLeftSpeed; //can be 0 if the user didnt press left/right
 	auto playerPostion = getPlayerPosition();
-	if (playerPostion.y >= PLAYER_MIN_Y)
-	{
-		m_gravity = 0;
-	}
 	setPosition({newX,-m_jumpSpeed + m_gravity }); // new x (it was "0" before)
 	setAnimation(PlayerStateTypes::JUMP, elapsedTime);
 	if (playerPostion.y < PLAYER_MIN_Y) {

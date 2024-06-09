@@ -11,7 +11,7 @@ public:
 	void setScale();
 	void setOrigin(const sf::Vector2f& origin);
 	void setTextureRect(const sf::IntRect&);
-	bool isCollide(const sf::Sprite&, sf::FloatRect&) const;
+	bool isCollide(const sf::Sprite& sprite) const;
 
 private:
 	sf::Sprite m_sprite;

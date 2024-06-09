@@ -1,5 +1,6 @@
 #include "States/GameState/InGameState.h"
 #include "ResourceManager.h"
+#include "GameCollisions.h"
 #include "CollisionHandling.h"
 #include "Macros.h"
 
@@ -9,6 +10,7 @@ InGameState::InGameState()
 	m_background.setSize({float(WIDTH), float(HEIGHT)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
 	initTileMap();
+	initCollisionFunctions();
 }
 
 
@@ -83,7 +85,6 @@ void InGameState::drawBoard(sf::RenderWindow& window) const
 
 void InGameState::checkCollision()
 {
-	//sf::FloatRect collisionRect{ 0,0,0,0 };
 	for (auto entity1 = m_entities.begin(); entity1 != m_entities.end(); ++entity1)
 	{
 		for (auto entity2 = entity1+1; entity2!= m_entities.end(); ++entity2)
@@ -92,11 +93,18 @@ void InGameState::checkCollision()
 		}
 	}
 
-	//for (auto entity = m_entities.begin(); entity != m_entities.end(); ++entity)
-	//{
-	//	for (auto object = m_objects.begin(); object != m_objects.end(); ++object)
-	//	{
-
-	//	}
-	//}
+	for (auto entity = m_entities.begin(); entity != m_entities.end(); ++entity)
+	{
+		for (auto object = m_objects.begin(); object != m_objects.end(); ++object)
+		{
+			if ((*entity)->isCollide((*object)->getObjectSprite()))
+			{
+				auto func = GameCollisions::instance().CollusionFunc(typeid(entity), typeid(object));
+				if (func)
+				{
+					func(*(*entity).get(),*(*object).get());
+				}
+			}
+		}
+	}
 }

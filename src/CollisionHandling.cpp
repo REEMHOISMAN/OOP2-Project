@@ -1,29 +1,31 @@
 #include "CollisionHandling.h"
-#include "CollisionHandling.h"
-#include "CollisionHandling.h"
-#include "CollisionHandling.h"
-#include "Obstacle.h"
+#include "GameCollisions.h"
 #include "Player.h"
+#include "Obstacle.h"
+#include "Macros.h"
 
-CollisionHandling& CollisionHandling::instance()
+void initCollisionFunctions()
 {
-	static CollisionHandling instance;
-	return instance;
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), playerObstacle);
 }
 
-void CollisionHandling::addCollusionFunc(const std::type_index object1, const std::type_index object2, HitFunctionPtr func)
+void playerObstacle(GameObject& object1, GameObject& obstacle)
 {
-	m_collideMap[std::make_pair(object1, object2)] = func;
-}
+	Player& player= dynamic_cast<Player&>(object1);
+	sf::FloatRect intersect;
+	auto obstacleSprite = obstacle.getObjectSprite();
+	auto pos = player.getObjectSprite().getPosition();
+	auto newPos = sf::Vector2f();
 
-HitFunctionPtr CollisionHandling::CollusionFunc(const std::type_index object1, const std::type_index object2)
-{
-	auto it = m_collideMap.find(std::make_pair(object1, object2));
-	//if (it == m_collideMap.end()) //throw exception
-	return it->second;
-}
-
-void CollisionHandling::PlayerGroundCollision(GameObject& player, GameObject& ground)
-{
-	player.setObjectPosition({ 0,0 });
+	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+	
+	if (intersect.height < intersect.width)
+	{
+		newPos.y = -intersect.height;
+	}
+	else
+	{
+		newPos.x = -intersect.width;
+	}
+	player.setPosition(newPos);
 }
