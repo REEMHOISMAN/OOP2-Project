@@ -1,11 +1,22 @@
 #include "States/PlayerState/PlayerState.h"
 #include "Player.h"
 
-PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input) {}
+PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input), m_gravity{ 0 } {}
 
 Input PlayerState::getInput()const
 {
 	return m_input;
+}
+//---------------------------------------------------------
+void PlayerState::activateGravity(float gravity)
+{
+	
+	m_gravity +=gravity;
+}
+//---------------------------------------------------------
+float PlayerState::getGravity() const
+{
+	return m_gravity;
 }
 //---------------------------------------------------------
 void PlayerState::setPosition(const sf::Vector2f& pos)

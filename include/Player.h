@@ -10,15 +10,19 @@ class Player :public Entity
 public:
     Player(sf::Sprite&);
 	void move(sf::Time);
-	Input getUserInput()const;
+	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
 	void setPosition(const sf::Vector2f& pos);
-
+	void exitJumpState();
+	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
+	bool inJumpState()const;
+
 
 private:
 	std::unique_ptr<PlayerState> m_state;
 	bool m_rightDirection;
+	bool m_inJumpState;
 
 	std::unordered_map<PlayerStateTypes, std::vector<sf::IntRect>> m_animation;
 	int m_animationIndex;

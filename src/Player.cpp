@@ -5,7 +5,7 @@
 #include "States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0)
+Player::Player(sf::Sprite& sprite): Entity(sprite), m_rightDirection(false), m_animationIndex(0), m_inJumpState(false)
 {
 	m_state = std::make_unique<StandState>(*this, NONE);
 	
@@ -26,9 +26,13 @@ void Player::move(sf::Time time)
 	m_state->update(time);
 }
 
-Input Player::getUserInput()const
+Input Player::getUserInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_inJumpState = true;
+		return SPACE;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	return NONE;
@@ -49,6 +53,13 @@ void Player::setPosition(const sf::Vector2f& pos)
  	setObjectPosition(sprite.getPosition() + newPos);
 }
 
+void Player::exitJumpState()
+{
+	m_inJumpState = false;
+}
+
+
+
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 {
 	sf::Time animationTime;
@@ -61,4 +72,9 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 		m_animationIndex %= m_animation.find(state)->second.size();
 		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
 	}
+}
+
+bool Player::inJumpState() const
+{
+	return m_inJumpState;
 }
