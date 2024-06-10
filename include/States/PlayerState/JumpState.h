@@ -11,5 +11,5 @@ public:
 private:
 	float m_jumpSpeed;
 	float m_rightLeftSpeed;
-	float m_gravity;
+	float m_jumpTimer;
 };
