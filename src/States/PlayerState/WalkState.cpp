@@ -28,14 +28,22 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 
 void WalkState::update(sf::Time time)
 {
-   auto playerPosition = getPlayerPosition();
+   
    auto newX = time.asSeconds() * 150.f;
-   auto playerPostion = getPlayerPosition();
-
+   if (!playerIsCollide()) {
+       activateGravity(0.3f);
+   }
+   else {
+       resetGravity();
+   }
+   auto gravity = getGravity();
    if (getInput() == RIGHT)
-       setPosition({ newX, time.asSeconds()*150.f});
+       //setPosition({ newX, time.asSeconds()*150.f});
+       setPosition({ newX, gravity });
    else
-       setPosition({ -newX, time.asSeconds() * 150.f });
+       //setPosition({ -newX, time.asSeconds() * 150.f });
+       setPosition({ -newX, gravity });
+       
     float sec = time.asSeconds();
 
     m_walkTimer += sec;

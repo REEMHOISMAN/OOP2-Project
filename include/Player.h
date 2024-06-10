@@ -17,7 +17,7 @@ public:
 	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
 	bool inJumpState()const;
-
+	
 
 
 private:

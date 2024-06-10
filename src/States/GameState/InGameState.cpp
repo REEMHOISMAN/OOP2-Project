@@ -99,12 +99,16 @@ void InGameState::checkCollision()
 		{
 			if ((*entity)->isCollide((*object)->getObjectSprite()))
 			{
+				(*entity)->setCollidenes(true);
 				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity), typeid(**object));
 				if (func)
 				{
 					func(*(*entity).get(),*(*object).get());
 					break;
 				}
+			}
+			else {
+				(*entity)->setCollidenes(false);
 			}
 		}
 	}

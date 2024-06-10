@@ -20,7 +20,6 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	auto newPos = sf::Vector2f();
 
 	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	
 	if (intersect.height < intersect.width)
 	{
 		player.exitJumpState();

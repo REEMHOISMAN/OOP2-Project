@@ -1,24 +1,27 @@
 #include "States/PlayerState/PlayerState.h"
 #include "Player.h"
 
-PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input), m_gravity(0), m_onGround(true) {}
+PlayerState::PlayerState(Player& player, Input input) : m_player(player), m_input(input), m_gravity(0) {}
 
 Input PlayerState::getInput()const
 {
 	return m_input;
 }
-void PlayerState::setPlayerOnGround()
+
+//---------------------------------------------------------
+bool PlayerState::playerIsCollide() const
 {
-	m_onGround = false;
-}
-bool PlayerState::isOnGround() const
-{
-	return m_onGround;
+	return m_player.getColideData();
 }
 //---------------------------------------------------------
 void PlayerState::activateGravity(float gravity)
 {
 		m_gravity += gravity;
+}
+//---------------------------------------------------------
+void PlayerState::resetGravity()
+{
+	m_gravity = 0;
 }
 //---------------------------------------------------------
 float PlayerState::getGravity() const

@@ -19,7 +19,13 @@ std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 void RunState::update(sf::Time delta)
 {
 	float newX = 150.5f * delta.asSeconds(); // same calculation as walk
-	
+	if (!playerIsCollide()) {
+		activateGravity(0.3f);
+	}
+	else {
+		resetGravity();
+	}
+	auto gravity = getGravity();
 	if (m_acceleration < 6.f) //until reach top;
 		m_acceleration += 0.1f; //accelerate
 
@@ -27,6 +33,6 @@ void RunState::update(sf::Time delta)
 	if (getInput() == LEFT)
 		newX *= -1;
 	
-	setPosition({ newX , 0 });
+	setPosition({ newX , gravity });
 	setAnimation(PlayerStateTypes::RUN, delta);
 }

@@ -77,3 +77,4 @@ bool Player::inJumpState() const
 {
 	return m_inJumpState;
 }
+

@@ -16,6 +16,13 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
 
 void StandState::update(sf::Time time)
 {
-    setPosition({ 0, time.asSeconds() * 500.5f});
+    if (!playerIsCollide()) {
+        activateGravity(0.3f);
+    }
+    else {
+        resetGravity();
+    }
+    auto gravity = getGravity();   
+    setPosition({ 0, gravity });
     setAnimation(PlayerStateTypes::STAND, time);
 }

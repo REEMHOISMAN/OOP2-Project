@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include <iostream> 
 
-GameObject::GameObject(sf::Sprite& sprite): m_sprite(sprite){}
+GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{false} {}
 
 void GameObject::setObjectPosition(const sf::Vector2f& pos)
 {
@@ -42,4 +42,14 @@ bool GameObject::isCollide(const sf::Sprite& sprite) const
 	auto pos = sprite.getPosition();
 	auto pos2 = m_sprite.getPosition();
 	return m_sprite.getGlobalBounds().intersects(rect);
+}
+
+void GameObject::setCollidenes(bool colide)
+{
+	m_isCollide = colide;
+}
+
+bool GameObject::getColideData() const
+{
+	return m_isCollide;
 }
