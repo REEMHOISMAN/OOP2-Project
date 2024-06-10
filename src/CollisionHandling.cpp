@@ -17,6 +17,7 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	sf::FloatRect intersect;
 	auto obstacleSprite = object2.getObjectSprite();
 	auto pos = player.getObjectSprite().getPosition();
+	auto input = player.getUserInput();
 	auto newPos = sf::Vector2f();
 
 	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
@@ -25,9 +26,13 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 		player.exitJumpState();
 		newPos.y = -intersect.height;
 	}
-	if (intersect.height > intersect.width)
+	if (intersect.height > intersect.width && input == RIGHT)
 	{
 		newPos.x = -intersect.width;
+	}
+	else if (intersect.height > intersect.width && input == LEFT)
+	{
+		newPos.x = intersect.width;
 	}
 	player.setPosition(newPos);
 }
