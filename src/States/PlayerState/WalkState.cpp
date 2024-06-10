@@ -14,7 +14,7 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     if (input == NONE) 
         return std::make_unique<StandState>(player, input);
 
-    if (input == SPACE)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         return std::make_unique<JumpState>(player, input);
 
     if (input !=getInput())
@@ -38,10 +38,8 @@ void WalkState::update(sf::Time time)
    }
    auto gravity = getGravity();
    if (getInput() == RIGHT)
-       //setPosition({ newX, time.asSeconds()*150.f});
        setPosition({ newX, gravity });
    else
-       //setPosition({ -newX, time.asSeconds() * 150.f });
        setPosition({ -newX, gravity });
        
     float sec = time.asSeconds();

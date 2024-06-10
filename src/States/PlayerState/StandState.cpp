@@ -7,10 +7,10 @@ StandState::StandState(Player& player, Input input) : PlayerState(player, input)
 
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
-    if (input == LEFT || input == RIGHT) 
-        return std::make_unique<WalkState>(player, input);
-    if (input == SPACE)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         return std::make_unique<JumpState>(player, input);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+        return std::make_unique<WalkState>(player, input);
    return nullptr;
 }
 

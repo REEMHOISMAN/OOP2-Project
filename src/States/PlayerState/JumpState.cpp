@@ -11,20 +11,16 @@ JumpState::JumpState(Player& player, Input input)
 }
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
-{
-	if (input == NONE && !player.inJumpState())
-	{
+{			
+	if ((input == LEFT || input == RIGHT) && player.inJumpState())
+		input == LEFT ? m_rightLeftSpeed = -150.f : m_rightLeftSpeed = 150.f;
+	
+	if (!player.inJumpState() || (playerIsCollide() && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
 		return std::make_unique<StandState>(player, input);
-	}		
-	
-	// if the user press left/right and he's on the GROUND
-	if ((input == LEFT || input == RIGHT) && !player.inJumpState())
-		return std::make_unique<WalkState>(player, input);
-	
 	// if the user press left/right and he's in the AIR -> we need to update the "x" but still be in JumpStat
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&& sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&& sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		 m_rightLeftSpeed = 150.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		m_rightLeftSpeed = -150.f;
 	
 	return nullptr;
