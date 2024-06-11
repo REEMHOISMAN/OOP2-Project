@@ -26,11 +26,12 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 		player.exitJumpState();
 		newPos.y = -intersect.height;
 	}
+	
 	if (intersect.height > intersect.width && input == RIGHT)
 	{
 		newPos.x = -intersect.width;
 	}
-	else if (intersect.height > intersect.width && input == LEFT)
+	if (intersect.height > intersect.width && input == LEFT)
 	{
 		newPos.x = intersect.width;
 	}
