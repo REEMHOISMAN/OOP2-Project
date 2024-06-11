@@ -14,13 +14,13 @@ JumpState::JumpState(Player& player, Input input)
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
-	if (m_jumpTimer >= 2.f)
+	if (m_jumpTimer >= 0.8f)
 		return std::make_unique<DivingState>(player, input);
 
 	if ((input == LEFT || input == RIGHT) && !playerIsCollide())
 		input == LEFT ? m_rightLeftSpeed = -150.f : m_rightLeftSpeed = 150.f;
 
-	if (playerIsCollide())//&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (playerIsCollide())
 		return std::make_unique<StandState>(player, input);
 
 	// if the user press left/right and he's in the AIR -> we need to update the "x" but still be in JumpStat

@@ -10,16 +10,16 @@ WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), 
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input == NONE)
+    if (input !=getInput())
         return std::make_unique<StandState>(player, input);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && playerIsCollide())
         return std::make_unique<JumpState>(player, input);
 
-    if (input !=getInput())
+    if (input !=getInput() && playerIsCollide())
         return std::make_unique<WalkState>(player, input);
 
-    if (m_walkTimer >= 2.f)
+    if (m_walkTimer >= 2.f && playerIsCollide())
         return std::make_unique<RunState>(player, input);
     
     return nullptr;
