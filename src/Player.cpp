@@ -17,7 +17,7 @@ Player::Player(sf::Sprite& sprite): Entity(sprite),
 	m_animation[PlayerStateTypes::RUN] = { sf::IntRect(sf::Vector2i(1130, 50), sf::Vector2i(170, 390)),
 										   sf::IntRect(sf::Vector2i(1600, 50), sf::Vector2i(205, 390)),
 										   sf::IntRect(sf::Vector2i(174, 530), sf::Vector2i(170, 390)) };
-	m_animation[PlayerStateTypes::DIVE] = {sf::IntRect(sf::Vector2i(1432,1036),sf::Vector2i(458,450))};
+	m_animation[PlayerStateTypes::DIVE] = {sf::IntRect(sf::Vector2i(1455,1040),sf::Vector2i(488,430))};
 }
 
 void Player::move(sf::Time time)

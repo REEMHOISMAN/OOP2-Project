@@ -2,6 +2,7 @@
 #include "States/PlayerState/DivingState.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
+#include "States/PlayerState/JumpState.h"
 #include "CollisionHandling.h"
 #include "Macros.h"
 #include "Player.h"
@@ -13,10 +14,12 @@ DivingState::DivingState(Player& player, Input input)
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
-	if(input ==NONE|| playerIsCollide())
+	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || playerIsCollide())
 		return std::make_unique<StandState>(player, input);
+	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		m_rightLeftSpeed = 3.f;
+	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		m_rightLeftSpeed = -3.f;
 	return nullptr;
