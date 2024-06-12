@@ -2,8 +2,7 @@
 #include "ResourceManager.h"
 #include "GameCollisions.h"
 #include "CollisionHandling.h"
-#include "Factories/StaticObjectFactory.h"
-#include "Factories/EntityFactory.h"
+#include "Factories/EnemyFactory.h"
 #include "Macros.h"
 
 InGameState::InGameState()
