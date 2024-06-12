@@ -50,9 +50,12 @@ void Player::draw(sf::RenderWindow& window)const
 
 void Player::setPosition(const sf::Vector2f& pos)
 {
-	auto sprite = getObjectSprite();
-	sf::Vector2f newPos = pos;
- 	setObjectPosition(sprite.getPosition() + newPos);
+	auto prevPos = getObjectSprite().getPosition();
+	if (prevPos.x + pos.x < 700 || prevPos.x + pos.x > 7885)
+		setObjectPosition({prevPos.x, prevPos.y + pos.y});
+ 	else 
+		setObjectPosition(prevPos + pos);
+
 }
 
 void Player::exitJumpState()

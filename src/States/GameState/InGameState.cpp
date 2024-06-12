@@ -2,6 +2,8 @@
 #include "ResourceManager.h"
 #include "GameCollisions.h"
 #include "CollisionHandling.h"
+#include "Factories/StaticObjectFactory.h"
+#include "Factories/EntityFactory.h"
 #include "Macros.h"
 
 InGameState::InGameState()
@@ -18,36 +20,27 @@ void InGameState::initTileMap()
 {
 	auto image = sf::Image();
 	float factor_y = 710.f;
-
 	image.loadFromFile("tileMap.png");
-	sf::Sprite sprite;
+	
 	for (int y = int(image.getSize().y)-1; y >= 0; y--) // read from the end because print from the begin
 	{
 		float factor_x = 0.f;
 		for (int x = 0; x < int(image.getSize().x); x++)
 		{
-			if (image.getPixel(x, y) == sf::Color::Green) //if the current pixel is green than the sprite will be with grass
+			auto color = image.getPixel(x, y);
+			if (color == sf::Color::Green)
 			{
-				sprite = sf::Sprite(ResourceManager::instance().getTexture("mainGround"));
-				sprite.setPosition(factor_x, factor_y);
-				m_objects.emplace_back(std::move(std::make_unique<Obstacle>(sprite)));
+				m_objects.emplace_back(std::move(StaticObjectFactory::createObstacle(factor_x, factor_y, "mainGround")));
 			}
-			else if (image.getPixel(x, y) == sf::Color::Black) //if the current pixel is red than the sprite will be without grass
+			else if (color == sf::Color::Black)
 			{
-				sprite = sf::Sprite(ResourceManager::instance().getTexture("ground"));
-				sprite.setPosition(factor_x, factor_y);
-				m_objects.emplace_back(std::move(std::make_unique<Obstacle>(sprite)));
+				m_objects.emplace_back(std::move(StaticObjectFactory::createObstacle(factor_x, factor_y, "ground")));
 			}
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
-				sprite = sf::Sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
-				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
-				sprite.scale(0.4f, 0.4f);
-				sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height / 2);
-				sprite.setPosition(factor_x, PLAYER_MIN_Y);
-				m_entities.emplace_back(std::move(std::make_unique<Player>(sprite)));
+				m_entities.emplace_back(std::move(EntityFactory::createPlayer(factor_x)));
 			}
-			factor_x += 85.f; //the width of each texture
+			factor_x += 85.f; 
 		}
 		factor_y -= 90.f; //the height of each texture
 	}

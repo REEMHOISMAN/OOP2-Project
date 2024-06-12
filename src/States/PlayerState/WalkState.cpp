@@ -10,7 +10,7 @@ WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), 
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input !=getInput())
+    if (input == NONE)
         return std::make_unique<StandState>(player, input);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && playerIsCollide())
@@ -41,7 +41,7 @@ void WalkState::update(sf::Time time)
        setPosition({ newX, gravity });
    else
        setPosition({ -newX, gravity });
-    
+   
    setAnimation(PlayerStateTypes::WALK, time);
    m_walkTimer += sec;
 }
