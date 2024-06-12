@@ -6,7 +6,7 @@
 #include <iostream>
 
 Player::Player(sf::Sprite& sprite): Entity(sprite), 
-	m_rightDirection(false), m_animationIndex(0), m_inJumpState(false)
+	m_rightDirection(false), m_animationIndex(0), m_inJumpState(false), m_grounded(true)
 {
 	m_state = std::make_unique<StandState>(*this, NONE);
 	
@@ -33,6 +33,7 @@ Input Player::getUserInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		m_inJumpState = true;
+		m_grounded = false;
 		return SPACE;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
@@ -55,12 +56,17 @@ void Player::setPosition(const sf::Vector2f& pos)
 		setObjectPosition({prevPos.x, prevPos.y + pos.y});
  	else 
 		setObjectPosition(prevPos + pos);
-
+ 
 }
 
 void Player::exitJumpState()
 {
 	m_inJumpState = false;
+}
+
+void Player::setPlayerOnGround(bool val)
+{
+	m_grounded = val;
 }
 
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
@@ -80,5 +86,10 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 bool Player::inJumpState() const
 {
 	return m_inJumpState;
+}
+
+bool Player::isGrounded() const
+{
+	return m_grounded;
 }
 

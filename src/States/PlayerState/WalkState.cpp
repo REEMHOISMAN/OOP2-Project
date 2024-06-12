@@ -3,6 +3,7 @@
 #include "States/PlayerState/JumpState.h"
 #include "States/PlayerState/RunState.h"
 #include "Macros.h"
+#include "Player.h"
 
 WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), m_walkTimer(0.f)
 {
@@ -10,7 +11,7 @@ WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), 
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input == NONE)
+    if (input == NONE )
         return std::make_unique<StandState>(player, input);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && playerIsCollide())
