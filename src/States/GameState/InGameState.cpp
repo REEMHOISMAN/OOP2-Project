@@ -21,6 +21,7 @@ void InGameState::initTileMap()
 	auto image = sf::Image();
 	float factor_y = 710.f;
 	image.loadFromFile("tileMap.png");
+	sf::Sprite sprite;
 	
 	for (int y = int(image.getSize().y)-1; y >= 0; y--) // read from the end because print from the begin
 	{
@@ -30,15 +31,21 @@ void InGameState::initTileMap()
 			auto color = image.getPixel(x, y);
 			if (color == sf::Color::Green)
 			{
-				m_objects.emplace_back(std::move(StaticObjectFactory::createObstacle(factor_x, factor_y, "mainGround")));
+				sprite = createNewObjectSprite(factor_x, factor_y, "mainGround");
+				m_objects.emplace_back(std::make_unique<Obstacle>(sprite));
 			}
 			else if (color == sf::Color::Black)
 			{
-				m_objects.emplace_back(std::move(StaticObjectFactory::createObstacle(factor_x, factor_y, "ground")));
+				sprite = createNewObjectSprite(factor_x, factor_y, "ground");
+				m_objects.emplace_back(std::make_unique<Obstacle>(sprite));
 			}
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
-				m_entities.emplace_back(std::move(EntityFactory::createPlayer(factor_x)));
+				sprite = createNewObjectSprite(factor_x, PLAYER_MIN_Y, "playerSpriteSheet");
+				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
+				sprite.scale(0.4f, 0.4f);
+				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+				m_entities.emplace_back(std::make_unique<Player>(sprite));
 			}
 			factor_x += 85.f; 
 		}
@@ -105,4 +112,11 @@ void InGameState::checkCollision()
 			}
 		}
 	}
+}
+
+sf::Sprite InGameState::createNewObjectSprite(float x, float y, const std::string filename)const
+{
+	sf::Sprite sprite = sf::Sprite(ResourceManager::instance().getTexture(filename));
+	sprite.setPosition(x, y);
+	return sprite;
 }

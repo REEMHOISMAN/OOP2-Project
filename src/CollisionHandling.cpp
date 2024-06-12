@@ -21,7 +21,12 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	auto newPos = sf::Vector2f();
 
 	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	if (intersect.height < intersect.width)
+	if (intersect.height < intersect.width && player.inJumpState())
+	{
+		player.exitJumpState();
+		newPos.y = intersect.height;
+	}
+	else if (intersect.height < intersect.width)
 	{
 		player.exitJumpState();
 		newPos.y = -intersect.height;

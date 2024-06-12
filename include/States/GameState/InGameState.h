@@ -14,6 +14,7 @@ public:
 	virtual void render(sf::RenderWindow&) override;
 
 private:
+	sf::Sprite createNewObjectSprite(float, float, const std::string)const;
 	void initTileMap();
 	void drawBoard(sf::RenderWindow&) const;
 	void checkCollision();
