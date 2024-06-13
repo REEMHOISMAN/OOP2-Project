@@ -23,25 +23,22 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	auto newPos = sf::Vector2f();
 
 	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	if (player.inJumpState() && intersect.height < intersect.width)
-	{
-		player.exitJumpState();
- 		player.setPlayerOnGround(true);
- 		newPos.y = -intersect.height+0.2;
+	
+	if (intersect.height > intersect.width) {
+		if (player.isHeadDirectionRight()) {
+			newPos.x = -intersect.width;
+		}
+		else {
+			newPos.x = intersect.width;
+		}
 	}
-	else if (intersect.height < intersect.width)
-	{
-		newPos.y = -intersect.height;
+	else {
+		player.setOnGround(true);
+		newPos.y = -intersect.height; 
 	}
-	if (intersect.height > intersect.width && input == RIGHT)
-	{
-		newPos.x = -intersect.width;
-	}
-	if (intersect.height > intersect.width && input == LEFT)
-	{
-		newPos.x = intersect.width;
-	}
-	player.setPosition(newPos);
+
+	sf::Vector2f currentPos = player.getObjectSprite().getPosition();
+	player.setObjectPosition(currentPos + newPos);
 }
 
 
@@ -56,24 +53,25 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 	
 	
-	
-    if (intersect.height > intersect.width)
+	if (intersect.height > intersect.width) // collide with wall
 	{
-		newPos.x = intersect.width;
-		enemy.setHeadDirection();
+		if (enemy.isHeadDirectionRight()) // move from left to right
+		{
+			newPos.x = -intersect.width;
+		}
+		else 
+		{
+			newPos.x = intersect.width;
+		}
+		enemy.setHeadDirection(); // collide, so we change direction of its head
 		enemy.setScale();
-
 	}
-	else if (intersect.height > intersect.width && enemy.isHeadDirectionRight())
+	else // collide with ground
 	{
-		newPos.x = -intersect.width;
-		enemy.setHeadDirection();
-		enemy.setScale();
-	}
-	else if (intersect.height < intersect.width)
-	{
+		enemy.setOnGround(true);
 		newPos.y = -intersect.height;
 	}
-	enemy.setObjectPosition(enemy.getObjectSprite().getPosition() + newPos);
 
+	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
+	enemy.setObjectPosition(currentPosition + newPos);
 }

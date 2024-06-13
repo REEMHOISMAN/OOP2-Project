@@ -4,9 +4,9 @@
 class RunState : public PlayerState
 {
 public:
-	RunState(Player&, Input);
+	RunState();
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) override;
-	virtual void update(sf::Time) override;
+	virtual void update(sf::Time, Player&) override;
 
 private:
 	float m_acceleration;

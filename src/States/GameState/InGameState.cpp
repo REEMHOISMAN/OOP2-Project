@@ -111,9 +111,7 @@ void InGameState::checkCollision()
 					break;
 				}
 			}
-			else {
-				(*entity)->setCollidenes(false);
-			}
+			(*entity)->setCollidenes(false);
 		}
 	}
 }

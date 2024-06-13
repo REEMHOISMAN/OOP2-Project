@@ -7,15 +7,12 @@
 #include "Macros.h"
 #include "Player.h"
 
-DivingState::DivingState(Player& player, Input input)
-	:PlayerState(player, input),m_rightLeftSpeed(0.f)
-{
-}
+DivingState::DivingState():m_rightLeftSpeed(0.f){}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
-	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || playerIsCollide())
-		return std::make_unique<StandState>(player, input);
+	if(input != SPACE || player.getColideData())
+		return std::make_unique<StandState>();
 	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		m_rightLeftSpeed = 3.f;
@@ -25,14 +22,16 @@ std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& play
 	return nullptr;
 }
 //---------------------------------------------------------
-void DivingState::update(sf::Time time)
+void DivingState::update(sf::Time time, Player& player)
 {
-	if (!playerIsCollide()) {
-  		activateGravity(0.01f);
-	}
-	auto gravity = getGravity();
-	setPosition({ m_rightLeftSpeed,gravity });
-	setAnimation(PlayerStateTypes::DIVE, time);
+	sf::Vector2f newPos;
+	player.activateGravity(0.01f);
+	auto gravity = player.getGravity();
+
+	newPos.x = m_rightLeftSpeed;
+	newPos.y = gravity * time.asSeconds();
+	player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
+	player.setAnimationRect(PlayerStateTypes::DIVE, time);
 }
 //---------------------------------------------------------
 

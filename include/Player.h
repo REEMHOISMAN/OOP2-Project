@@ -12,21 +12,16 @@ public:
 	void move(sf::Time);
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
-	void setPosition(const sf::Vector2f& pos);
-	void exitJumpState();
-	void setPlayerOnGround(bool);
 	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
-	bool inJumpState()const;
-	bool isGrounded()const;
+	bool isBlockedFromSide()const;
+	void setBlockedOnSide(bool);
 	
 
 
 private:
 	std::unique_ptr<PlayerState> m_state;
-	bool m_rightDirection;
-	bool m_inJumpState;
-	bool m_grounded;
+	bool m_blockFromSide;
 
 	std::unordered_map<PlayerStateTypes, std::vector<sf::IntRect>> m_animation;
 	int m_animationIndex;

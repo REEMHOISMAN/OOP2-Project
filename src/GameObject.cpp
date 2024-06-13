@@ -4,16 +4,15 @@
 
 GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{false} {}
 
-void GameObject::setObjectPosition(const sf::Vector2f& pos)
+void GameObject::setObjectPosition(const sf::Vector2f& newPos)
 {
-	m_sprite.setPosition(pos);
+	m_sprite.setPosition(newPos);
 }
 
 //---------------------------------------------------------
 void GameObject::draw(sf::RenderWindow& window)const
 {
 	window.draw(m_sprite);
-	//window.display();
 }
 //---------------------------------------------------------
 sf::Sprite GameObject::getObjectSprite()const
@@ -23,7 +22,7 @@ sf::Sprite GameObject::getObjectSprite()const
 //---------------------------------------------------------
 void GameObject::setScale()
 {
-	m_sprite.scale(-1.f,1.f);
+ 	m_sprite.scale(-1.f,1.f);
 }
 //---------------------------------------------------------
 void GameObject::setOrigin(const sf::Vector2f& origin)
@@ -35,6 +34,7 @@ void GameObject::setOrigin(const sf::Vector2f& origin)
 void GameObject::setTextureRect(const sf::IntRect& rect)
 {
 	m_sprite.setTextureRect(rect);
+	m_sprite.setOrigin(rect.width / 2, rect.width / 2);
 }
 
 bool GameObject::isCollide(const sf::Sprite& sprite) const

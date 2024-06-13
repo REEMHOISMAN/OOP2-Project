@@ -5,9 +5,9 @@
 class DivingState :public PlayerState
 {
 public:
-	DivingState(Player& player, Input);
+	DivingState();
 	std::unique_ptr<PlayerState>handleEvent(Input, Player&)override;
-	void update(sf::Time)override;
+	void update(sf::Time, Player&)override;
 private:
 	float m_rightLeftSpeed;
 };

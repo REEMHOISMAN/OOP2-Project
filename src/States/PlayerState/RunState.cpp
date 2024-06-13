@@ -1,38 +1,37 @@
 #include "States/PlayerState/RunState.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/JumpState.h"
+#include "Player.h"
 #include "Macros.h"
 #include <memory>
 
 
-RunState::RunState(Player& player, Input input) : PlayerState(player, input),m_acceleration(0){}
+RunState::RunState() :m_acceleration(0){}
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {
 	if (input == SPACE)
-		return std::make_unique<JumpState>(player, input);
-	if (input != getInput())
-		return std::make_unique<StandState>(player, input);
-	return nullptr;
+		return std::make_unique<JumpState>();
+	if (input == RIGHT && player.isHeadDirectionRight() || input == LEFT && !player.isHeadDirectionRight())
+		return nullptr;
+	return std::make_unique<StandState>();
 }
 
-void RunState::update(sf::Time delta)
+void RunState::update(sf::Time delta, Player& player)
 {
-	float newX = 150.5f * delta.asSeconds(); // same calculation as walk
-	if (!playerIsCollide()) {
-		activateGravity(0.3f);
-	}
-	else {
-		resetGravity();
-	}
-	auto gravity = getGravity();
+	sf::Vector2f newPos;
+	newPos.x = 150.5f * delta.asSeconds(); // same calculation as walk
+	
+	player.activateGravity(0.3f);
+	auto gravity = player.getGravity();
+	
 	if (m_acceleration < 6.f) //until reach top;
 		m_acceleration += 0.1f; //accelerate
 
-	newX += m_acceleration; // append the acceleration to the newX
-	if (getInput() == LEFT)
-		newX *= -1;
+	newPos.x += m_acceleration; // append the acceleration to the newX
+	if (!player.isOnGround())
+		newPos.x *= -1;
 	
-	setPosition({ newX , gravity });
-	setAnimation(PlayerStateTypes::RUN, delta);
+	player.setObjectPosition(player.getObjectSprite().getPosition() + newPos);
+	player.setAnimationRect(PlayerStateTypes::RUN, delta);
 }

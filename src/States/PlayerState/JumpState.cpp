@@ -6,54 +6,46 @@
 #include "Macros.h"
 #include "Player.h"
 
-JumpState::JumpState(Player& player, Input input)
-	: PlayerState(player, input),m_jumpSpeed(0), m_rightLeftSpeed(0), m_jumpTimer(0)
-{
-	resetGravity();
-}
+JumpState::JumpState(): m_jumpSpeed(0.f), m_rightLeftSpeed(0), m_jumpTimer(0){}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
-	if (playerIsCollide() && player.inJumpState())
-		player.setPlayerOnGround(false);
-
-	if (playerIsCollide())
-		return std::make_unique<StandState>(player, input);
+	if (player.getColideData())
+		return std::make_unique<StandState>();
 
 	if (m_jumpTimer >= 0.8f)
-		return std::make_unique<DivingState>(player, input);
+		return std::make_unique<DivingState>();
 
-	if ((input == LEFT || input == RIGHT) && !playerIsCollide())
-		input == LEFT ? m_rightLeftSpeed = -150.f : m_rightLeftSpeed = 150.f;
-
-	// if the user press left/right and he's in the AIR -> we need to update the "x" but still be in JumpStat
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		m_rightLeftSpeed = 150.f;
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		m_rightLeftSpeed = -150.f;
+
+	else if ((input == LEFT || input == RIGHT) && !player.isOnGround())
+		input == LEFT ? m_rightLeftSpeed = -150.f : m_rightLeftSpeed = 150.f;
+
+	// if the user press left/right and he's in the AIR -> we need to update the "x" but still be in JumpStat
 	return nullptr;
 }
-//---------------------------------------------------------
-void JumpState::update(sf::Time elapsedTime)
+void JumpState::update(sf::Time elapsedTime, Player& player)
 {
-	m_jumpSpeed = elapsedTime.asSeconds() * 600.f;
-	
-	if (!playerIsCollide())
-		activateGravity(0.2f);
-	else {
-		resetGravity();
-	}
-	auto gravity = getGravity();
-	float newX = elapsedTime.asSeconds() * m_rightLeftSpeed; //can be 0 if the user didnt press left/right
+	if (m_jumpTimer == 0.f)
+		player.setOnGround(false);
 	float sec = elapsedTime.asSeconds();
+	m_jumpSpeed = sec * 700.f;
+    player.activateGravity(0.3f);
 
-	setPosition({newX,-m_jumpSpeed +gravity }); // new x (it was "0" before)
+    sf::Vector2f newPos;
+	float gravity = player.getGravity();
+    newPos.x = sec * m_rightLeftSpeed;
+    newPos.y = gravity - m_jumpSpeed;  
 
+    player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
 
-  	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		m_jumpTimer += sec;
-	
-	setAnimation(PlayerStateTypes::JUMP, elapsedTime);
-	
-	m_rightLeftSpeed = 0; // if the user wants to stop move left/right while he is in the air
+
+	player.setAnimationRect(PlayerStateTypes::JUMP, elapsedTime);
+
+	m_rightLeftSpeed = 0;
 }

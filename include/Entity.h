@@ -5,10 +5,16 @@ class Entity :public GameObject
 {
 public:
 	Entity(sf::Sprite&);
+	virtual void move(sf::Time) = 0;
 	bool isHeadDirectionRight() const;
 	void setHeadDirection();
-	virtual void move(sf::Time) = 0;
+	void setOnGround(bool val);
+	bool isOnGround() const;
+	void activateGravity(float);
+	float getGravity() const;
 
 private:
 	bool m_RightDirection;
+	bool m_grounded;
+	float m_gravity;
 };

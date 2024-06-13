@@ -5,44 +5,47 @@
 #include "Macros.h"
 #include "Player.h"
 
-WalkState::WalkState(Player& player, Input input) : PlayerState(player, input), m_walkTimer(0.f)
-{
-}
+WalkState::WalkState() :m_walkTimer(0.f){}
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input == NONE )
-        return std::make_unique<StandState>(player, input);
+    if (input == NONE) {
+        return std::make_unique<StandState>();
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && playerIsCollide())
-        return std::make_unique<JumpState>(player, input);
+    if (input == SPACE && player.isOnGround()) {
+        return std::make_unique<JumpState>();
+    }
 
-    if (input !=getInput() && playerIsCollide())
-        return std::make_unique<WalkState>(player, input);
+    if (m_walkTimer >= 2.f && player.isOnGround()) {
+        return std::make_unique<RunState>();
+    }
 
-    if (m_walkTimer >= 2.f && playerIsCollide())
-        return std::make_unique<RunState>(player, input);
-    
     return nullptr;
 }
 
-void WalkState::update(sf::Time time)
+void WalkState::update(sf::Time time, Player& player)
 {
+    sf::Vector2f newPos;
    float sec = time.asSeconds();
-   float gravity = getGravity();
-   float newX = time.asSeconds() * 150.f;
-   if (!playerIsCollide()) {
-       activateGravity(0.3f);
-   }
-   else {
-       resetGravity();
-   }
+
+   player.activateGravity(0.3f);
+   float gravity = player.getGravity();
+   newPos.x = time.asSeconds() * 150.f;
+   newPos.y = gravity;
    
-   if (getInput() == RIGHT)
-       setPosition({ newX, gravity });
-   else
-       setPosition({ -newX, gravity });
+   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+       newPos.x *= -1;
    
-   setAnimation(PlayerStateTypes::WALK, time);
+   auto prevPos = player.getObjectSprite().getPosition();
+   if (prevPos.x < newPos.x + prevPos.x != player.isHeadDirectionRight())
+   {
+       player.setHeadDirection();
+       player.setScale();
+   }
+
+   player.setObjectPosition(prevPos + newPos);
+   
+   player.setAnimationRect(PlayerStateTypes::WALK, time);
    m_walkTimer += sec;
 }

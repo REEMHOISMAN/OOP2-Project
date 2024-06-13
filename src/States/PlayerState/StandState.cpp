@@ -3,28 +3,25 @@
 #include "States/PlayerState/JumpState.h"
 #include "Player.h"
 
-StandState::StandState(Player& player, Input input) : PlayerState(player, input){}
-
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
-    if (player.inJumpState() && player.isGrounded() && input == SPACE)
-        return std::make_unique<JumpState>(player, input);
+    if (player.isOnGround() && input == SPACE)
+        return std::make_unique<JumpState>();
     
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))&& !player.inJumpState())
-        return std::make_unique<WalkState>(player, input);
+    if (player.isOnGround() && (input == RIGHT || input == LEFT))
+        return std::make_unique<WalkState>();
 
    return nullptr;
 }
 
-void StandState::update(sf::Time time)
+void StandState::update(sf::Time time, Player& player)
 {
-    if (playerIsCollide())
-        resetGravity();
-    else
-        activateGravity(0.3f);
-
-    auto gravity = getGravity();   
-    setPosition({ 0, gravity });
+    sf::Vector2f newPos;
+    player.activateGravity(0.3f);
+    float gravity = player.getGravity();
+    newPos.x = 0;
+    newPos.y = gravity;
+    player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
     
-    setAnimation(PlayerStateTypes::STAND, time);
+    player.setAnimationRect(PlayerStateTypes::STAND, time);
 }

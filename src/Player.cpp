@@ -5,10 +5,9 @@
 #include "States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), 
-	m_rightDirection(false), m_animationIndex(0), m_inJumpState(false), m_grounded(true)
+Player::Player(sf::Sprite& sprite): Entity(sprite), m_blockFromSide(false), m_animationIndex(0)
 {
-	m_state = std::make_unique<StandState>(*this, NONE);
+	m_state = std::make_unique<StandState>();
 	
 	m_animation[PlayerStateTypes::STAND] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)) };
 	m_animation[PlayerStateTypes::JUMP] = { sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
@@ -25,16 +24,12 @@ void Player::move(sf::Time time)
  	auto input = getUserInput();
 	auto state = m_state->handleEvent(input, *this);
 	if (state) m_state = std::move(state);
-	m_state->update(time);
+	m_state->update(time, *this);
 }
 
 Input Player::getUserInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_grounded)
-	{
-		m_inJumpState = true;
-		return SPACE;
-	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	return NONE;
@@ -48,25 +43,6 @@ void Player::draw(sf::RenderWindow& window)const
 	GameObject::draw(window);
 }
 
-void Player::setPosition(const sf::Vector2f& pos)
-{
-	auto prevPos = getObjectSprite().getPosition();
-	if (prevPos.x + pos.x < 700 || prevPos.x + pos.x > 7885)
-		setObjectPosition({prevPos.x, prevPos.y + pos.y});
- 	else 
-		setObjectPosition(prevPos + pos);
- 
-}
-
-void Player::exitJumpState()
-{
-	m_inJumpState = false;
-}
-
-void Player::setPlayerOnGround(bool val)
-{
-	m_grounded = val;
-}
 
 void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 {
@@ -82,13 +58,12 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 	}
 }
 
-bool Player::inJumpState() const
+bool Player::isBlockedFromSide() const
 {
-	return m_inJumpState;
+	return m_blockFromSide;
 }
 
-bool Player::isGrounded() const
+void Player::setBlockedOnSide(bool val)
 {
-	return m_grounded;
+	m_blockFromSide = val;
 }
-

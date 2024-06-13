@@ -13,12 +13,10 @@ public:
 	virtual void move(sf::Time) override;
 
 private:
-	void activateGravity();
 	void loadAnimation(sf::Time);
 	Animation m_animation;
 	std::unique_ptr<MovingStrategy> m_moveStrategy;
 	
-	float m_gravity;
 	int m_animationIndex;
 	sf::Time m_elapsed;
 };
