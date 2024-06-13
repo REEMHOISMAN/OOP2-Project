@@ -4,18 +4,15 @@
 #include <map>
 #include "Macros.h"
 
-using enemyMap = std::map<EnemyType, std::unique_ptr<Enemy>(*)(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation&)>;
+using createFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, std::unique_ptr<MovingStrategy>&&, Animation&);
+using enemyMap = std::map<EnemyType, createFunc>;
 
 class EnemyFactory
 {
 public:
 	static std::unique_ptr<Enemy>createSideToSideEnemy(const EnemyType, sf::Sprite&);
-	static bool registerEnemy(const EnemyType, std::unique_ptr<Enemy>(*)(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation&));
+	static bool registerEnemy(const EnemyType, createFunc);
 
 private:
-	static enemyMap& getMap()
-	{
-		static enemyMap map;
-		return map;
-	}
+	static enemyMap& getMap();
 };

@@ -13,6 +13,7 @@ void GameObject::setObjectPosition(const sf::Vector2f& pos)
 void GameObject::draw(sf::RenderWindow& window)const
 {
 	window.draw(m_sprite);
+	//window.display();
 }
 //---------------------------------------------------------
 sf::Sprite GameObject::getObjectSprite()const

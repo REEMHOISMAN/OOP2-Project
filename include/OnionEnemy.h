@@ -1,14 +1,12 @@
 #pragma once
-#include "Enemy.h"
-#include "EnemyFactory.h"
-#include "MovingStrategy.h"
+#include "Factories/EnemyFactory.h"
+#include "Strategies/SideToSideStrategy.h"
 
 class OnionEnemy : public Enemy
 {
+public:
+    OnionEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation)
+        : Enemy(sprite, std::move(strategy), animation) {}
 private:
-	static bool m_register;
+    static bool m_register;
 };
-
-inline bool OnionEnemy::m_register = EnemyFactory::registerEnemy(ONION_ENEMY,
-	[](auto& sprite,auto& sideToSideStrategy, auto& animation)->std::unique_ptr<Enemy>{
-		return std::make_unique<OnionEnemy>(sprite, sideToSideStrategy, animation); };)

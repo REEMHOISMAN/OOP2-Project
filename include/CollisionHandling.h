@@ -3,3 +3,4 @@
 
 void initCollisionFunctions();
 void playerObstacle(GameObject&, GameObject&);
+void enemyObstacle(GameObject&, GameObject&);

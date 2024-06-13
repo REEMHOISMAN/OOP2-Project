@@ -10,6 +10,7 @@ class Enemy : public Entity
 {
 public:
 	Enemy(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation&);
+	virtual void move(sf::Time) override;
 
 private:
 	Animation m_animation;
