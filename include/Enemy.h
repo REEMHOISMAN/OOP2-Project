@@ -4,8 +4,8 @@
 #include "Strategies/MovingStrategy.h"
 #include <memory>
 
-using Animation = std::vector<sf::IntRect>
-;
+using Animation = std::vector<sf::IntRect>;
+
 class Enemy : public Entity
 {
 public:
