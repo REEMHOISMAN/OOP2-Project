@@ -5,5 +5,5 @@ class MovingStrategy
 {
 public:
 	MovingStrategy() = default;
-	virtual sf::Vector2f& move(sf::Time,bool) = 0;
+	virtual sf::Vector2f& move(sf::Time,bool,float) = 0;
 };

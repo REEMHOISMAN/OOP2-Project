@@ -48,7 +48,7 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
 			{
-				sprite = createNewObjectSprite(factor_x, PLAYER_MIN_Y+70, "basicEnemiesSheet");
+				sprite = createNewObjectSprite(factor_x,400, "basicEnemiesSheet");
 				m_entities.emplace_back(EnemyFactory::createSideToSideEnemy(ONION_ENEMY, sprite));
 			}
 			factor_x += 85.f; 
