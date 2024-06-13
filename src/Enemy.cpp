@@ -14,7 +14,7 @@ void Enemy::move(sf::Time time)
 void Enemy::activateGravity()
 {
 	if (!getColideData()) {
-		m_gravity += 0.3f;
+		m_gravity += 0.2f;
 	}
 	else {
 		m_gravity = 0;

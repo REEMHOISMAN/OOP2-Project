@@ -55,9 +55,14 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 	
-	if (intersect.height < intersect.width)
+	
+	
+    if (intersect.height > intersect.width)
 	{
-		newPos.y = -intersect.height;
+		newPos.x = intersect.width;
+		enemy.setHeadDirection();
+		enemy.setScale();
+
 	}
 	else if (intersect.height > intersect.width && enemy.isHeadDirectionRight())
 	{
@@ -65,12 +70,9 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		enemy.setHeadDirection();
 		enemy.setScale();
 	}
-	else if (intersect.height > intersect.width)
+	else if (intersect.height < intersect.width)
 	{
-		newPos.x = intersect.width;
-		enemy.setHeadDirection();
-		enemy.setScale();
-
+		newPos.y = -intersect.height;
 	}
 	enemy.setObjectPosition(enemy.getObjectSprite().getPosition() + newPos);
 

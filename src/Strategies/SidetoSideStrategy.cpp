@@ -3,7 +3,9 @@
 sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,float gravity)
 {
 	sf::Vector2f newPosX;
-	auto speed = deltaTime.asSeconds()*200.f;
+	float speed;
+	gravity!=0?speed=0.f:speed = deltaTime.asSeconds() * 250.f;
+	
 	if (rightDirection)
 	{
 		newPosX={speed,gravity };

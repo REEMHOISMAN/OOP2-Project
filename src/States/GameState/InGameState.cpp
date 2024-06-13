@@ -40,7 +40,7 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color::Red)
 			{
-				sprite = createNewObjectSprite(factor_x, 0, "playerSpriteSheet");
+				sprite = createNewObjectSprite(factor_x, 500, "playerSpriteSheet");
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 				sprite.scale(0.4f, 0.4f);
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
@@ -48,7 +48,7 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
 			{
-				sprite = createNewObjectSprite(factor_x,400, "basicEnemiesSheet");
+				sprite = createNewObjectSprite(factor_x,500, "basicEnemiesSheet");
 				m_entities.emplace_back(EnemyFactory::createSideToSideEnemy(ONION_ENEMY, sprite));
 			}
 			factor_x += 85.f; 
