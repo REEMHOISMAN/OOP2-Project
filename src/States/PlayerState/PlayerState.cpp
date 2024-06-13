@@ -33,7 +33,7 @@ void PlayerState::setPosition(const sf::Vector2f& pos)
 {
 	auto sprite = m_player.getObjectSprite();
 	
-	if ((m_player.isHeadDirectionRight() xor (pos.x > 0)) && pos.x != 0) // so the head will change direction even when he is in the air
+	if ((m_player.isHeadDirectionRight() != (pos.x > 0)) && pos.x != 0) // so the head will change direction even when he is in the air
 	{
 		//the problem was because we did sprite.getGlobalBounds() - but when we change animation the texture rect is changing
 		m_player.setOrigin({ sprite.getTextureRect().width / 2.f,sprite.getOrigin().y });

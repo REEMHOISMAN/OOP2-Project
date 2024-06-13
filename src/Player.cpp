@@ -30,10 +30,9 @@ void Player::move(sf::Time time)
 
 Input Player::getUserInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_grounded)
 	{
 		m_inJumpState = true;
-		m_grounded = false;
 		return SPACE;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
