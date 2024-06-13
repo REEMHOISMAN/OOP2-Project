@@ -8,6 +8,7 @@ void Enemy::move(sf::Time time)
 	activateGravity();
 	auto newPos = m_moveStrategy->move(time, isHeadDirectionRight(),m_gravity);
 	setObjectPosition(newPos + getObjectSprite().getPosition());
+	loadAnimation(time);
 }
 
 void Enemy::activateGravity()
@@ -17,5 +18,18 @@ void Enemy::activateGravity()
 	}
 	else {
 		m_gravity = 0;
+	}
+}
+
+void Enemy::loadAnimation(sf::Time time)
+{
+	sf::Time animationTime = sf::seconds(0.1f);
+	m_elapsed += time;
+	if (m_elapsed >= animationTime)
+	{
+		m_elapsed -= animationTime;
+		++m_animationIndex;
+		m_animationIndex %= m_animation.size();
+		setTextureRect(m_animation[m_animationIndex]);
 	}
 }
