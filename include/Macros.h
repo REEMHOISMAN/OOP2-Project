@@ -15,3 +15,8 @@ enum class PlayerStateTypes
 	JUMP,
 	DIVE
 };
+
+enum EnemyType
+{
+	ONION_ENEMY
+};

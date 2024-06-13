@@ -46,6 +46,10 @@ void InGameState::initTileMap()
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_entities.emplace_back(std::make_unique<Player>(sprite));
 			}
+			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
+			{
+
+			}
 			factor_x += 85.f; 
 		}
 		factor_y -= 90.f; //the height of each texture
