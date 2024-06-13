@@ -30,7 +30,7 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground" };
+    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {
