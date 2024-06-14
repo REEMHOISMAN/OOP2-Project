@@ -111,7 +111,8 @@ void InGameState::checkCollision()
 					break;
 				}
 			}
-			(*entity)->setCollidenes(false);
+			(*entity)->setBlockedOnSide(false);
+			(*entity)->setOnGround(false);
 		}
 	}
 }

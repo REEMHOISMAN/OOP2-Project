@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(sf::Sprite& sprite):GameObject(sprite), m_RightDirection(false), m_grounded(false), m_gravity(0){}
+Entity::Entity(sf::Sprite& sprite):
+	GameObject(sprite), m_RightDirection(false), m_grounded(false), m_blockFromSide(false), m_gravity(0){}
 
 bool Entity::isHeadDirectionRight() const
 {
@@ -35,4 +36,15 @@ void Entity::activateGravity(float gravity)
 float Entity::getGravity() const
 {
 	return m_gravity;
+}
+
+
+bool Entity::isBlockedFromSide() const
+{
+	return m_blockFromSide;
+}
+
+void Entity::setBlockedOnSide(bool val)
+{
+	m_blockFromSide = val;
 }

@@ -14,10 +14,6 @@ public:
 	void draw(sf::RenderWindow&)const override ;
 	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
-	bool isBlockedFromSide()const;
-	void setBlockedOnSide(bool);
-	
-
 
 private:
 	std::unique_ptr<PlayerState> m_state;

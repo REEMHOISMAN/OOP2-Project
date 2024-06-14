@@ -57,13 +57,3 @@ void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
 		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
 	}
 }
-
-bool Player::isBlockedFromSide() const
-{
-	return m_blockFromSide;
-}
-
-void Player::setBlockedOnSide(bool val)
-{
-	m_blockFromSide = val;
-}

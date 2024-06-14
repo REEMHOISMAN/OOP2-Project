@@ -13,8 +13,12 @@ public:
 	void activateGravity(float);
 	float getGravity() const;
 
+	bool isBlockedFromSide() const;
+	void setBlockedOnSide(bool val);
+
 private:
 	bool m_RightDirection;
 	bool m_grounded;
+	bool m_blockFromSide;
 	float m_gravity;
 };

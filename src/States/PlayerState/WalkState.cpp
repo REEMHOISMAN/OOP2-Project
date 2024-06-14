@@ -9,7 +9,7 @@ WalkState::WalkState() :m_walkTimer(0.f){}
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input == NONE) {
+    if (input == NONE || player.isBlockedFromSide()) {
         return std::make_unique<StandState>();
     }
 

@@ -5,10 +5,10 @@
 
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
-    if (player.isOnGround() && input == SPACE)
+    if (player.isOnGround() && !player.isBlockedFromSide() && input == SPACE)
         return std::make_unique<JumpState>();
     
-    if (player.isOnGround() && (input == RIGHT || input == LEFT))
+    if (player.isOnGround() && !player.isBlockedFromSide() && (input == RIGHT || input == LEFT))
         return std::make_unique<WalkState>();
 
    return nullptr;
