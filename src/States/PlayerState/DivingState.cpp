@@ -11,7 +11,7 @@ DivingState::DivingState():m_rightLeftSpeed(0.f){}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
-	if(input != SPACE || player.getColideData())
+	if(input != SPACE)// || player.isOnGround())
 		return std::make_unique<StandState>();
 	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -25,11 +25,11 @@ std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& play
 void DivingState::update(sf::Time time, Player& player)
 {
 	sf::Vector2f newPos;
-	player.activateGravity(0.01f);
+	player.activateGravity(0.1f);
 	auto gravity = player.getGravity();
 
 	newPos.x = m_rightLeftSpeed;
-	newPos.y = gravity * time.asSeconds();
+	newPos.y = gravity*time.asSeconds();
 	player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
 	player.setAnimationRect(PlayerStateTypes::DIVE, time);
 }

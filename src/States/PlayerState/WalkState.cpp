@@ -9,15 +9,16 @@ WalkState::WalkState() :m_walkTimer(0.f){}
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
-    if (input == NONE || player.isBlockedFromSide()) {
+    if (input == NONE)
+    {
         return std::make_unique<StandState>();
     }
 
-    if (input == SPACE && player.isOnGround()) {
+    if (input == SPACE ) {
         return std::make_unique<JumpState>();
     }
 
-    if (m_walkTimer >= 2.f && player.isOnGround()) {
+    if (m_walkTimer >= 2.f) {
         return std::make_unique<RunState>();
     }
 
@@ -48,4 +49,5 @@ void WalkState::update(sf::Time time, Player& player)
    
    player.setAnimationRect(PlayerStateTypes::WALK, time);
    m_walkTimer += sec;
+
 }

@@ -16,8 +16,9 @@ enum Input
 class PlayerState
 {
 public:
-	PlayerState() = default;
+	PlayerState()=default;
 	virtual ~PlayerState() = default;
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) = 0;
 	virtual void update(sf::Time, Player&) = 0;
+private:
 };

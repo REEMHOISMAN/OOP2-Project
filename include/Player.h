@@ -11,6 +11,7 @@ public:
     Player(sf::Sprite&);
 	void move(sf::Time);
 	Input getUserInput();
+	void setUserInput();
 	void draw(sf::RenderWindow&)const override ;
 	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);

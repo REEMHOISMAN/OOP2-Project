@@ -5,6 +5,7 @@
 #include "Obstacle.h"
 #include "Macros.h"
 #include "OnionEnemy.h"
+#include <iostream>
 
 
 void initCollisionFunctions()
@@ -16,27 +17,27 @@ void initCollisionFunctions()
 void playerObstacle(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
-	
 	sf::FloatRect intersect;
 	auto obstacleSprite = object2.getObjectSprite();
-	auto input = player.getUserInput();
 	auto newPos = sf::Vector2f();
 
 	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 	
-	if (intersect.height > intersect.width) {
+	if(intersect.height > intersect.width) {
 		if (player.isHeadDirectionRight()) {
 			newPos.x = -intersect.width;
 		}
 		else {
 			newPos.x = intersect.width;
 		}
+		//player.setBlockedOnSide(true);
+		
 	}
-	else {
+	if (intersect.height < intersect.width)
+	{
+  		newPos.y = -intersect.height+0.2;
 		player.setOnGround(true);
-		newPos.y = -intersect.height; 
 	}
-
 	sf::Vector2f currentPos = player.getObjectSprite().getPosition();
 	player.setObjectPosition(currentPos + newPos);
 }

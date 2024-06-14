@@ -101,6 +101,7 @@ void InGameState::checkCollision()
 	{
 		for (auto object = m_objects.begin(); object != m_objects.end(); ++object)
 		{
+			
 			if ((*entity)->isCollide((*object)->getObjectSprite()))
 			{
 				(*entity)->setCollidenes(true);
@@ -111,9 +112,16 @@ void InGameState::checkCollision()
 					break;
 				}
 			}
-			(*entity)->setBlockedOnSide(false);
-			(*entity)->setOnGround(false);
+			else {
+				(*entity)->setCollidenes(false);
+				//(*entity)->setBlockedOnSide(false);
+				//(*entity)->setOnGround(false);
+			}
+			
+			
+			
 		}
+		
 	}
 }
 

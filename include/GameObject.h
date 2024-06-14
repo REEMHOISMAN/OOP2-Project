@@ -14,7 +14,7 @@ public:
 	void setTextureRect(const sf::IntRect&);
 	bool isCollide(const sf::Sprite& sprite) const;
 	void setCollidenes(bool colide);
-	bool getColideData()const;
+	bool playerIsColide()const;
 
 private:
 	sf::Sprite m_sprite;

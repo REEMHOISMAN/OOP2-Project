@@ -50,7 +50,7 @@ void GameObject::setCollidenes(bool colide)
 	m_isCollide = colide;
 }
 
-bool GameObject::getColideData() const
+bool GameObject::playerIsColide() const
 {
 	return m_isCollide;
 }

@@ -34,7 +34,6 @@ Input Player::getUserInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	return NONE;
 }
-
 void Player::draw(sf::RenderWindow& window)const
 {
 	auto sprite = getObjectSprite();
