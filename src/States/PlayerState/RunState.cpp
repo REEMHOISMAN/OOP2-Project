@@ -10,7 +10,7 @@ RunState::RunState() :m_acceleration(0){}
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {	
-	if (player.isBlockedFromSide()||input==NONE || player.isOnGround())
+	if ((input != RIGHT && input != LEFT))
 		return std::make_unique<StandState>();
 	
 	if (player.isOnGround()&&!player.isBlockedFromSide()&&input == SPACE)
@@ -22,7 +22,7 @@ std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 void RunState::update(sf::Time delta, Player& player)
 {
 	sf::Vector2f newPos;
-	newPos.x = 150.5f * delta.asSeconds(); // same calculation as walk
+	newPos.x = 220.f * delta.asSeconds(); // same calculation as walk
 	
 	player.activateGravity(0.3f);
 	auto gravity = player.getGravity();
@@ -34,6 +34,14 @@ void RunState::update(sf::Time delta, Player& player)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		newPos.x *= -1;
 	newPos.y = gravity;
+
+	if ((newPos.x < 0 && player.isHeadDirectionRight()) ||
+		(newPos.x > 0 && !player.isHeadDirectionRight()))
+	{
+		player.setHeadDirection();
+		player.setScale();
+	}
+
 	player.setObjectPosition(player.getObjectSprite().getPosition() + newPos);
 	player.setAnimationRect(PlayerStateTypes::RUN, delta);
 }

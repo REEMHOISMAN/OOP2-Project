@@ -19,7 +19,7 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
         return std::make_unique<JumpState>();
     }
 
-    if (m_walkTimer >= 2.f && player.isOnGround()) {
+    if (m_walkTimer >= 1.1f && player.isOnGround()) {
         return std::make_unique<RunState>();
     }
 
