@@ -7,42 +7,56 @@
 #include "OnionEnemy.h"
 #include <iostream>
 
-
+//-----------------------------------------------------------------------
 void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
 }
 
+//-----------------------------------------------------------------------
 void playerObstacle(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	sf::FloatRect intersect;
 	auto obstacleSprite = object2.getObjectSprite();
+	auto playerSprite = player.getObjectSprite();
 	auto newPos = sf::Vector2f();
 
-	player.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	
-	if(intersect.height > intersect.width) {
+	playerSprite.getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+
+		
+	if (intersect.height > intersect.width) //collide with wall
+	{	
 		if (player.isHeadDirectionRight()) {
 			newPos.x = -intersect.width;
 		}
 		else {
 			newPos.x = intersect.width;
 		}
-		//player.setBlockedOnSide(true);
-		
+		player.setBlockedOnSide(true);
 	}
-	if (intersect.height < intersect.width)
+	else // collide from above or bottom
 	{
-  		newPos.y = -intersect.height+0.2;
-		player.setOnGround(true);
+
+		if (playerSprite.getGlobalBounds().top < obstacleSprite.getGlobalBounds().top) //collide with ground
+		{  
+			newPos.y = -intersect.height;
+			player.setOnGround(true);
+			player.resetGravity();
+		}
+		else if (playerSprite.getGlobalBounds().top > obstacleSprite.getGlobalBounds().top) //colide from above
+		{
+			player.setOnGround(true);
+			newPos.y = intersect.height;
+		}
 	}
-	sf::Vector2f currentPos = player.getObjectSprite().getPosition();
+
+	sf::Vector2f currentPos = playerSprite.getPosition();
 	player.setObjectPosition(currentPos + newPos);
 }
 
-
+//-----------------------------------------------------------------------
 void enemyObstacle(GameObject& object1, GameObject& object2)
 {
 	OnionEnemy& enemy = dynamic_cast<OnionEnemy&>(object1);

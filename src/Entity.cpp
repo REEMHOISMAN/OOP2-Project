@@ -2,7 +2,7 @@
 
 Entity::Entity(sf::Sprite& sprite):
 	GameObject(sprite), m_RightDirection(false), m_grounded(false), 
-	m_blockFromSide(false), m_gravity(0), m_exitJumpState{ false } {}
+	m_blockFromSide(false), m_gravity(0){}
 
 bool Entity::isHeadDirectionRight() const
 {
@@ -26,12 +26,7 @@ bool Entity::isOnGround()const
 
 void Entity::activateGravity(float gravity)
 {
-	if (!isOnGround()) {
-		m_gravity += gravity;
-	}
-	else {
-		m_gravity = 0;
-	}
+	m_gravity += gravity;
 }
 
 float Entity::getGravity() const

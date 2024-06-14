@@ -89,6 +89,7 @@ void InGameState::drawBoard(sf::RenderWindow& window) const
 
 void InGameState::checkCollision()
 {
+
 	for (auto entity1 = m_entities.begin(); entity1 != m_entities.end(); ++entity1)
 	{
 		for (auto entity2 = entity1+1; entity2!= m_entities.end(); ++entity2)
@@ -101,27 +102,15 @@ void InGameState::checkCollision()
 	{
 		for (auto object = m_objects.begin(); object != m_objects.end(); ++object)
 		{
-			
 			if ((*entity)->isCollide((*object)->getObjectSprite()))
 			{
-				(*entity)->setCollidenes(true);
 				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity), typeid(**object));
 				if (func)
 				{
-					func(*(*entity).get(),*(*object).get());
-					break;
+					func(*(*entity).get(), *(*object).get());
 				}
 			}
-			else {
-				(*entity)->setCollidenes(false);
-				//(*entity)->setBlockedOnSide(false);
-				//(*entity)->setOnGround(false);
-			}
-			
-			
-			
 		}
-		
 	}
 }
 

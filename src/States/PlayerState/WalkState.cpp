@@ -14,11 +14,12 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
         return std::make_unique<StandState>();
     }
 
-    if (input == SPACE ) {
+    if (input == SPACE && player.isOnGround() && !player.isBlockedFromSide()) {
+        player.setOnGround(false);
         return std::make_unique<JumpState>();
     }
 
-    if (m_walkTimer >= 2.f) {
+    if (m_walkTimer >= 2.f && player.isOnGround()) {
         return std::make_unique<RunState>();
     }
 
@@ -29,17 +30,20 @@ void WalkState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;
    float sec = time.asSeconds();
+   player.activateGravity(0.3f); 
 
-   player.activateGravity(0.3f);
    float gravity = player.getGravity();
-   newPos.x = time.asSeconds() * 150.f;
    newPos.y = gravity;
    
+   newPos.x = sec * 220.f;
+
+
    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
        newPos.x *= -1;
-   
+      
    auto prevPos = player.getObjectSprite().getPosition();
-   if (prevPos.x < newPos.x + prevPos.x != player.isHeadDirectionRight())
+   if ((newPos.x < 0 && player.isHeadDirectionRight()) || 
+       (newPos.x > 0 && !player.isHeadDirectionRight()))
    {
        player.setHeadDirection();
        player.setScale();
@@ -48,6 +52,7 @@ void WalkState::update(sf::Time time, Player& player)
    player.setObjectPosition(prevPos + newPos);
    
    player.setAnimationRect(PlayerStateTypes::WALK, time);
+   player.setBlockedOnSide(false);
    m_walkTimer += sec;
 
 }

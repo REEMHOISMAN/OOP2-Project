@@ -11,14 +11,12 @@ public:
     Player(sf::Sprite&);
 	void move(sf::Time);
 	Input getUserInput();
-	void setUserInput();
 	void draw(sf::RenderWindow&)const override ;
 	
 	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
 
 private:
 	std::unique_ptr<PlayerState> m_state;
-	bool m_blockFromSide;
 
 	std::unordered_map<PlayerStateTypes, std::vector<sf::IntRect>> m_animation;
 	int m_animationIndex;

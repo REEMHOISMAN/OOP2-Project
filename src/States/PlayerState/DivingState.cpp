@@ -11,8 +11,11 @@ DivingState::DivingState():m_rightLeftSpeed(0.f){}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
-	if(input != SPACE)// || player.isOnGround())
+	if (input != SPACE || player.isOnGround() || player.isBlockedFromSide())
+	{
+		player.resetGravity();
 		return std::make_unique<StandState>();
+	}
 	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		m_rightLeftSpeed = 3.f;

@@ -10,10 +10,10 @@ RunState::RunState() :m_acceleration(0){}
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {	
-	if (/*player.isBlockedFromSide()||*/input==NONE)
+	if (player.isBlockedFromSide()||input==NONE || player.isOnGround())
 		return std::make_unique<StandState>();
 	
-	if (/*player.isOnGround()&&!player.isBlockedFromSide()&&*/input == SPACE)
+	if (player.isOnGround()&&!player.isBlockedFromSide()&&input == SPACE)
 		return std::make_unique<JumpState>();
 
 	return nullptr;
@@ -33,7 +33,7 @@ void RunState::update(sf::Time delta, Player& player)
 	newPos.x += m_acceleration; // append the acceleration to the newX
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		newPos.x *= -1;
-	//newPos.y = gravity;
+	newPos.y = gravity;
 	player.setObjectPosition(player.getObjectSprite().getPosition() + newPos);
 	player.setAnimationRect(PlayerStateTypes::RUN, delta);
 }

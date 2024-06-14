@@ -5,7 +5,7 @@
 #include "States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_blockFromSide(false), m_animationIndex(0)
+Player::Player(sf::Sprite& sprite): Entity(sprite), m_animationIndex(0)
 {
 	m_state = std::make_unique<StandState>();
 	

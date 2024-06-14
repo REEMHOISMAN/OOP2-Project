@@ -6,26 +6,29 @@
 
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
-   /* if (player.isOnGround() && input == SPACE)
-        return std::make_unique<JumpState>();
-    
-    if (player.isOnGround() && (input == RIGHT || input == LEFT))
-        return std::make_unique<WalkState>();*/
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        return std::make_unique<JumpState>();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-        return std::make_unique<WalkState>();
-   return nullptr;
+    if (player.isOnGround()) {  // Check if the player is on the ground
+        if (input == SPACE) {
+            player.setOnGround(false);
+            return std::make_unique<JumpState>();
+        }
+        if ((input == RIGHT || input == LEFT)) {
+            // Player presses either LEFT or RIGHT while standing, transition to WalkState
+            return std::make_unique<WalkState>();
+        }
+    }
+
+    // If no valid input is processed, return nullptr indicating no state change
+    return nullptr;
 }
 
 void StandState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;
-    player.activateGravity(0.3f);
+    player.activateGravity(0.3);
     float gravity = player.getGravity();
-    //std::cout << "im in stand state the gravity is :" << gravity << std::endl;
     newPos.x = 0;
     newPos.y = gravity;
+    
     player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
     
     player.setAnimationRect(PlayerStateTypes::STAND, time);

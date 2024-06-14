@@ -5,8 +5,12 @@ Enemy::Enemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Anima
 
 void Enemy::move(sf::Time time)
 {
-	activateGravity(0.3f);
-	
+	if (!isOnGround())
+		activateGravity(0.3f);
+
+	else
+		resetGravity();
+
 	auto newPos = m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
 	
 	setObjectPosition(newPos + getObjectSprite().getPosition());

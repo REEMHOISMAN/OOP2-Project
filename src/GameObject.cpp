@@ -37,17 +37,13 @@ void GameObject::setTextureRect(const sf::IntRect& rect)
 	m_sprite.setOrigin(rect.width / 2, rect.width / 2);
 }
 
-bool GameObject::isCollide(const sf::Sprite& sprite) const
+bool GameObject::isCollide(const sf::Sprite& sprite)
 {
 	auto rect = sprite.getGlobalBounds();
 	auto pos = sprite.getPosition();
 	auto pos2 = m_sprite.getPosition();
-	return m_sprite.getGlobalBounds().intersects(rect);
-}
-
-void GameObject::setCollidenes(bool colide)
-{
-	m_isCollide = colide;
+	m_isCollide = m_sprite.getGlobalBounds().intersects(rect);
+	return m_isCollide;
 }
 
 bool GameObject::playerIsColide() const
