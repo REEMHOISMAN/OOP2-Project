@@ -5,7 +5,7 @@
 class DivingState :public PlayerState
 {
 public:
-	DivingState();
+	DivingState(const ObjectAnimation animation);
 	std::unique_ptr<PlayerState>handleEvent(Input, Player&)override;
 	void update(sf::Time, Player&)override;
 private:

@@ -4,16 +4,18 @@
 #include "Player.h"
 #include <iostream>
 
+StandState::StandState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)) {}
+
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
     if (player.isOnGround()) {  // Check if the player is on the ground
         if (input == SPACE) {
             player.setOnGround(false);
-            return std::make_unique<JumpState>();
+            return std::make_unique<JumpState>(PLAYER_JUMP);
         }
         if ((input == RIGHT || input == LEFT)) {
             // Player presses either LEFT or RIGHT while standing, transition to WalkState
-            return std::make_unique<WalkState>();
+            return std::make_unique<WalkState>(PLAYER_WALK);
         }
     }
 
@@ -31,5 +33,5 @@ void StandState::update(sf::Time time, Player& player)
     
     player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
     
-    player.setAnimationRect(PlayerStateTypes::STAND, time);
+    setAnimationFrame(player, time);
 }

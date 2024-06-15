@@ -13,12 +13,9 @@ public:
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
 	
-	void setAnimationRect(PlayerStateTypes state, sf::Time delta);
-
 private:
 	std::unique_ptr<PlayerState> m_state;
 
-	std::unordered_map<PlayerStateTypes, std::vector<sf::IntRect>> m_animation;
-	int m_animationIndex;
+	int m_frame;
 	sf::Time m_elapsed;
 };

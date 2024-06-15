@@ -13,12 +13,19 @@ enum Input
 	SPACE,
 };
 
+
 class PlayerState
 {
 public:
-	PlayerState()=default;
+	PlayerState(const ObjectAnimation type, const sf::Time&);
 	virtual ~PlayerState() = default;
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) = 0;
 	virtual void update(sf::Time, Player&) = 0;
+	virtual void setAnimationFrame(Player& player, sf::Time delta);
+
 private:
+	std::vector<sf::IntRect> m_animation;
+	sf::Time m_elapsed;
+	sf::Time m_animationTimer;
+	int m_frame;
 };

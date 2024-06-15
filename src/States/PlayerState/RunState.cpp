@@ -6,15 +6,15 @@
 #include <memory>
 
 
-RunState::RunState() :m_acceleration(0){}
+RunState::RunState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.08)), m_acceleration(0){}
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {	
 	if ((input != RIGHT && input != LEFT))
-		return std::make_unique<StandState>();
+		return std::make_unique<StandState>(PLAYER_STAND);
 	
 	if (player.isOnGround()&&!player.isBlockedFromSide()&&input == SPACE)
-		return std::make_unique<JumpState>();
+		return std::make_unique<JumpState>(PLAYER_JUMP);
 
 	return nullptr;
 }
@@ -43,5 +43,5 @@ void RunState::update(sf::Time delta, Player& player)
 	}
 
 	player.setObjectPosition(player.getObjectSprite().getPosition() + newPos);
-	player.setAnimationRect(PlayerStateTypes::RUN, delta);
+	setAnimationFrame(player, delta);
 }

@@ -11,7 +11,6 @@ class Enemy : public Entity
 public:
 	Enemy(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation&);
 	virtual void move(sf::Time) override;
-	bool enemyIsOnGround();
 
 private:
 	void loadAnimation(sf::Time);

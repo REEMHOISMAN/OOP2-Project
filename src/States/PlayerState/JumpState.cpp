@@ -7,16 +7,17 @@
 #include "Player.h"
 #include <iostream>
 
-JumpState::JumpState()
-	: m_jumpSpeed(0.f), m_rightLeftSpeed(0), m_jumpTimer(0){}
+JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), 
+								m_jumpSpeed(0.f), m_rightLeftSpeed(0), m_jumpTimer(0){}
+
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
 	if (player.isOnGround() || player.isBlockedFromSide()) // ***put the second condition in "note" and run
-		return std::make_unique<StandState>();
+		return std::make_unique<StandState>(PLAYER_STAND);
 	
 	if (m_jumpTimer >= 1.1f)
-		return std::make_unique<DivingState>();
+		return std::make_unique<DivingState>(PLAYER_DIVE);
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		m_rightLeftSpeed = 150.f;
@@ -51,9 +52,10 @@ void JumpState::update(sf::Time elapsedTime, Player& player)
 		player.setScale();
 	}
 
-	player.setAnimationRect(PlayerStateTypes::JUMP, elapsedTime);
 	
 	player.setBlockedOnSide(false);
 
 	m_rightLeftSpeed = 0;
+
+	setAnimationFrame(player, elapsedTime);
 }

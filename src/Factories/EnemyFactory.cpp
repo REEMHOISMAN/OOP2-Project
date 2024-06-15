@@ -1,14 +1,14 @@
 #include "Factories/EnemyFactory.h"
 #include "Strategies/SideToSideStrategy.h"
+#include "ResourceManager.h"
 #include <vector>
 
-std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const EnemyType enemy, sf::Sprite& sprite)
+std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation enemy, sf::Sprite& sprite)
 {
-	std::vector<sf::IntRect> animation = { sf::IntRect({45,50},{54,62}), sf::IntRect({115,50},{54,62}),
-											sf::IntRect({188,50},{54,62}) };
+	std::vector<sf::IntRect> animation = ResourceManager::instance().getAnimation(enemy);
 	sprite.setTextureRect(animation[0]);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale(1.7, 1.7);
+	sprite.setScale(1.9, 1.9);
 
 	auto it = getMap().find(enemy);
 	if (it == getMap().end())
@@ -16,7 +16,7 @@ std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const EnemyType enemy
 	return it->second(sprite, std::move(std::make_unique<SideToSideStrategy>()), animation);
 }
 
-bool EnemyFactory::registerEnemy(const EnemyType enemy, 
+bool EnemyFactory::registerEnemy(const ObjectAnimation enemy, 
 	createFunc createEnemy)
 {
 	getMap().emplace(enemy, createEnemy);

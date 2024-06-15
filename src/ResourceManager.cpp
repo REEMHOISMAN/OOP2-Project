@@ -18,7 +18,9 @@ ResourceManager& ResourceManager::instance()
 ResourceManager::ResourceManager()
 {
     initTextures();
+    initAnimations();
 }
+
 
 /*================== getTexture =================*/
 sf::Texture& ResourceManager::getTexture(const std::string type)
@@ -26,11 +28,48 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
     return m_textures[type];
 }
 
+/*================== initAnimations =================*/
+void ResourceManager::initAnimations()
+{
+    m_animations.emplace(std::make_pair(PLAYER_STAND, std::vector<sf::IntRect>{sf::IntRect({ 174, 50, 170, 390 })}));
+    
+    m_animations.emplace(std::make_pair(PLAYER_WALK, std::vector<sf::IntRect>{sf::IntRect({ 174, 50 , 170, 390 }),
+                                                                              sf::IntRect(627, 50, 190, 390) }));
+    
+    m_animations.emplace(std::make_pair(PLAYER_RUN, std::vector<sf::IntRect>{sf::IntRect(1130, 50, 170, 390),
+                                                                             sf::IntRect(1600, 50, 205, 390),
+                                                                             sf::IntRect(174, 530, 170, 390) }));
+   
+    m_animations.emplace(std::make_pair(PLAYER_JUMP, std::vector<sf::IntRect>{sf::IntRect(627, 50, 190, 390) }));
+
+    m_animations.emplace(std::make_pair(PLAYER_DIVE, std::vector<sf::IntRect>{sf::IntRect(1455, 1040, 488, 430)}));
+
+    m_animations.emplace(std::make_pair(ONION_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 45,50, 54,62 }),
+                                                                               sf::IntRect({ 115,50, 54,62 }),
+                                                                               sf::IntRect({ 188,50, 54,62 }) }));
+
+    m_animations.emplace(std::make_pair(PEPPER_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 55,198, 40,54 }),
+                                                                                sf::IntRect({ 125,197, 40,54 }),
+                                                                                sf::IntRect({ 193,197, 40,54 }) }));
+}
+
+/*================== getAnimation =================*/
+std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation type)
+{
+    auto it = m_animations.find(type);
+    if (it != m_animations.end()) {
+        return it->second; // Correct return of the vector reference
+    }
+    else {
+        throw std::runtime_error("type not found in the map"); // Proper exception handling
+    }
+}
+
 /*================== initTextures =================*/
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet"};
+    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground", "basicEnemiesSheet","pizzaEnemySheet", "cheese"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

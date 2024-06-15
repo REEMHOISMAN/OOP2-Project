@@ -1,20 +1,19 @@
-
 #include "States/PlayerState/DivingState.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/JumpState.h"
 #include "CollisionHandling.h"
+#include "player.h"
 #include "Macros.h"
-#include "Player.h"
 
-DivingState::DivingState():m_rightLeftSpeed(0.f){}
+DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_rightLeftSpeed(0.f){}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
 	if (input != SPACE || player.isOnGround() || player.isBlockedFromSide())
 	{
 		player.resetGravity();
-		return std::make_unique<StandState>();
+		return std::make_unique<StandState>(PLAYER_STAND);
 	}
 	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -34,7 +33,6 @@ void DivingState::update(sf::Time time, Player& player)
 	newPos.x = m_rightLeftSpeed;
 	newPos.y = gravity*time.asSeconds();
 	player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
-	player.setAnimationRect(PlayerStateTypes::DIVE, time);
+	setAnimationFrame(player, time);
 }
 //---------------------------------------------------------
-

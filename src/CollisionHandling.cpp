@@ -5,6 +5,7 @@
 #include "Obstacle.h"
 #include "Macros.h"
 #include "OnionEnemy.h"
+#include "PepperEnemy.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------
@@ -12,6 +13,7 @@ void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(PepperEnemy), typeid(Obstacle), &enemyObstacle);
 }
 
 //-----------------------------------------------------------------------
@@ -59,22 +61,22 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 //-----------------------------------------------------------------------
 void enemyObstacle(GameObject& object1, GameObject& object2)
 {
-	OnionEnemy& enemy = dynamic_cast<OnionEnemy&>(object1);
+	Enemy& enemy = dynamic_cast<Enemy&>(object1);
 
 	sf::FloatRect intersect;
 	auto obstacleSprite = object2.getObjectSprite();
 	auto newPos = sf::Vector2f();
 
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	
-	
+
+
 	if (intersect.height > intersect.width) // collide with wall
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
 			newPos.x = -intersect.width;
 		}
-		else 
+		else
 		{
 			newPos.x = intersect.width;
 		}

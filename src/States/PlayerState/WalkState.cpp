@@ -5,22 +5,22 @@
 #include "Macros.h"
 #include "Player.h"
 
-WalkState::WalkState() :m_walkTimer(0.f){}
+WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_walkTimer(0.f){}
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
     if (input == NONE)
     {
-        return std::make_unique<StandState>();
+        return std::make_unique<StandState>(PLAYER_STAND);
     }
 
     if (input == SPACE && player.isOnGround() && !player.isBlockedFromSide()) {
         player.setOnGround(false);
-        return std::make_unique<JumpState>();
+        return std::make_unique<JumpState>(PLAYER_JUMP);
     }
 
     if (m_walkTimer >= 1.1f && player.isOnGround()) {
-        return std::make_unique<RunState>();
+        return std::make_unique<RunState>(PLAYER_RUN);
     }
 
     return nullptr;
@@ -35,7 +35,7 @@ void WalkState::update(sf::Time time, Player& player)
    float gravity = player.getGravity();
    newPos.y = gravity;
    
-   newPos.x = sec * 220.f;
+   newPos.x  = gravity < 2.f? sec * 220.f: 0;
 
 
    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -51,7 +51,7 @@ void WalkState::update(sf::Time time, Player& player)
 
    player.setObjectPosition(prevPos + newPos);
    
-   player.setAnimationRect(PlayerStateTypes::WALK, time);
+   setAnimationFrame(player, time);
    player.setBlockedOnSide(false);
    m_walkTimer += sec;
 

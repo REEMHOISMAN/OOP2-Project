@@ -5,13 +5,13 @@
 #include "Macros.h"
 
 using createFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, std::unique_ptr<MovingStrategy>&&, Animation&);
-using enemyMap = std::map<EnemyType, createFunc>;
+using enemyMap = std::map<ObjectAnimation, createFunc>;
 
 class EnemyFactory
 {
 public:
-	static std::unique_ptr<Enemy>createSideToSideEnemy(const EnemyType, sf::Sprite&);
-	static bool registerEnemy(const EnemyType, createFunc);
+	static std::unique_ptr<Enemy>createSideToSideEnemy(const ObjectAnimation, sf::Sprite&);
+	static bool registerEnemy(const ObjectAnimation, createFunc);
 
 private:
 	static enemyMap& getMap();

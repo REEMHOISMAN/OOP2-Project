@@ -5,18 +5,9 @@
 #include "States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_animationIndex(0)
+Player::Player(sf::Sprite& sprite): Entity(sprite), m_frame(0)
 {
-	m_state = std::make_unique<StandState>();
-	
-	m_animation[PlayerStateTypes::STAND] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)) };
-	m_animation[PlayerStateTypes::JUMP] = { sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
-	m_animation[PlayerStateTypes::WALK] = { sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)),
-										   sf::IntRect(sf::Vector2i(627, 50), sf::Vector2i(190, 390)) };
-	m_animation[PlayerStateTypes::RUN] = { sf::IntRect(sf::Vector2i(1130, 50), sf::Vector2i(170, 390)),
-										   sf::IntRect(sf::Vector2i(1600, 50), sf::Vector2i(205, 390)),
-										   sf::IntRect(sf::Vector2i(174, 530), sf::Vector2i(170, 390)) };
-	m_animation[PlayerStateTypes::DIVE] = {sf::IntRect(sf::Vector2i(1455,1040),sf::Vector2i(488,430))};
+	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
 
 void Player::move(sf::Time time)
@@ -34,25 +25,11 @@ Input Player::getUserInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	return NONE;
 }
+
 void Player::draw(sf::RenderWindow& window)const
 {
 	auto sprite = getObjectSprite();
 	auto center = sf::Vector2f(sprite.getPosition().x, HEIGHT/2);
 	window.setView(sf::View(center, sf::Vector2f(WIDTH, HEIGHT)));
 	GameObject::draw(window);
-}
-
-
-void Player::setAnimationRect(PlayerStateTypes state, sf::Time delta)
-{
-	sf::Time animationTime;
-	state == PlayerStateTypes::RUN ? animationTime = sf::seconds(0.08f) : animationTime = sf::seconds(0.1f);
-	m_elapsed += delta;
-	if (m_elapsed >= animationTime)
-	{
-		m_elapsed -= animationTime;
-		++m_animationIndex;
-		m_animationIndex %= m_animation.find(state)->second.size();
-		setTextureRect(m_animation.find(state)->second[m_animationIndex]);
-	}
 }
