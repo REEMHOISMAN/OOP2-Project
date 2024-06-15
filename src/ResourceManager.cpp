@@ -29,6 +29,9 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
 }
 
 /*================== initAnimations =================*/
+/**----------------------------------------------
+ * each enemy (or player state) had is own vector of animation
+ *---------------------------------------------**/
 void ResourceManager::initAnimations()
 {
     m_animations.emplace(std::make_pair(PLAYER_STAND, std::vector<sf::IntRect>{sf::IntRect({ 174, 50, 170, 390 })}));
@@ -57,11 +60,12 @@ void ResourceManager::initAnimations()
 std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation type)
 {
     auto it = m_animations.find(type);
-    if (it != m_animations.end()) {
-        return it->second; // Correct return of the vector reference
+    if (it != m_animations.end())
+    {
+        return it->second; //returns the relevant animation vector ->depend on the type of state/enemy
     }
     else {
-        throw std::runtime_error("type not found in the map"); // Proper exception handling
+        throw std::runtime_error("type not found in the map");
     }
 }
 

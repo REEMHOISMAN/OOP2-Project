@@ -45,7 +45,7 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 		{  
 			newPos.y = -intersect.height;
 			player.setOnGround(true);
-			player.resetGravity();
+			player.resetGravity(); //ONLY HERE WE RESET GRAVITY
 		}
 		else if (playerSprite.getGlobalBounds().top > obstacleSprite.getGlobalBounds().top) //colide from above
 		{

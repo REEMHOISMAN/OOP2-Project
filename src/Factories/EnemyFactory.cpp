@@ -3,6 +3,9 @@
 #include "ResourceManager.h"
 #include <vector>
 
+//each time SideToSide enemy is being created -> the ONLY DIFFERENCE is the "ObjectAnimation" that being pass
+//for example: "PEPPER_ENEMY" / "PEPPER_ENEMY"
+//--------------------------------------------------
 std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation enemy, sf::Sprite& sprite)
 {
 	std::vector<sf::IntRect> animation = ResourceManager::instance().getAnimation(enemy);
@@ -16,6 +19,7 @@ std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation
 	return it->second(sprite, std::move(std::make_unique<SideToSideStrategy>()), animation);
 }
 
+//--------------------------------------------------
 bool EnemyFactory::registerEnemy(const ObjectAnimation enemy, 
 	createFunc createEnemy)
 {
@@ -23,6 +27,7 @@ bool EnemyFactory::registerEnemy(const ObjectAnimation enemy,
 	return true;
 }
 
+//--------------------------------------------------
 enemyMap& EnemyFactory::getMap()
 {
 	static enemyMap map;
