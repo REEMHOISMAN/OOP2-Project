@@ -1,5 +1,6 @@
 #include "Factories/EnemyFactory.h"
 #include "Strategies/SideToSideStrategy.h"
+#include "Strategies/JumpingStrategy.h"
 #include "ResourceManager.h"
 #include <vector>
 
@@ -17,6 +18,19 @@ std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation
 	if (it == getMap().end())
 		return nullptr;
 	return it->second(sprite, std::move(std::make_unique<SideToSideStrategy>()), animation);
+}
+//--------------------------------------------------
+std::unique_ptr<Enemy> EnemyFactory::createJumpingEnemy(const ObjectAnimation enemy, sf::Sprite& sprite)
+{
+	std::vector<sf::IntRect> animation = ResourceManager::instance().getAnimation(enemy);
+	sprite.setTextureRect(animation[0]);
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+	sprite.setScale(1.9, 1.9);
+
+	auto it = getMap().find(enemy);
+	if (it == getMap().end())
+		return nullptr;
+	return it->second(sprite, std::move(std::make_unique<JumpingStrategy>()), animation);
 }
 
 //--------------------------------------------------

@@ -56,6 +56,11 @@ void InGameState::initTileMap()
 				sprite = createNewObjectSprite(factor_x, 500, "basicEnemiesSheet");
 				m_entities.emplace_back(EnemyFactory::createSideToSideEnemy(PEPPER_ENEMY, sprite));
 			}
+			/*else if (image.getPixel(x, y) == sf::Color(255, 127, 39))
+			{
+				sprite = createNewObjectSprite(factor_x, 500, "basicEnemiesSheet");
+				m_entities.emplace_back(EnemyFactory::createSideToSideEnemy(ORANGE_ENEMY, sprite));
+			}*/
 			factor_x += 85.f; 
 		}
 		factor_y -= 90.f; //the height of each texture

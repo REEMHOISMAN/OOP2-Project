@@ -11,6 +11,7 @@ class EnemyFactory
 {
 public:
 	static std::unique_ptr<Enemy>createSideToSideEnemy(const ObjectAnimation, sf::Sprite&);
+	static std::unique_ptr<Enemy>createJumpingEnemy(const ObjectAnimation, sf::Sprite&);
 	static bool registerEnemy(const ObjectAnimation, createFunc);
 
 private:

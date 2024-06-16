@@ -54,8 +54,10 @@ void ResourceManager::initAnimations()
     m_animations.emplace(std::make_pair(PEPPER_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 55,198, 40,54 }),
                                                                                 sf::IntRect({ 125,197, 40,54 }),
                                                                                 sf::IntRect({ 193,197, 40,54 }) }));
-}
+    m_animations.emplace(std::make_pair(ORANGE_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 134,140,37,34 }),
+                                                                                 sf::IntRect({ 198,140,37,33 }) }));
 
+ }
 /*================== getAnimation =================*/
 std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation type)
 {
