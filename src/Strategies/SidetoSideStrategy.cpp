@@ -4,7 +4,7 @@ sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,f
 {
 	sf::Vector2f newPosX;
 	float speed;
-	gravity == 0 ? speed = deltaTime.asSeconds() * 220.f : speed = 0;
+	gravity < 1.8f ? speed = deltaTime.asSeconds() * 220.f : speed = 0;
 	
 	if (rightDirection)
 	{

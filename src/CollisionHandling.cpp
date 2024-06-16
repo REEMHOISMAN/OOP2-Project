@@ -87,10 +87,10 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	}
 	else // collide with ground
 	{
-		
+
 		newPos.y = -intersect.height;
 		enemy.setOnGround(true);
-		
+	
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
