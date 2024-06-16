@@ -6,6 +6,7 @@
 #include "Macros.h"
 #include "OnionEnemy.h"
 #include "PepperEnemy.h"
+#include "OrangeEnemy.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------
@@ -14,6 +15,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PepperEnemy), typeid(Obstacle), &enemyObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(OrangeEnemy), typeid(Obstacle), &enemyObstacle);
 }
 
 //-----------------------------------------------------------------------

@@ -58,7 +58,7 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 127, 39))
 			{
-				sprite = createNewObjectSprite(factor_x, 500, "basicEnemiesSheet");
+				sprite = createNewObjectSprite(factor_x, 600, "basicEnemiesSheet");
 				m_entities.emplace_back(EnemyFactory::createJumpingEnemy(ORANGE_ENEMY, sprite));
 			}
 			factor_x += 85.f; 
