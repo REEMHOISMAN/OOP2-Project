@@ -13,7 +13,7 @@ JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, s
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
-	if (player.isOnGround() || player.isBlockedFromSide()) // ***put the second condition in "note" and run
+	if (player.isOnGround()) //|| player.isBlockedFromSide()) // ***put the second condition in "note" and run
 		return std::make_unique<StandState>(PLAYER_STAND);
 	
 	if (m_jumpTimer >= 1.1f)
@@ -35,7 +35,7 @@ void JumpState::update(sf::Time elapsedTime, Player& player)
 {
 	float sec = elapsedTime.asSeconds();
 	m_jumpSpeed = sec * 600.f;
-	player.activateGravity(0.3f);
+	player.activateGravity(0.2f);
     sf::Vector2f newPos;
 	
 	float gravity = player.getGravity();

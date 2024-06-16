@@ -61,8 +61,8 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 //-----------------------------------------------------------------------
 void enemyObstacle(GameObject& object1, GameObject& object2)
 {
-	Enemy& enemy = dynamic_cast<Enemy&>(object1);
 
+	Enemy& enemy = dynamic_cast<Enemy&>(object1);
 	sf::FloatRect intersect;
 	auto obstacleSprite = object2.getObjectSprite();
 	auto newPos = sf::Vector2f();
@@ -85,10 +85,13 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	}
 	else // collide with ground
 	{
-		enemy.setOnGround(true);
+		
 		newPos.y = -intersect.height;
+		enemy.setOnGround(true);
+		
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
 	enemy.setObjectPosition(currentPosition + newPos);
+	
 }

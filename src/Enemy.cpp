@@ -15,6 +15,8 @@ void Enemy::move(sf::Time time)
 	
 	setObjectPosition(newPos + getObjectSprite().getPosition());
 	loadAnimation(time);
+	setOnGround(false);
+	
 }
 
 void Enemy::loadAnimation(sf::Time time)
