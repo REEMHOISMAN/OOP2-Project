@@ -4,7 +4,7 @@
 #include "States/PlayerState/DivingState.h"
 #include "CollisionHandling.h"
 #include "Macros.h"
-#include "Player.h"
+#include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
 JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), 

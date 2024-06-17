@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "GameObject/GameObject.h"
 #include "Strategies/MovingStrategy.h"
 
 class MovingObject:public GameObject 

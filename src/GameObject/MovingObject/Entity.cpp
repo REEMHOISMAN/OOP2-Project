@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include "GameObject/MovingObject/Entity.h"
 
 Entity::Entity(sf::Sprite& sprite):
 	MovingObject(sprite), m_RightDirection(false){}

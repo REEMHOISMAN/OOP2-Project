@@ -1,6 +1,6 @@
 #include "States/GameState/InGameState.h"
-#include "ResourceManager.h"
-#include "GameCollisions.h"
+#include "Singletons/ResourceManager.h"
+#include "Singletons/GameCollisions.h"
 #include "CollisionHandling.h"
 #include "Factories/EnemyFactory.h"
 #include "Macros.h"

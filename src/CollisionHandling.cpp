@@ -1,14 +1,14 @@
 #pragma once
 #include "CollisionHandling.h"
-#include "GameCollisions.h"
+#include "Singletons/GameCollisions.h"
 #include "Strategies/SidetoSideStrategy.h"
-#include "Player.h"
-#include "Obstacle.h"
+#include "GameObject/MovingObject/Player.h"
+#include "GameObject/StaticObject/Obstacle.h"
 #include "Macros.h"
-#include "OnionEnemy.h"
-#include "PepperEnemy.h"
-#include "OrangeEnemy.h"
-#include "PizzaEnemy.h"
+#include "GameObject/MovingObject/OnionEnemy.h"
+#include "GameObject/MovingObject/PepperEnemy.h"
+#include "GameObject/MovingObject/OrangeEnemy.h"
+#include "GameObject/MovingObject/PizzaEnemy.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------

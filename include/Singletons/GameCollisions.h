@@ -2,9 +2,9 @@
 #include <typeinfo>
 #include <typeindex>
 #include <map>
-#include "GameObject.h"
-#include "Player.h"
-#include "Obstacle.h"
+#include "GameObject/GameObject.h"
+#include "GameObject/MovingObject/Player.h"
+#include "GameObject/StaticObject/Obstacle.h"
 
 using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 using Key = std::pair<std::type_index, std::type_index>;

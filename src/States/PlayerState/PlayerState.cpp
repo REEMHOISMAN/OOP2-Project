@@ -1,6 +1,6 @@
 #include "States/PlayerState/PlayerState.h"
-#include "Player.h"
-#include "ResourceManager.h"
+#include "GameObject/MovingObject/Player.h"
+#include "Singletons/ResourceManager.h"
 
 //load the vector of animation for the relevant state using ResourceManager
 //each state's constructor holds its unique ObjectAnimation

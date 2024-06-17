@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "GameObject/GameObject.h"
 #include <iostream> 
 
 GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{false} {}

@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemy.h"
+#include "GameObject/MovingObject/Enemy.h"
 #include "States/PizzaEnemyStates/PizzaEnemyState.h"
 
 class PizzaEnemy: public Enemy
@@ -9,6 +9,7 @@ public:
     virtual void move(sf::Time) override;
     void increaseJumps();
     void movePizza(sf::Time);
+
 private:
     static bool m_register;
     float m_WalkTimer;

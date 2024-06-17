@@ -1,7 +1,7 @@
 #include "Factories/EnemyFactory.h"
 #include "Strategies/SideToSideStrategy.h"
 #include "Strategies/UpDownStrategy.h"
-#include "ResourceManager.h"
+#include "Singletons/ResourceManager.h"
 #include <vector>
 
 //each time SideToSide enemy is being created -> the ONLY DIFFERENCE is the "ObjectAnimation" that being pass

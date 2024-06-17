@@ -1,7 +1,7 @@
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/JumpState.h"
-#include "Player.h"
+#include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
 StandState::StandState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)) {}

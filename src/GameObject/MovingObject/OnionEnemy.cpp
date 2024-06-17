@@ -1,4 +1,4 @@
-#include "OnionEnemy.h"
+#include "GameObject/MovingObject/OnionEnemy.h"
 #include "Factories/EnemyFactory.h"
 
 bool OnionEnemy::m_register = EnemyFactory::registerEnemy(ONION_ENEMY,

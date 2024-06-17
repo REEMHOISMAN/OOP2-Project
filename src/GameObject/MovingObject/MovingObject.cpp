@@ -1,4 +1,4 @@
-#include "MovingObject.h"
+#include "GameObject/MovingObject/MovingObject.h"
 
 MovingObject::MovingObject(sf::Sprite& sprite):
 	GameObject(sprite),m_grounded(false),m_blockFromSide(false), m_gravity(0)

@@ -1,7 +1,7 @@
 #include "States/PlayerState/RunState.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/JumpState.h"
-#include "Player.h"
+#include "GameObject/MovingObject/Player.h"
 #include "Macros.h"
 #include <memory>
 

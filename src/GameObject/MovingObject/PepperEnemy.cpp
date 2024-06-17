@@ -1,4 +1,4 @@
-#include "PepperEnemy.h"
+#include "GameObject/MovingObject/PepperEnemy.h"
 
 bool PepperEnemy::m_register = EnemyFactory::registerEnemy(PEPPER_ENEMY,
 	[](auto& sprite, auto&& sideToSideStrategy, auto& animation)->std::unique_ptr<Enemy> {

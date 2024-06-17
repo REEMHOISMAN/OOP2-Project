@@ -1,8 +1,8 @@
 #pragma once
-#include "Entity.h"
+#include "GameObject/MovingObject/Entity.h"
 #include "vector"
 #include "Strategies/MovingStrategy.h"
-#include "ResourceManager.h"
+#include "Singletons/ResourceManager.h"
 #include <memory>
 
 using Animation = std::vector<sf::IntRect>;

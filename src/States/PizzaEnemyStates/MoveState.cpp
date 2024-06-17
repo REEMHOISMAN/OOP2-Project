@@ -1,6 +1,6 @@
 #include "States/PizzaEnemyStates/MoveState.h"
 #include "Strategies/UpDownStrategy.h"
-#include "PizzaEnemy.h"
+#include "GameObject/MovingObject/PizzaEnemy.h"
 
 MoveState::MoveState():
 	m_jumps(0)

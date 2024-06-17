@@ -3,7 +3,7 @@
 #include "States/PlayerState/JumpState.h"
 #include "States/PlayerState/RunState.h"
 #include "Macros.h"
-#include "Player.h"
+#include "GameObject/MovingObject/Player.h"
 
 WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_walkTimer(0.f){}
 

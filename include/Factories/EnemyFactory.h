@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "Enemy.h"
+#include "GameObject/MovingObject/Enemy.h"
 #include <map>
 #include "Macros.h"
 

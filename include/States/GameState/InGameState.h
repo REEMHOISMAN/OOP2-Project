@@ -1,8 +1,8 @@
 #pragma once
 #include "States/GameState/GameState.h"
-#include "Player.h"
-#include "MovingObject.h"
-#include "StaticObject.h"
+#include "GameObject/MovingObject/Player.h"
+#include "GameObject/MovingObject/MovingObject.h"
+#include "GameObject/StaticObject/StaticObject.h"
 #include <vector>
 
 class InGameState : public GameState

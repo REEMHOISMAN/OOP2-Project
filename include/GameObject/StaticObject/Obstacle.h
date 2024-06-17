@@ -1,5 +1,5 @@
 #pragma once
-#include "StaticObject.h"
+#include "GameObject/StaticObject/StaticObject.h"
 
 class Obstacle : public StaticObject
 {

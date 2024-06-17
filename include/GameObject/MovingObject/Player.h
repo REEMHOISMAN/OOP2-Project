@@ -1,9 +1,9 @@
 #pragma once
 #include "States/PlayerState/PlayerState.h"
-#include "Entity.h"
+#include "GameObject/MovingObject/Entity.h"
 #include "Macros.h"
-#include "Player.h"
-#include "Obstacle.h"
+#include "GameObject/MovingObject/Player.h"
+#include "GameObject/StaticObject/Obstacle.h"
 
 class Player :public Entity
 {

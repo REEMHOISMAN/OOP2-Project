@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "ResourceManager.h"
+#include "GameObject/MovingObject/Player.h"
+#include "Singletons/ResourceManager.h"
 #include "States/PlayerState/StandState.h"
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/JumpState.h"

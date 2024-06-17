@@ -3,7 +3,7 @@
 #include "States/PlayerState/WalkState.h"
 #include "States/PlayerState/JumpState.h"
 #include "CollisionHandling.h"
-#include "player.h"
+#include "GameObject/MovingObject/Player.h"
 #include "Macros.h"
 
 DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_rightLeftSpeed(0.f){}
