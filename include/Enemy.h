@@ -14,10 +14,10 @@ public:
 	virtual void move(sf::Time) override;
 	void loadStrategy(std::unique_ptr<MovingStrategy> strategy);
 	void loadAnimation(const ObjectAnimation&);
+	void loadNewFrame(sf::Time);
 
 
 private:
-	void loadNewFrame(sf::Time);
 	Animation m_animation;
 	std::unique_ptr<MovingStrategy> m_moveStrategy;
 	

@@ -18,8 +18,6 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PepperEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(OrangeEnemy), typeid(Obstacle), &enemyObstacle);
-	//GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &enemyObstacle);
-
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 }
 
@@ -108,5 +106,5 @@ void pizzaEnemyFloor(GameObject& object1, GameObject& object2)
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	enemyObstacle(pizzaEnemy, object2);
 	pizzaEnemy.loadStrategy(std::make_unique<SideToSideStrategy>());
-
+	pizzaEnemy.increaseJumps();
 }

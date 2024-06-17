@@ -11,4 +11,5 @@ private:
     static bool m_register;
     float m_WalkTimer;
     int m_jumps;
+    ObjectAnimation m_status;
 };
