@@ -1,6 +1,6 @@
 #include "Factories/EnemyFactory.h"
 #include "Strategies/SideToSideStrategy.h"
-#include "Strategies/JumpingStrategy.h"
+#include "Strategies/UpDownStrategy.h"
 #include "ResourceManager.h"
 #include <vector>
 
@@ -30,7 +30,7 @@ std::unique_ptr<Enemy> EnemyFactory::createJumpingEnemy(const ObjectAnimation en
 	auto it = getMap().find(enemy);
 	if (it == getMap().end())
 		return nullptr;
-	return it->second(sprite, std::move(std::make_unique<JumpingStrategy>()), animation);
+	return it->second(sprite, std::move(std::make_unique<UpDownStrategy>(0.f)), animation);
 }
 
 //--------------------------------------------------

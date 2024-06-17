@@ -62,10 +62,13 @@ void ResourceManager::initAnimations()
                                                                                sf::IntRect({ 304,88,171,152 }),
                                                                                sf::IntRect({ 517,88,171,152 }),
                                                                                sf::IntRect({ 738,88,174,152 }),
+                                                                               /*sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
-                                                                               sf::IntRect({ 304,88,37,152 }), sf::IntRect({ 304,88,37,152 }), sf::IntRect({ 304,88,37,152 }) , sf::IntRect({ 304,88,37,152 })}));
+                                                                               sf::IntRect({ 304,88,37,152 }), 
+                                                                               sf::IntRect({ 304,88,37,152 }), 
+                                                                               sf::IntRect({ 304,88,37,152 })*/}));
 
  }
 /*================== getAnimation =================*/

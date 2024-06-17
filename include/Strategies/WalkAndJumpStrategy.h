@@ -6,6 +6,7 @@ class WalkAndJumpStrategy : public MovingStrategy
 public:
 	WalkAndJumpStrategy();
 	virtual sf::Vector2f& move(sf::Time, bool, float) override;
+	void resetIsJumping();
 
 private:
 	sf::Time m_walkTimer;

@@ -1,9 +1,14 @@
 #pragma once
 #include"Strategies/MovingStrategy.h"
 
-class JumpingStrategy : public MovingStrategy
+class UpDownStrategy : public 
+	MovingStrategy
+
 {
 public:
-	JumpingStrategy() = default;
+	UpDownStrategy(float);
 	virtual sf::Vector2f& move(sf::Time deltaTime,bool rightDirection, float gravity)override;
+
+private:
+	float m_posX;
 };

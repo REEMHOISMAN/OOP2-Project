@@ -1,6 +1,6 @@
 #pragma once
 #include "Factories/EnemyFactory.h"
-#include "Strategies/JumpingStrategy.h"
+#include "Strategies/UpDownStrategy.h"
 
 class OrangeEnemy : public Enemy
 {
