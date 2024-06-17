@@ -1,6 +1,7 @@
 #include "PizzaEnemy.h"
 #include "Factories/EnemyFactory.h"
 #include "Strategies/UpDownStrategy.h"
+#include "States/PizzaEnemyStates/MoveState.h"
 
 bool PizzaEnemy::m_register = EnemyFactory::registerEnemy(PIZZA_ENEMY_MOVE,
 	[](auto& sprite, auto&& strategy, auto& animation)->std::unique_ptr<Enemy> {
@@ -8,34 +9,17 @@ bool PizzaEnemy::m_register = EnemyFactory::registerEnemy(PIZZA_ENEMY_MOVE,
 
 //--------------------------------------------------------
 PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation)
-	: Enemy(sprite, std::move(strategy), animation),m_WalkTimer(2.f),m_jumps(0), m_status(PIZZA_ENEMY_MOVE) {}
+	: Enemy(sprite, std::move(strategy), animation),m_WalkTimer(2.f),m_jumps(0), m_state(std::move(std::make_unique< MoveState>())) {}
 
 //--------------------------------------------------------
 void PizzaEnemy::move(sf::Time deltaTime)
 {
 	m_WalkTimer -= deltaTime.asSeconds();
 
-	m_state= m_state.handleTime(*this, m_WalkTimer);
-	m_state.update(*this, deltaTime)
+	auto state = m_state->handleTime(*this, m_WalkTimer, deltaTime);
+	if (state) m_state = std::move(state);
+	m_state->update(deltaTime, *this);
 
-	if (m_WalkTimer<= 0.f) 
-	{
-		float posX = deltaTime.asSeconds() * 100.f;
-		loadStrategy(std::move(std::make_unique< UpDownStrategy>(posX)));
-		m_WalkTimer = 2.f;
-	}
-
-	if (m_jumps == 2 && m_WalkTimer <= 1.f)
-	{
-		loadAnimation(PIZZA_ENEMY_ATTACK);
-		m_jumps = 0;
-	}
-	if (m_status == PIZZA_ENEMY_ATTACK) {
-		loadNewFrame(deltaTime);
-		if ()
-	}
-	else
-		Enemy::move(deltaTime);
 }
 
 //-------------------------------------

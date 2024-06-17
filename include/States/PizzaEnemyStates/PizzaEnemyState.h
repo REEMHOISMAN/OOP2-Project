@@ -1,11 +1,13 @@
 #pragma once 
-#include "PizzaEnemy.h"
-
+#include <memory>
+#include <SFML/Graphics.hpp>
+class PizzaEnemy;
+class Enemy;
 class PizzaEnemyState 
 {
 public:
 	PizzaEnemyState()=default;
 	virtual ~PizzaEnemyState() = default;
-	virtual std::unique_ptr<PizzaEnemyState> handleTime(float, PizzaEnemy&) = 0;
-	virtual void update(sf::Time, PizzaEnemy&) = 0;
+	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&,float&, sf::Time ) = 0;
+	virtual void update(sf::Time,Enemy&) = 0;
 };

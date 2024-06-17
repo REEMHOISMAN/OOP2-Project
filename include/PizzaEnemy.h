@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "States/PizzaEnemyStates/PizzaEnemyState.h"
 
 class PizzaEnemy: public Enemy
 {
@@ -11,5 +12,5 @@ private:
     static bool m_register;
     float m_WalkTimer;
     int m_jumps;
-    ObjectAnimation m_status;
+    std::unique_ptr< PizzaEnemyState> m_state;
 };
