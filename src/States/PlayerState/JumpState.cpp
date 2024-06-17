@@ -13,10 +13,10 @@ JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, s
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
-	if (player.isOnGround()) //|| player.isBlockedFromSide()) // ***put the second condition in "note" and run
+	if (player.isOnGround() || player.isBlockedFromSide()) // ***put the second condition in "note" and run
 		return std::make_unique<StandState>(PLAYER_STAND);
 	
-	if (m_jumpTimer >= 1.1f)
+	if (m_jumpTimer >= 1.1f && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		return std::make_unique<DivingState>(PLAYER_DIVE);
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
