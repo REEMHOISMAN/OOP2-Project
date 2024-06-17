@@ -1,5 +1,6 @@
 #pragma once
-#include "Factories/EnemyFactory.h"
+//#include "Factories/EnemyFactory.h"
+#include "Enemy.h" 
 #include "Strategies/SideToSideStrategy.h"
 
 class OnionEnemy : public Enemy

@@ -7,12 +7,12 @@
 //each time SideToSide enemy is being created -> the ONLY DIFFERENCE is the "ObjectAnimation" that being pass
 //for example: "PEPPER_ENEMY" / "PEPPER_ENEMY"
 //--------------------------------------------------
-std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation enemy, sf::Sprite& sprite)
+std::unique_ptr<Enemy> EnemyFactory::createSideToSideEnemy(const ObjectAnimation enemy, sf::Sprite& sprite,float factor)
 {
 	std::vector<sf::IntRect> animation = ResourceManager::instance().getAnimation(enemy);
 	sprite.setTextureRect(animation[0]);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale(1.9, 1.9);
+	sprite.setScale(factor, factor);
 
 	auto it = getMap().find(enemy);
 	if (it == getMap().end())

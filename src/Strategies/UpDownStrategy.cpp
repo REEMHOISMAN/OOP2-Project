@@ -8,5 +8,5 @@ sf::Vector2f& UpDownStrategy::move(sf::Time deltaTime, bool rightDirection, floa
 {
 	sf::Vector2f pos;
 	auto jumpSpeed= deltaTime.asSeconds() * 600.f;
-	return pos = { 0,-jumpSpeed + gravity };
+	return pos = { m_posX,-jumpSpeed + gravity };
 }

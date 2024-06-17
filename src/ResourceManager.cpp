@@ -58,10 +58,10 @@ void ResourceManager::initAnimations()
     m_animations.emplace(std::make_pair(ORANGE_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 134,140,37,34 }),
                                                                                 sf::IntRect({ 198,140,37,33 }) }));
 
-    m_animations.emplace(std::make_pair(PIZZA_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,150 }),
-                                                                               sf::IntRect({ 304,88,171,152 }),
-                                                                               sf::IntRect({ 517,88,171,152 }),
-                                                                               sf::IntRect({ 738,88,174,152 }),
+    m_animations.emplace(std::make_pair(PIZZA_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,148 }),
+                                                                               sf::IntRect({ 304,88,171,148 }),
+                                                                               sf::IntRect({ 517,88,171,148 }),
+                                                                               sf::IntRect({ 738,88,174,148 }),
                                                                                /*sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
@@ -88,7 +88,7 @@ std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation ty
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground", "basicEnemiesSheet","pizzaEnemySheet", "cheese"};
+    { "playerSpriteSheet", "background", "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", "cheese"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {
