@@ -1,8 +1,8 @@
 #include "GameObject/MovingObject/Player.h"
-#include "Singletons/ResourceManager.h"
-#include "States/PlayerState/StandState.h"
-#include "States/PlayerState/WalkState.h"
-#include "States/PlayerState/JumpState.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
+#include "DesignPatterns/States/PlayerState/StandState.h"
+#include "DesignPatterns/States/PlayerState/WalkState.h"
+#include "DesignPatterns/States/PlayerState/JumpState.h"
 #include <iostream>
 
 Player::Player(sf::Sprite& sprite): Entity(sprite), m_frame(0)

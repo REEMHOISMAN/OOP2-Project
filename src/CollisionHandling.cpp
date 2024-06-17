@@ -1,7 +1,7 @@
 #pragma once
 #include "CollisionHandling.h"
-#include "Singletons/GameCollisions.h"
-#include "Strategies/SidetoSideStrategy.h"
+#include "DesignPatterns/Singletons/GameCollisions.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "Macros.h"

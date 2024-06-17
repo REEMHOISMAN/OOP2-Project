@@ -1,7 +1,7 @@
 #pragma once
 //#include "Factories/EnemyFactory.h"
 #include "GameObject/MovingObject/Enemy.h" 
-#include "Strategies/SideToSideStrategy.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
 class OnionEnemy : public Enemy
 {

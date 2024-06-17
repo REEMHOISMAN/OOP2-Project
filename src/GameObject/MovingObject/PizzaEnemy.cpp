@@ -1,7 +1,7 @@
 #include "GameObject/MovingObject/PizzaEnemy.h"
-#include "Factories/EnemyFactory.h"
-#include "Strategies/UpDownStrategy.h"
-#include "States/PizzaEnemyStates/MoveState.h"
+#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Strategies/UpDownStrategy.h"
+#include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
 
 bool PizzaEnemy::m_register = EnemyFactory::registerEnemy(PIZZA_ENEMY_MOVE,
 	[](auto& sprite, auto&& strategy, auto& animation)->std::unique_ptr<Enemy> {

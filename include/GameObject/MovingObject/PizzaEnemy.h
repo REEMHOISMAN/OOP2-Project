@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject/MovingObject/Enemy.h"
-#include "States/PizzaEnemyStates/PizzaEnemyState.h"
+#include "DesignPatterns/States/PizzaEnemyStates/PizzaEnemyState.h"
 
 class PizzaEnemy: public Enemy
 {

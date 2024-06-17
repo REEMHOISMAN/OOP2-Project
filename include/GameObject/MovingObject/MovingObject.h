@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject/GameObject.h"
-#include "Strategies/MovingStrategy.h"
+#include "DesignPatterns/Strategies/MovingStrategy.h"
 
 class MovingObject:public GameObject 
 {

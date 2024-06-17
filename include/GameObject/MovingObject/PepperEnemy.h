@@ -1,6 +1,6 @@
 #pragma once
-#include "Factories/EnemyFactory.h"
-#include "Strategies/SideToSideStrategy.h"
+#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
 class PepperEnemy : public Enemy
 {

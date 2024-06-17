@@ -1,5 +1,5 @@
 #pragma once
-#include "States/PlayerState/PlayerState.h"
+#include "DesignPatterns/States/PlayerState/PlayerState.h"
 #include "GameObject/MovingObject/Entity.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
