@@ -8,6 +8,7 @@ public:
     PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation);
     virtual void move(sf::Time) override;
     void increaseJumps();
+    void movePizza(sf::Time);
 private:
     static bool m_register;
     float m_WalkTimer;

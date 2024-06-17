@@ -1,7 +1,6 @@
 #include "States/PizzaEnemyStates/MoveState.h"
 #include "Strategies/UpDownStrategy.h"
 #include "PizzaEnemy.h"
-#include "Enemy.h"
 
 MoveState::MoveState():
 	m_jumps(0)
@@ -18,17 +17,17 @@ std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy,fl
 		walkTime = 2.0f;
 		
 	}
-	if (m_jumps == 2 && walkTime <= 1.f) {
-		/*pizzaEnemy.loadAnimation(PIZZA_ENEMY_ATTACK);
-		m_jumps = 0;*/
-		//return std::make_unique<AttackState>();
-	}
+	//if (m_jumps == 2 && walkTime <= 1.f) {
+	//	/*pizzaEnemy.loadAnimation(PIZZA_ENEMY_ATTACK);
+	//	m_jumps = 0;*/
+	//	//return std::make_unique<AttackState>();
+	//}
 	
 	return nullptr;
 }
 
-void MoveState::update(sf::Time deltaTime, Enemy& pizzaEnemy) 
+void MoveState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy) 
 {
-	pizzaEnemy.move(deltaTime);
+	pizzaEnemy.movePizza(deltaTime);
 }
 

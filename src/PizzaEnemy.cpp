@@ -28,3 +28,8 @@ void PizzaEnemy::increaseJumps()
 	m_jumps++;
 }
 
+void PizzaEnemy::movePizza(sf::Time delta)
+{
+	Enemy::move(delta);
+}
+
