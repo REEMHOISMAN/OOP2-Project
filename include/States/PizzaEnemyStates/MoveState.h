@@ -1,6 +1,6 @@
-#include "PizzaEnemyStates/PizzaEnemyState.h"
+#include "States/PizzaEnemyStates/PizzaEnemyState.h"
 
 class MoveState :public PizzaEnemyState
 {
-	virtual void handleTime()
+	virtual void handleTime();
 };

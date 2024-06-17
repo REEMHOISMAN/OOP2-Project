@@ -15,8 +15,8 @@ void PizzaEnemy::move(sf::Time deltaTime)
 {
 	m_WalkTimer -= deltaTime.asSeconds();
 
-	m_state= m_state.handleTime(this, m_WalkTimer);
-	m_state.update(this, deltaTime)
+	m_state= m_state.handleTime(*this, m_WalkTimer);
+	m_state.update(*this, deltaTime)
 
 	if (m_WalkTimer<= 0.f) 
 	{
