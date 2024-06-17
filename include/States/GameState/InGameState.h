@@ -1,7 +1,7 @@
 #pragma once
 #include "States/GameState/GameState.h"
 #include "Player.h"
-#include "Entity.h"
+#include "MovingObject.h"
 #include "StaticObject.h"
 #include <vector>
 
@@ -21,7 +21,7 @@ private:
 
 
 	sf::RectangleShape m_background;
-	std::vector<std::unique_ptr<Entity>> m_entities;
-	std::vector<std::unique_ptr<StaticObject>> m_objects;
+	std::vector<std::unique_ptr<MovingObject>> m_movingObjects;
+	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 };
 
