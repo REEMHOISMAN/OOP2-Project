@@ -1,6 +1,7 @@
 #pragma once
 #include "CollisionHandling.h"
 #include "GameCollisions.h"
+#include "Strategies/SidetoSideStrategy.h"
 #include "Player.h"
 #include "Obstacle.h"
 #include "Macros.h"
@@ -17,7 +18,9 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PepperEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(OrangeEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &enemyObstacle);
+	//GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &enemyObstacle);
+
+	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 }
 
 //-----------------------------------------------------------------------
@@ -84,6 +87,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		{
 			newPos.x = intersect.width;
 		}
+		enemy.setBlockedOnSide(true);
 		enemy.setHeadDirection(); // collide, so we change direction of its head
 		enemy.setScale();
 	}
@@ -98,4 +102,11 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
 	enemy.setObjectPosition(currentPosition + newPos);
 	
+}
+void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
+{
+	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
+	enemyObstacle(pizzaEnemy, object2);
+	pizzaEnemy.loadStrategy(std::make_unique<SideToSideStrategy>());
+
 }

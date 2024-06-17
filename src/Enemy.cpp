@@ -14,11 +14,22 @@ void Enemy::move(sf::Time time)
 	auto newPos = m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
 	
 	setObjectPosition(newPos + getObjectSprite().getPosition());
-	loadAnimation(time);
+	loadNewFrame(time);
 	setOnGround(false);
+	setBlockedOnSide(false);
 }
 
-void Enemy::loadAnimation(sf::Time time)
+void Enemy::loadStrategy(std::unique_ptr<MovingStrategy> strategy)
+{
+	m_moveStrategy = std::move(strategy);
+}
+
+void Enemy::loadAnimation(const ObjectAnimation& enemy)
+{
+	m_animation = ResourceManager::instance().getAnimation(enemy);
+}
+
+void Enemy::loadNewFrame(sf::Time time)
 {
 	sf::Time animationTime = sf::seconds(0.1f);
 	m_elapsed += time;

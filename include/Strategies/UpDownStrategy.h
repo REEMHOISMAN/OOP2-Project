@@ -11,4 +11,5 @@ public:
 
 private:
 	float m_posX;
+	float m_jumpHeight;
 };

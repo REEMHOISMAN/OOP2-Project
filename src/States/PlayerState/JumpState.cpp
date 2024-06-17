@@ -34,7 +34,7 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player
 void JumpState::update(sf::Time elapsedTime, Player& player)
 {
 	float sec = elapsedTime.asSeconds();
-	m_jumpSpeed = sec * 600.f;
+	m_jumpSpeed = sec * 700.f;
 	player.activateGravity(0.2f);
     sf::Vector2f newPos;
 	

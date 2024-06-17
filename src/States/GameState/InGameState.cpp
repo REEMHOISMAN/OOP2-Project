@@ -64,7 +64,7 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
 			{
 				sprite = createNewObjectSprite(factor_x, 600, "PizzaEnemySheet");
-				m_movingObjects.emplace_back(EnemyFactory::createSideToSideEnemy(PIZZA_ENEMY, sprite,0.85f));
+				m_movingObjects.emplace_back(EnemyFactory::createSideToSideEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f));
 			}
 			factor_x += 85.f; 
 		}

@@ -58,10 +58,9 @@ void ResourceManager::initAnimations()
     m_animations.emplace(std::make_pair(ORANGE_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 134,140,37,34 }),
                                                                                 sf::IntRect({ 198,140,37,33 }) }));
 
-    m_animations.emplace(std::make_pair(PIZZA_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,148 }),
+    m_animations.emplace(std::make_pair(PIZZA_ENEMY_MOVE, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,148 }),
                                                                                sf::IntRect({ 304,88,171,148 }),
-                                                                               sf::IntRect({ 517,88,171,148 }),
-                                                                               sf::IntRect({ 738,88,174,148 }),
+                                                                               sf::IntRect({ 517,88,171,148 })
                                                                                /*sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
                                                                                sf::IntRect({ 304,88,37,152 }),
@@ -69,6 +68,9 @@ void ResourceManager::initAnimations()
                                                                                sf::IntRect({ 304,88,37,152 }), 
                                                                                sf::IntRect({ 304,88,37,152 }), 
                                                                                sf::IntRect({ 304,88,37,152 })*/}));
+    m_animations.emplace(std::make_pair(PIZZA_ENEMY_ATTACK, std::vector<sf::IntRect>{  sf::IntRect({ 517,88,171,148 }),
+                                                                                       sf::IntRect({ 738,88,174,148 }),
+                                                                                       sf::IntRect({ 67,319,196,151 })}));
 
  }
 /*================== getAnimation =================*/
