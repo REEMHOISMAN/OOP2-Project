@@ -1,14 +1,14 @@
 #pragma once
 #include "CollisionHandling.h"
-#include "GameCollisions.h"
-#include "Strategies/SidetoSideStrategy.h"
-#include "Player.h"
-#include "Obstacle.h"
+#include "DesignPatterns/Singletons/GameCollisions.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
+#include "GameObject/MovingObject/Player.h"
+#include "GameObject/StaticObject/Obstacle.h"
 #include "Macros.h"
-#include "OnionEnemy.h"
-#include "PepperEnemy.h"
-#include "OrangeEnemy.h"
-#include "PizzaEnemy.h"
+#include "GameObject/MovingObject/OnionEnemy.h"
+#include "GameObject/MovingObject/PepperEnemy.h"
+#include "GameObject/MovingObject/OrangeEnemy.h"
+#include "GameObject/MovingObject/PizzaEnemy.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------
@@ -75,7 +75,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 
 
-	if (intersect.height > intersect.width) // collide with wall
+	if (intersect.height > intersect.width || intersect.height == enemy.getObjectSprite().getGlobalBounds().height) // collide with wall
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
@@ -88,12 +88,14 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		enemy.setBlockedOnSide(true);
 		enemy.setHeadDirection(); // collide, so we change direction of its head
 		enemy.setScale();
+		
 	}
 	else // collide with ground
 	{
 
 		newPos.y = -intersect.height;
 		enemy.setOnGround(true);
+		enemy.resetGravity();
 	
 	}
 

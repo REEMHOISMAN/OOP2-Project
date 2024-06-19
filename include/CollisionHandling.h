@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "GameObject/GameObject.h"
 
 void initCollisionFunctions();
 void playerObstacle(GameObject&, GameObject&);
