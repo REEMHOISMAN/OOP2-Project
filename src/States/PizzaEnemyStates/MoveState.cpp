@@ -1,5 +1,6 @@
 #include "States/PizzaEnemyStates/MoveState.h"
 #include "Strategies/UpDownStrategy.h"
+#include "Strategies/SidetoSideStrategy.h"
 #include "PizzaEnemy.h"
 
 MoveState::MoveState():
@@ -9,6 +10,9 @@ MoveState::MoveState():
 
 std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy,float& walkTime,sf::Time deltaTime)
 {
+	if (pizzaEnemy.isBlockedFromSide()) {
+		walkTime = 2.0f;
+	}
 	if (walkTime <= 0.f) 
 	{
 
@@ -17,6 +21,7 @@ std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy,fl
 		walkTime = 2.0f;
 		
 	}
+	
 	//if (m_jumps == 2 && walkTime <= 1.f) {
 	//	/*pizzaEnemy.loadAnimation(PIZZA_ENEMY_ATTACK);
 	//	m_jumps = 0;*/

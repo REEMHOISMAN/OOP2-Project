@@ -75,7 +75,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 
 
-	if (intersect.height > intersect.width) // collide with wall
+	if (intersect.height > intersect.width || intersect.height == enemy.getObjectSprite().getGlobalBounds().height) // collide with wall
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
@@ -88,12 +88,14 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		enemy.setBlockedOnSide(true);
 		enemy.setHeadDirection(); // collide, so we change direction of its head
 		enemy.setScale();
+		
 	}
 	else // collide with ground
 	{
 
 		newPos.y = -intersect.height;
 		enemy.setOnGround(true);
+		enemy.resetGravity();
 	
 	}
 
