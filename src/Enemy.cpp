@@ -41,3 +41,11 @@ void Enemy::loadNewFrame(sf::Time time)
 		setTextureRect(m_animation[m_animationIndex]);
 	}
 }
+
+//bool Enemy::s_register = Factory::registerIt(ORANGE_ENEMY,
+//	[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
+//	)
+//	&&
+//	Factory::registerIt(PEPPER_ENEMY,
+//		[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
+//);
