@@ -6,7 +6,7 @@ class UpDownStrategy : public
 
 {
 public:
-	UpDownStrategy(float);
+	UpDownStrategy();
 	virtual sf::Vector2f& move(sf::Time deltaTime,bool rightDirection, float gravity)override;
 
 private:

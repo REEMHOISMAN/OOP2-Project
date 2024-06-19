@@ -1,7 +1,6 @@
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "GameObject/MovingObject/Player.h"
-#include "GameObject/MovingObject/OnionEnemy.h"
 
 GameCollisions& GameCollisions::instance()
 {

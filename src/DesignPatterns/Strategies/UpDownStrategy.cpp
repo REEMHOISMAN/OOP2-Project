@@ -1,6 +1,6 @@
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 
-UpDownStrategy::UpDownStrategy(float x): m_posX(x)
+UpDownStrategy::UpDownStrategy(): m_posX(0.f)
 {
 }
 

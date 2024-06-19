@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject/MovingObject/MovingObject.h"
+#include "DesignPatterns/Strategies/MovingStrategy.h"
 #include <memory>
 
 class Weapon : public MovingObject

@@ -4,29 +4,44 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include <memory>
+#include <iostream>
 
 bool BasicEnemy::m_register =
-	EnemyFactory::registerEnemy(ORANGE_ENEMY,
+EnemyFactory::registerEnemy(ORANGE_ENEMY,
 	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
 	{
-		setEnemySprite(sprite, scale);
+		Animation animation = ResourceManager::instance().getAnimation(enemyType);
+		setEnemySprite(sprite, factor);
+		sprite.setTextureRect(animation[0]);
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(),
-			ResourceManager::instance().getAnimation(enemyType));
+			animation);
 	})
 	&&
-	EnemyFactory::registerEnemy(ORANGE_ENEMY,
+	EnemyFactory::registerEnemy(PEPPER_ENEMY,
 	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
 	{
-		setEnemySprite(sprite, scale);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(),
-			ResourceManager::instance().getAnimation(enemyType));
+		Animation animation = ResourceManager::instance().getAnimation(enemyType);
+		setEnemySprite(sprite, factor);
+		sprite.setTextureRect(animation[0]);
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+			animation);
 	})
 	&&
+	EnemyFactory::registerEnemy(ONION_ENEMY,
+	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+	{
+		Animation animation = ResourceManager::instance().getAnimation(enemyType);
+		setEnemySprite(sprite, factor);
+		sprite.setTextureRect(animation[0]);
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+			animation);
+	});
+	
 
 
 //---------------------------------------------------------
 BasicEnemy::BasicEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation)
-	:Enemy(sprite,std::move(strategy),animation)
+	:Enemy(sprite, std::move(strategy)), m_animationIndex(0), m_animation(animation)
 {
 }
 
@@ -39,9 +54,7 @@ void BasicEnemy::move(sf::Time time)
 	else
 		resetGravity();
 
-	auto newPos = getStrategy()->move(time, isHeadDirectionRight(), getGravity());
-
-	setObjectPosition(newPos + getObjectSprite().getPosition());
+	activateStrategy(time);
 	loadAnimationFrame(time);
 	setOnGround(false);
 	setBlockedOnSide(false);

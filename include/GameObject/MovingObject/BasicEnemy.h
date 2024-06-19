@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "Enemy.h"
+#include "GameObject/MovingObject/Enemy.h"
 
 class BasicEnemy :public Enemy 
 {

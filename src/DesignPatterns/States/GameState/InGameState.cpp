@@ -53,10 +53,12 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color(55, 126, 71))
 			{
+				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
 				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PEPPER_ENEMY, sprite,1.9f));
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 127, 39))
 			{
+				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
 				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ORANGE_ENEMY, sprite, 1.9f));
 			}
 			/*else if (image.getPixel(x, y) == sf::Color(255, 201, 14))

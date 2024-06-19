@@ -2,7 +2,6 @@
 #include <memory>
 #include "GameObject/MovingObject/Enemy.h"
 #include <map>
-#include "Macros.h"
 
 using createFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation);
 using enemyMap = std::map<ObjectAnimation, createFunc>;

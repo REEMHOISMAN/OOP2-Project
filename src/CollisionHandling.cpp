@@ -3,22 +3,20 @@
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "GameObject/MovingObject/Player.h"
+#include "GameObject/MovingObject/BasicEnemy.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "Macros.h"
-#include "GameObject/MovingObject/OnionEnemy.h"
-#include "GameObject/MovingObject/PepperEnemy.h"
-#include "GameObject/MovingObject/OrangeEnemy.h"
-#include "GameObject/MovingObject/PizzaEnemy.h"
+
 #include <iostream>
 
 //-----------------------------------------------------------------------
 void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(OnionEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(PepperEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(OrangeEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
+	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
+	//GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 }
 
 //-----------------------------------------------------------------------
@@ -103,10 +101,10 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.setObjectPosition(currentPosition + newPos);
 	
 }
-void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
-{
-	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
-	enemyObstacle(pizzaEnemy, object2);
-	pizzaEnemy.loadStrategy(std::make_unique<SideToSideStrategy>());
-	pizzaEnemy.increaseJumps();
-}
+//void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
+//{
+//	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
+//	enemyObstacle(pizzaEnemy, object2);
+//	pizzaEnemy.loadStrategy(std::make_unique<SideToSideStrategy>());
+//	pizzaEnemy.increaseJumps();
+//}

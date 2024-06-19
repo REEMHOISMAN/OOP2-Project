@@ -1,6 +1,7 @@
 #include "GameObject/MovingObject/Enemy.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
-Enemy::Enemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation) :
+Enemy::Enemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy) :
 	Entity(sprite), m_moveStrategy(std::move(strategy))
 {
 	
@@ -19,7 +20,8 @@ void Enemy::setEnemySprite(sf::Sprite& sprite, float factor)
 	sprite.setScale(factor, factor);
 }
 
-std::unique_ptr<MovingStrategy> Enemy::getStrategy() 
+void Enemy::activateStrategy(sf::Time time)
 {
-	return std::move(m_moveStrategy);
+	auto newPos= m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
+	setObjectPosition(newPos + getObjectSprite().getPosition());
 }
