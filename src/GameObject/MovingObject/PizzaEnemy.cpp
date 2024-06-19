@@ -18,9 +18,9 @@ PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strat
 //--------------------------------------------------------
 void PizzaEnemy::move(sf::Time deltaTime)
 {
-	m_WalkTimer -= deltaTime.asSeconds();
+	//m_WalkTimer -= deltaTime.asSeconds();
 
-	auto state = m_state->handleTime(*this, m_WalkTimer, deltaTime);
+	auto state = m_state->handleTime(*this, deltaTime);
 	if (state) m_state = std::move(state);
 	m_state->update(deltaTime, *this);
 

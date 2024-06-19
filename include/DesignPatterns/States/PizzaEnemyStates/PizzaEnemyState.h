@@ -10,9 +10,9 @@ class PizzaEnemyState
 {
 public:
 	PizzaEnemyState(const ObjectAnimation);
-	void setAnimationFrame(PizzaEnemy& , sf::Time);
+	bool setAnimationFrame(PizzaEnemy& , sf::Time);
 	virtual ~PizzaEnemyState() = default;
-	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&,float&, sf::Time ) = 0;
+	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&, sf::Time) = 0;
 	virtual void update(sf::Time, PizzaEnemy&) = 0;
 
 private:

@@ -5,8 +5,9 @@ class MoveState :public PizzaEnemyState
 {
 public:
 	MoveState(const ObjectAnimation);
-	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&,float&, sf::Time deltaTime)override;
+	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&, sf::Time deltaTime)override;
 	virtual void update(sf::Time, PizzaEnemy&)override;
 private:
 	int m_jumps;
+	sf::Time m_walkTime;
 };
