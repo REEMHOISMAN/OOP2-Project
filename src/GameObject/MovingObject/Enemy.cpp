@@ -16,7 +16,9 @@ std::unique_ptr<MovingStrategy> Enemy::getStrategy()
 
 //bool Enemy::s_register = Factory::registerIt(ORANGE_ENEMY,
 //	[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
-//	)
+// {
+//    return std::make_unique<OnionEnemy>(sprite, std::move(sideToSideStrategy), animation); 
+// }
 //	&&
 //	Factory::registerIt(PEPPER_ENEMY,
 //		[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
