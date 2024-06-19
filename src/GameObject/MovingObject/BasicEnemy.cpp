@@ -13,7 +13,7 @@ EnemyFactory::registerEnemy(ORANGE_ENEMY,
 		Animation animation = ResourceManager::instance().getAnimation(enemyType);
 		setEnemySprite(sprite, factor);
 		sprite.setTextureRect(animation[0]);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(),
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(0.f);
 			animation);
 	})
 	&&

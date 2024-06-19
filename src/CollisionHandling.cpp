@@ -4,6 +4,7 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/MovingObject/BasicEnemy.h"
+#include "GameObject/MovingObject/PizzaEnemy.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "Macros.h"
 
@@ -16,7 +17,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
-	//GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &pizzaEnemyFloor);
+	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 }
 
 //-----------------------------------------------------------------------
@@ -101,10 +102,12 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.setObjectPosition(currentPosition + newPos);
 	
 }
-//void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
-//{
-//	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
-//	enemyObstacle(pizzaEnemy, object2);
-//	pizzaEnemy.loadStrategy(std::make_unique<SideToSideStrategy>());
-//	pizzaEnemy.increaseJumps();
-//}
+
+//---------------------------------
+void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
+{
+	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
+	enemyObstacle(pizzaEnemy, object2);
+	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>());
+	pizzaEnemy.increaseJumps();
+}

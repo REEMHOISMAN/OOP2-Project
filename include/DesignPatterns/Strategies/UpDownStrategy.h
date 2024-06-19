@@ -1,12 +1,10 @@
 #pragma once
 #include"DesignPatterns/Strategies/MovingStrategy.h"
 
-class UpDownStrategy : public 
-	MovingStrategy
-
+class UpDownStrategy : public MovingStrategy
 {
 public:
-	UpDownStrategy();
+	UpDownStrategy(float);
 	virtual sf::Vector2f& move(sf::Time deltaTime,bool rightDirection, float gravity)override;
 
 private:

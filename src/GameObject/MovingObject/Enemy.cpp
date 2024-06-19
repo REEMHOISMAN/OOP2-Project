@@ -19,7 +19,7 @@ void Enemy::setEnemySprite(sf::Sprite& sprite, float factor)
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	sprite.setScale(factor, factor);
 }
-
+//---------------------------------------------------
 void Enemy::activateStrategy(sf::Time time)
 {
 	auto newPos= m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
