@@ -16,8 +16,20 @@ void BasicEnemy::move(sf::Time time)
 	auto newPos = getStrategy()->move(time, isHeadDirectionRight(), getGravity());
 
 	setObjectPosition(newPos + getObjectSprite().getPosition());
-	loadNewFrame(time);
+	loadAnimationFrame(time);
 	setOnGround(false);
 	setBlockedOnSide(false);
 	
+}
+
+void BasicEnemy::loadAnimationFrame(sf::Time deltaTime)
+{
+	m_elapsed += deltaTime;
+	if (m_elapsed.asSeconds() >= 0.3f)
+	{
+		m_elapsed -= sf::seconds(0.3f);
+		++m_animationIndex;
+		m_animationIndex %= m_animation.size();
+		setTextureRect(m_animation[m_animationIndex]);
+	}
 }
