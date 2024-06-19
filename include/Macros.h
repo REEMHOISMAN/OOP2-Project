@@ -30,3 +30,5 @@ enum ObjectAnimation
 	PIZZA_ENEMY_ATTACK,
 	PIZZA_ENEMY_DIE
 };
+
+using Animation = std::vector<sf::IntRect>;
