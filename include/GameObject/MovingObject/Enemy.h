@@ -11,11 +11,13 @@ class Enemy : public Entity
 {
 public:
 	Enemy(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation&);
-	virtual void move(sf::Time) override;
 	void loadStrategy(std::unique_ptr<MovingStrategy> strategy);
 	void loadAnimation(const ObjectAnimation&);
 	void loadNewFrame(sf::Time);
+	std::unique_ptr<MovingStrategy> getStrategy()const;
 
+protected:
+	
 
 private:
 	Animation m_animation;
