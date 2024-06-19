@@ -3,21 +3,7 @@
 Enemy::Enemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation):
 	Entity(sprite), m_moveStrategy(std::move(strategy)), m_animation(animation),m_animationIndex(0){}
 
-void Enemy::move(sf::Time time)
-{
-	if (!isOnGround())
-		activateGravity(0.3f);
 
-	else
-		resetGravity();
-
-	auto newPos = m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
-	
-	setObjectPosition(newPos + getObjectSprite().getPosition());
-	loadNewFrame(time);
-	setOnGround(false);
-	setBlockedOnSide(false);
-}
 
 void Enemy::loadStrategy(std::unique_ptr<MovingStrategy> strategy)
 {
@@ -40,6 +26,11 @@ void Enemy::loadNewFrame(sf::Time time)
 		m_animationIndex %= m_animation.size();
 		setTextureRect(m_animation[m_animationIndex]);
 	}
+}
+
+std::unique_ptr<MovingStrategy> Enemy::getStrategy() 
+{
+	return std::move(m_moveStrategy);
 }
 
 //bool Enemy::s_register = Factory::registerIt(ORANGE_ENEMY,
