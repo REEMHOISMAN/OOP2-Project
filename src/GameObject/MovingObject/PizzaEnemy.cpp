@@ -32,3 +32,8 @@ void PizzaEnemy::increaseJumps()
 	m_jumps++;
 }
 
+//void PizzaEnemy::createCheese(std::unique_ptr<CheeseWeapon> cheese)
+//{
+//	m_game(std::move(cheese));
+//}
+

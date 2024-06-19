@@ -3,6 +3,7 @@
 #include "GameObject/MovingObject/Enemy.h"
 #include <map>
 
+class InGameState;
 using createFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation);
 using enemyMap = std::map<ObjectAnimation, createFunc>;
 

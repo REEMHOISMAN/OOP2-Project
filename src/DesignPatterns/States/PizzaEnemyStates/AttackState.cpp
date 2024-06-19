@@ -1,5 +1,7 @@
 #include "DesignPatterns/States/PizzaEnemyStates/AttackState.h"
 #include "GameObject/MovingObject/PizzaEnemy.h"
+#include "GameObject/MovingObject/CheeseWeapon.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 
 AttackState::AttackState(const ObjectAnimation animation) :
 	PizzaEnemyState(animation), m_generateCheese(false)
@@ -18,6 +20,7 @@ void AttackState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy)
 	m_generateCheese = setAnimationFrame(pizzaEnemy, deltaTime);
 	if (m_generateCheese)
 	{
-
+		//m_cheese.setTexture()
+		//std::make_unique<CheeseWeapon>()
 	}
 }

@@ -10,4 +10,5 @@ public:
 
 private:
 	bool m_generateCheese;
+	sf::Sprite m_cheese;
 };
