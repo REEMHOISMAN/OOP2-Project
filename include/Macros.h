@@ -2,7 +2,7 @@
 const int WIDTH = 1400;
 const int HEIGHT = 800;
 
-const int NUM_OF_TEXTURES = 8;
+const int NUM_OF_TEXTURES = 9;
 
 const float PLAYER_MIN_Y = 587.5f;
 const float PLAYER_MAX_Y = 300.f;

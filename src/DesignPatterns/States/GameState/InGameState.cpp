@@ -7,9 +7,17 @@
 
 InGameState::InGameState()
 {
-	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
+	auto texture = &ResourceManager::instance().getTexture("background");
+	m_background.setTexture(texture);
 	m_background.setSize({float(WIDTH), float(HEIGHT)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
+	m_background.setPosition(WIDTH/2, HEIGHT/2);
+	
+
+	m_userInterfaceFrame.setTexture(&ResourceManager::instance().getTexture("frameBackground"));
+	m_userInterfaceFrame.setSize({ float(WIDTH), float(HEIGHT) });
+	m_userInterfaceFrame.setOrigin(m_userInterfaceFrame.getSize().x / 2, m_userInterfaceFrame.getSize().y / 2);
+	m_userInterfaceFrame.setPosition(WIDTH / 2, HEIGHT/2);
 	initTileMap();
 	initCollisionFunctions();
 }
@@ -18,7 +26,7 @@ InGameState::InGameState()
 void InGameState::initTileMap()
 {
 	auto image = sf::Image();
-	float factor_y = 710.f;
+	float factor_y = 620.f;
 	image.loadFromFile("tileMap.png");
 	sf::Sprite sprite;
 	
@@ -91,9 +99,22 @@ void InGameState::update(sf::Time time)
 
 void InGameState::render(sf::RenderWindow&window)
 {
-	m_background.setPosition(window.getView().getCenter());
+	
+	sf::Vector2f viewCenter = window.getView().getCenter();
+	float viewWidth = window.getView().getSize().x;
+	float offset = static_cast<int>(viewCenter.x) % static_cast<int>(WIDTH);
+
+	m_background.setPosition(viewCenter.x - offset, HEIGHT / 2);
+
 	window.draw(m_background);
+
+	m_background.setPosition(viewCenter.x - offset + WIDTH, HEIGHT / 2);
+
+	window.draw(m_background);
+
 	drawBoard(window);
+	m_userInterfaceFrame.setPosition(window.getView().getCenter());
+	window.draw(m_userInterfaceFrame);
 }
 
 void InGameState::drawBoard(sf::RenderWindow& window) const

@@ -21,6 +21,7 @@ private:
 
 
 	sf::RectangleShape m_background;
+	sf::RectangleShape m_userInterfaceFrame;
 	std::vector<std::unique_ptr<MovingObject>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 };
