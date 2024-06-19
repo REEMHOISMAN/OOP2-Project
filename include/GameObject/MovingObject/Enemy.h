@@ -14,15 +14,13 @@ public:
 	void loadStrategy(std::unique_ptr<MovingStrategy> strategy);
 	void loadAnimation(const ObjectAnimation&);
 	void loadNewFrame(sf::Time);
-	
+	std::unique_ptr<MovingStrategy> getStrategy()const;
 
 protected:
 	std::unique_ptr<MovingStrategy> getStrategy();
 
+	void setStrategy(std::unique_ptr<MovingStrategy>);
+
 private:
-	Animation m_animation;
 	std::unique_ptr<MovingStrategy> m_moveStrategy;
-	
-	int m_animationIndex;
-	sf::Time m_elapsed;
-};
+}

@@ -1,11 +1,10 @@
 #include "GameObject/MovingObject/Enemy.h"
 
 Enemy::Enemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation):
-	Entity(sprite), m_moveStrategy(std::move(strategy)), m_animation(animation),m_animationIndex(0){}
+	Entity(sprite), m_moveStrategy(std::move(strategy)){}
 
-
-
-void Enemy::loadStrategy(std::unique_ptr<MovingStrategy> strategy)
+//---------------------------------------------------
+void Enemy::setStrategy(std::unique_ptr<MovingStrategy> strategy)
 {
 	m_moveStrategy = std::move(strategy);
 }
