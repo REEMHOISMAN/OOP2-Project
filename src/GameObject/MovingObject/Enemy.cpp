@@ -13,11 +13,3 @@ std::unique_ptr<MovingStrategy> Enemy::getStrategy()
 {
 	return std::move(m_moveStrategy);
 }
-
-//bool Enemy::s_register = Factory::registerIt(ORANGE_ENEMY,
-//	[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
-//	)
-//	&&
-//	Factory::registerIt(PEPPER_ENEMY,
-//		[]() { return std::make_unique<Enemy>(std::make_unique<UpDownStrategy>()); }
-//);

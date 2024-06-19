@@ -14,9 +14,8 @@ public:
 
 protected:
 	std::unique_ptr<MovingStrategy> getStrategy();
-
 	void setStrategy(std::unique_ptr<MovingStrategy>);
 
 private:
 	std::unique_ptr<MovingStrategy> m_moveStrategy;
-}
+};

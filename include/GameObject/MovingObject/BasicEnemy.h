@@ -11,6 +11,8 @@ public:
 	
 private:
 	void loadAnimationFrame(sf::Time);
+
+	static bool m_register;
 	Animation m_animation;
 	int m_animationIndex;
 	sf::Time m_elapsed;
