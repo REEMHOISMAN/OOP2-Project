@@ -2,23 +2,20 @@
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "GameObject/MovingObject/PizzaEnemy.h"
 
-MoveState::MoveState():
-	PizzaEnemyState(PIZZA_ENEMY_MOVE), m_jumps(0)
+MoveState::MoveState(const ObjectAnimation animation):
+	PizzaEnemyState(animation), m_jumps(0)
 {
 
 }
 
 std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy,float& walkTime,sf::Time deltaTime)
 {
-	if (pizzaEnemy.isBlockedFromSide()) {
-		walkTime = 2.0f;
-	}
 	if (walkTime <= 0.f) 
 	{
 
 		float posX = deltaTime.asSeconds() * 100.f;
 		pizzaEnemy.setStrategy(std::make_unique<UpDownStrategy>(posX));
-		walkTime = 2.0f;
+		walkTime = 1.5f;
 		
 	}
 	
@@ -33,6 +30,16 @@ std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy,fl
 
 void MoveState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy) 
 {
+
+	if (!pizzaEnemy.isOnGround())
+		pizzaEnemy.activateGravity(0.3f);
+
+	else
+		pizzaEnemy.resetGravity();
+
 	pizzaEnemy.activateStrategy(deltaTime);
+	pizzaEnemy.setOnGround(false);
+	pizzaEnemy.setBlockedOnSide(false);
+	setAnimationFrame(pizzaEnemy, deltaTime);
 }
 

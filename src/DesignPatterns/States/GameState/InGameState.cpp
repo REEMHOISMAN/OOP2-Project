@@ -61,11 +61,11 @@ void InGameState::initTileMap()
 				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
 				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ORANGE_ENEMY, sprite, 1.9f));
 			}
-			/*else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
+			else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
 			{
 				sprite = createNewObjectSprite(factor_x, 600, "PizzaEnemySheet");
-				m_movingObjects.emplace_back(EnemyFactory::createSideToSideEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f));
-			}*/
+				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f));
+			}
 			factor_x += 85.f; 
 		}
 		factor_y -= 90.f; //the height of each texture

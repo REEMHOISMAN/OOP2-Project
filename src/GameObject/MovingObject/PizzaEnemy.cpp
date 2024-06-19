@@ -13,7 +13,7 @@ bool PizzaEnemy::m_register = EnemyFactory::registerEnemy(PIZZA_ENEMY_MOVE,
 
 //--------------------------------------------------------
 PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy)
-	: Enemy(sprite, std::move(strategy)),m_WalkTimer(2.f),m_jumps(0), m_state(std::make_unique< MoveState>()) {}
+	: Enemy(sprite, std::move(strategy)),m_WalkTimer(2.f),m_jumps(0), m_state(std::make_unique<MoveState>(PIZZA_ENEMY_MOVE)) {}
 
 //--------------------------------------------------------
 void PizzaEnemy::move(sf::Time deltaTime)

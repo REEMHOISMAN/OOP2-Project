@@ -74,7 +74,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 
 
-	if (intersect.height > intersect.width || intersect.height == enemy.getObjectSprite().getGlobalBounds().height) // collide with wall
+	if (intersect.height > intersect.width ) // collide with wall
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
@@ -107,7 +107,40 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
-	enemyObstacle(pizzaEnemy, object2);
 	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>());
+	sf::FloatRect intersect;
+	auto obstacleSprite = object2.getObjectSprite();
+	auto newPos = sf::Vector2f();
+
+	pizzaEnemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+
+
+	if (intersect.height > intersect.width ||  intersect.height > 20.f) // collide with wall
+	{
+		if (pizzaEnemy.isHeadDirectionRight()) // move from left to right
+		{
+			newPos.x = -intersect.width;
+		}
+		else
+		{
+			newPos.x = intersect.width;
+		}
+		pizzaEnemy.setBlockedOnSide(true);
+		pizzaEnemy.setHeadDirection(); // collide, so we change direction of its head
+		pizzaEnemy.setScale();
+
+	}
+	else // collide with ground
+	{
+
+		newPos.y = -intersect.height;
+		pizzaEnemy.setOnGround(true);
+		pizzaEnemy.resetGravity();
+
+	}
+
+	sf::Vector2f currentPosition = pizzaEnemy.getObjectSprite().getPosition();
+	pizzaEnemy.setObjectPosition(currentPosition + newPos);
+
 	pizzaEnemy.increaseJumps();
 }
