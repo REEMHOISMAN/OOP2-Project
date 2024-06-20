@@ -40,9 +40,9 @@ void MoveState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy)
 	else
 		pizzaEnemy.resetGravity();
 
+	setAnimationFrame(pizzaEnemy, deltaTime);
 	pizzaEnemy.activateStrategy(deltaTime);
 	pizzaEnemy.setOnGround(false);
 	pizzaEnemy.setBlockedOnSide(false);
-	setAnimationFrame(pizzaEnemy, deltaTime);
 }
 

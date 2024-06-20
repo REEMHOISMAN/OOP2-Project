@@ -18,24 +18,24 @@ EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
 	})
 	&&
 	EnemyFactory::registerBasicEnemy(PEPPER_ENEMY,
-		[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
-		{
-			Animation animation = ResourceManager::instance().getAnimation(enemyType);
-			setEnemySprite(sprite, factor);
-			sprite.setTextureRect(animation[0]);
-			return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
-				animation);
-		})
-		&&
-		EnemyFactory::registerBasicEnemy(ONION_ENEMY,
-		[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
-		{
-			Animation animation = ResourceManager::instance().getAnimation(enemyType);
-			setEnemySprite(sprite, factor);
-			sprite.setTextureRect(animation[0]);
-			return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
-				animation);
-		});
+	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+	{
+		Animation animation = ResourceManager::instance().getAnimation(enemyType);
+		setEnemySprite(sprite, factor);
+		sprite.setTextureRect(animation[0]);
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+			animation);
+	})
+	&&
+	EnemyFactory::registerBasicEnemy(ONION_ENEMY,
+	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+	{
+		Animation animation = ResourceManager::instance().getAnimation(enemyType);
+		setEnemySprite(sprite, factor);
+		sprite.setTextureRect(animation[0]);
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+			animation);
+	});
 	
 
 
