@@ -26,7 +26,7 @@ InGameState::InGameState()
 void InGameState::initTileMap()
 {
 	auto image = sf::Image();
-	float factor_y = 620.f;
+	float factor_y = 620.f; 
 	image.loadFromFile("tileMap.png");
 	sf::Sprite sprite;
 	
@@ -57,22 +57,22 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
 			{
 				sprite = createNewObjectSprite(factor_x,300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ONION_ENEMY, sprite, 1.9f));
+				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ONION_ENEMY, sprite, 1.9f, *this));
 			}
 			else if (image.getPixel(x, y) == sf::Color(55, 126, 71))
 			{
 				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PEPPER_ENEMY, sprite,1.9f));
+				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PEPPER_ENEMY, sprite,1.9f, *this));
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 127, 39))
 			{
 				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ORANGE_ENEMY, sprite, 1.9f));
+				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ORANGE_ENEMY, sprite, 1.9f, *this));
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
 			{
-				sprite = createNewObjectSprite(factor_x, 600, "PizzaEnemySheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f));
+				sprite = createNewObjectSprite(factor_x,500, "PizzaEnemySheet");
+				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f, *this));
 			}
 			factor_x += 85.f; 
 		}
