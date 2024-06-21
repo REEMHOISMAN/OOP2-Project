@@ -23,6 +23,7 @@ Input Player::getUserInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) return ATTACK;
 	return NONE;
 }
 
@@ -32,4 +33,17 @@ void Player::draw(sf::RenderWindow& window)const
 	auto center = sf::Vector2f(sprite.getPosition().x, HEIGHT/2);
 	window.setView(sf::View(center, sf::Vector2f(WIDTH, HEIGHT)));
 	GameObject::draw(window);
+}
+
+void Player::increaseSaltBombs() 
+{
+	m_saltBombsStack++;
+}
+void Player::decreaseSaltBombs()
+{
+	m_saltBombsStack--;
+}
+int Player::getSaltBombsAmount()const
+{
+	return m_saltBombsStack;
 }

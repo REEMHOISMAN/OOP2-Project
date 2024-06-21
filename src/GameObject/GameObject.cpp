@@ -1,7 +1,7 @@
 #include "GameObject/GameObject.h"
 #include <iostream> 
 
-GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{false} {}
+GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{ false }, m_eraseCondition{false} {}
 
 void GameObject::setObjectPosition(const sf::Vector2f& newPos)
 {
@@ -48,4 +48,12 @@ bool GameObject::isCollide(const sf::Sprite& sprite)
 bool GameObject::playerIsColide() const
 {
 	return m_isCollide;
+}
+void GameObject::setToErase() 
+{
+	m_eraseCondition = !m_eraseCondition;
+}
+bool GameObject::ToErase()
+{
+	return m_eraseCondition;
 }

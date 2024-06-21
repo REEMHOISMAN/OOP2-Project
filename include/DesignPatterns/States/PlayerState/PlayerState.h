@@ -11,6 +11,7 @@ enum Input
 	LEFT,
 	RIGHT,
 	SPACE,
+	ATTACK
 };
 
 

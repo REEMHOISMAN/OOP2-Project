@@ -14,8 +14,11 @@ public:
 	void setTextureRect(const sf::IntRect&);
 	bool isCollide(const sf::Sprite& sprite);
 	bool playerIsColide()const;
+	void setToErase();
+	bool ToErase();
 
 private:
 	sf::Sprite m_sprite;
 	bool m_isCollide;
+	bool m_eraseCondition;
 };

@@ -14,10 +14,11 @@ public:
 	virtual void render(sf::RenderWindow&) override;
 
 private:
-	sf::Sprite createNewObjectSprite(float, float, const std::string)const;
+	sf::Sprite createNewObjectSprite(float, float, const std::string,float scle=1.f)const;
 	void initTileMap();
 	void drawBoard(sf::RenderWindow&) const;
 	void checkCollision();
+	//void insertObject();
 
 
 	sf::RectangleShape m_background;

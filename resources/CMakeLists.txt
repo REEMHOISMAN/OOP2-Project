@@ -7,4 +7,5 @@ configure_file ("ground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("basicEnemiesSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("PizzaEnemySheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cheese.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("salt.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

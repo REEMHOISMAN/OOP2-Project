@@ -3,6 +3,7 @@
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "CollisionHandling.h"
 #include "DesignPatterns/Factories/EnemyFactory.h"
+#include "GameObject/StaticObject/StaticSaltBomb.h"
 #include "Macros.h"
 
 InGameState::InGameState()
@@ -73,6 +74,11 @@ void InGameState::initTileMap()
 			{
 				sprite = createNewObjectSprite(factor_x,500, "PizzaEnemySheet");
 				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f, *this));
+			}
+			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
+			{
+				sprite = createNewObjectSprite(factor_x, MIN_Y, "salt",2.f);
+				m_staticObjects.emplace_back(std::make_unique<StaticSaltBomb>(sprite));
 			}
 			factor_x += 85.f; 
 		}
@@ -148,11 +154,13 @@ void InGameState::checkCollision()
 			}
 		}
 	}
+	std::erase_if(m_staticObjects, [](const auto& staticObject) { return staticObject->ToErase();});
 }
 
-sf::Sprite InGameState::createNewObjectSprite(float x, float y, const std::string filename)const
+sf::Sprite InGameState::createNewObjectSprite(float x, float y, const std::string filename,float scale)const
 {
 	sf::Sprite sprite = sf::Sprite(ResourceManager::instance().getTexture(filename));
 	sprite.setPosition(x, y);
+	sprite.setScale({ scale,scale });
 	return sprite;
 }

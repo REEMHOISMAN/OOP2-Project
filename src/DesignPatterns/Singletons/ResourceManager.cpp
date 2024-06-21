@@ -90,7 +90,7 @@ std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation ty
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "frameBackground",  "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", "cheese"};
+    { "playerSpriteSheet", "background", "frameBackground",  "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", "cheese","salt"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

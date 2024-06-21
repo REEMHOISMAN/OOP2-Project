@@ -12,10 +12,13 @@ public:
 	void move(sf::Time);
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
+	void increaseSaltBombs();
+	void decreaseSaltBombs();
+	int getSaltBombsAmount()const;
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
-
+	int m_saltBombsStack;
 	int m_frame;
 	sf::Time m_elapsed;
 };
