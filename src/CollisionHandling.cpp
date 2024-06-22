@@ -98,7 +98,6 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 
 		newPos.y = -intersect.height;
 		enemy.setOnGround(true);
-		enemy.resetGravity();
 	
 	}
 
