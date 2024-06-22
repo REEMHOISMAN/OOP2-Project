@@ -23,7 +23,7 @@ EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
 		Animation animation = ResourceManager::instance().getAnimation(enemyType);
 		setEnemySprite(sprite, factor);
 		sprite.setTextureRect(animation[0]);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
 			animation);
 	})
 	&&
@@ -33,7 +33,7 @@ EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
 		Animation animation = ResourceManager::instance().getAnimation(enemyType);
 		setEnemySprite(sprite, factor);
 		sprite.setTextureRect(animation[0]);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(),
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
 			animation);
 	});
 	
@@ -48,17 +48,12 @@ BasicEnemy::BasicEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strat
 //---------------------------------------------------------
 void BasicEnemy::move(sf::Time time)
 {
-	if (!isOnGround())
-		activateGravity(0.3f);
-
-	else
-		resetGravity();
-
+	
+	activateGravity(0.3f);
 	activateStrategy(time);
 	loadAnimationFrame(time);
-	setOnGround(false);
+	setOnGround(false); //<--------- if you put this in "note" the basic enemies movement is being without bugs... 					//           but the orange one jumps to the sky
 	setBlockedOnSide(false);
-	
 }
 
 void BasicEnemy::loadAnimationFrame(sf::Time deltaTime)

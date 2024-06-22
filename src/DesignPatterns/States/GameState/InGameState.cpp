@@ -4,6 +4,7 @@
 #include "CollisionHandling.h"
 #include "DesignPatterns/Factories/EnemyFactory.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
+#include "GameObject/MovingObject/CheeseBullet.h"
 #include "Macros.h"
 
 InGameState::InGameState()
@@ -107,8 +108,7 @@ void InGameState::render(sf::RenderWindow&window)
 {
 	
 	sf::Vector2f viewCenter = window.getView().getCenter();
-	float viewWidth = window.getView().getSize().x;
-	float offset = static_cast<int>(viewCenter.x) % static_cast<int>(WIDTH);
+	int offset = static_cast<int>(viewCenter.x) % static_cast<int>(WIDTH);
 
 	m_background.setPosition(viewCenter.x - offset, HEIGHT / 2);
 
@@ -123,6 +123,11 @@ void InGameState::render(sf::RenderWindow&window)
 	window.draw(m_userInterfaceFrame);
 }
 
+void InGameState::insertMovingObject(std::unique_ptr<MovingObject> object)
+{
+	m_movingObjects.emplace_back(std::move(object));
+}
+
 void InGameState::drawBoard(sf::RenderWindow& window) const
 {
 	std::for_each(m_movingObjects.cbegin(), m_movingObjects.cend(), [&window](const auto& entity) {entity->draw(window); });
@@ -134,9 +139,17 @@ void InGameState::checkCollision()
 
 	for (auto entity1 = m_movingObjects.begin(); entity1 != m_movingObjects.end(); ++entity1)
 	{
-		for (auto entity2 = entity1+1; entity2!= m_movingObjects.end(); ++entity2)
+		auto entity2 = entity1;
+		for (++entity2; entity2!= m_movingObjects.end(); ++entity2)
 		{
-		
+			if ((*entity1)->isCollide((*entity2)->getObjectSprite()))
+			{
+				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity1), typeid(**entity2));
+				if (func != nullptr)
+				{
+					func(*(*entity1), *(*entity2));
+				}
+			}
 		}
 	}
 
@@ -147,14 +160,15 @@ void InGameState::checkCollision()
 			if ((*entity)->isCollide((*object)->getObjectSprite()))
 			{
 				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity), typeid(**object));
-				if (func)
+				if (func != nullptr)
 				{
-					func(*(*entity).get(), *(*object).get());
+					func(*(*entity), *(*object));
 				}
 			}
 		}
 	}
 	std::erase_if(m_staticObjects, [](const auto& staticObject) { return staticObject->ToErase();});
+	m_movingObjects.remove_if([](const auto& movingObject) { return movingObject->ToErase(); });
 }
 
 sf::Sprite InGameState::createNewObjectSprite(float x, float y, const std::string filename,float scale)const

@@ -8,6 +8,8 @@
 #include "GameObject/StaticObject/Obstacle.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
+#include "GameObject/MovingObject/CheeseBullet.h"
+
 #include "Macros.h"
 
 #include <iostream>
@@ -21,7 +23,10 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticObject);
-	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(Obstacle), &saltBombObstacale);
+	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(Obstacle), &saltBombObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Obstacle), &cheeseBulletObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
+	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Player), &playerCheeseBullet);
 }
 
 //-----------------------------------------------------------------------
@@ -78,27 +83,26 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 
 
-	if (intersect.height > intersect.width ) // collide with wall
+	if (intersect.height > intersect.width && !enemy.isBlockedFromSide() && enemy.isOnGround()) // collide with wall
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
+			enemy.setHeadDirection(false);
 			newPos.x = -intersect.width;
 		}
 		else
 		{
+			enemy.setHeadDirection(true);
 			newPos.x = intersect.width;
 		}
 		enemy.setBlockedOnSide(true);
-		enemy.setHeadDirection(); // collide, so we change direction of its head
 		enemy.setScale();
-		
 	}
-	else // collide with ground
+	else if (intersect.height < intersect.width && !enemy.isOnGround())
 	{
-
 		newPos.y = -intersect.height;
+		enemy.resetGravity();
 		enemy.setOnGround(true);
-	
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
@@ -110,57 +114,27 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
-	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>());
-	sf::FloatRect intersect;
-	auto obstacleSprite = object2.getObjectSprite();
-	auto newPos = sf::Vector2f();
-
-	pizzaEnemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-
-
-	if (intersect.height > intersect.width ||  intersect.height > 20.f) // collide with wall
-	{
-		if (pizzaEnemy.isHeadDirectionRight()) // move from left to right
-		{
-			newPos.x = -intersect.width;
-		}
-		else
-		{
-			newPos.x = intersect.width;
-		}
-		pizzaEnemy.setBlockedOnSide(true);
-		pizzaEnemy.setHeadDirection(); // collide, so we change direction of its head
-		pizzaEnemy.setScale();
-
-	}
-	else // collide with ground
-	{
-
-		newPos.y = -intersect.height;
-		pizzaEnemy.setOnGround(true);
-		pizzaEnemy.resetGravity();
-
-	}
-
-	sf::Vector2f currentPosition = pizzaEnemy.getObjectSprite().getPosition();
-	pizzaEnemy.setObjectPosition(currentPosition + newPos);
-
-	pizzaEnemy.increaseJumps();
+	enemyObstacle(object1, object2);
+	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>(220.f));
 }
+
+//----------------------------------------------
 //colisiion with al the static objects in game- hearts coins salts ...
 void PlayerStaticObject(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	sf::FloatRect intersect;
-	auto ststicSprite = object2.getObjectSprite();
+	auto staticSprite = object2.getObjectSprite();
 	auto playerSprite = player.getObjectSprite();
-	if (playerSprite.getGlobalBounds().intersects(ststicSprite.getGlobalBounds())) {
+	if (playerSprite.getGlobalBounds().intersects(staticSprite.getGlobalBounds())) {
 		object2.setToErase();
 		player.increaseSaltBombs();
 	}
 }
+
+//----------------------------------------------
 //colisiion of salt with the ground
-void saltBombObstacale(GameObject& object1, GameObject&object2) 
+void saltBombObstacle(GameObject& object1, GameObject&object2) 
 {
 	MovingSaltBomb& salt = dynamic_cast<MovingSaltBomb&>(object1);
 	sf::FloatRect intersect;
@@ -197,4 +171,21 @@ void saltBombObstacale(GameObject& object1, GameObject&object2)
 	{
 		salt.setToErase();
 	}
+}
+
+
+//----------------------------------------------
+void cheeseBulletObstacle(GameObject& object1, GameObject& object2)
+{
+	CheeseBullet& cheese = dynamic_cast<CheeseBullet&>(object1);
+	cheese.setToErase();
+}
+
+//----------------------------------------------
+void playerCheeseBullet(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+
+	player.setCheesed(true);
+	cheeseBulletObstacle(object2, player); // the cheese will be remove...
 }

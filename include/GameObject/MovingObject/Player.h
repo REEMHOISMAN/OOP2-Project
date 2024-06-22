@@ -15,10 +15,13 @@ public:
 	void increaseSaltBombs();
 	void decreaseSaltBombs();
 	int getSaltBombsAmount()const;
+	void setCheesed(bool);
+	bool isCheesed()const;
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
 	int m_saltBombsStack;
 	int m_frame;
+	bool m_isCheesed;
 	sf::Time m_elapsed;
 };

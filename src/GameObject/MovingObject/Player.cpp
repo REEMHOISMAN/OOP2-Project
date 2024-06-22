@@ -5,11 +5,13 @@
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include <iostream>
 
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_frame(0)
+//-----------------------------------------
+Player::Player(sf::Sprite& sprite): Entity(sprite), m_frame(0), m_saltBombsStack(0), m_isCheesed(false)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
 
+//-----------------------------------------
 void Player::move(sf::Time time)
 {
  	auto input = getUserInput();
@@ -18,6 +20,7 @@ void Player::move(sf::Time time)
 	m_state->update(time, *this);
 }
 
+//-----------------------------------------
 Input Player::getUserInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return SPACE;
@@ -46,4 +49,16 @@ void Player::decreaseSaltBombs()
 int Player::getSaltBombsAmount()const
 {
 	return m_saltBombsStack;
+}
+
+//--------------------------------
+void Player::setCheesed(bool cheesed)
+{
+	m_isCheesed = cheesed;
+}
+
+//--------------------------------
+bool Player::isCheesed() const
+{
+	return m_isCheesed;
 }

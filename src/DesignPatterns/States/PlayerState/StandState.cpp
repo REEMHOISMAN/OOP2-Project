@@ -1,6 +1,7 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
+#include "DesignPatterns/States/PlayerState/CheesedState.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
@@ -14,8 +15,10 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
             return std::make_unique<JumpState>(PLAYER_JUMP);
         }
         if ((input == RIGHT || input == LEFT)) {
-            // Player presses either LEFT or RIGHT while standing, transition to WalkState
             return std::make_unique<WalkState>(PLAYER_WALK);
+        }
+        if (player.isCheesed()) {
+            return std::make_unique<CheesedState>(PLAYER_CHEESED);
         }
     }
 

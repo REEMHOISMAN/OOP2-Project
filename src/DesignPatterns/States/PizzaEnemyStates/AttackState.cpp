@@ -1,7 +1,9 @@
 #include "DesignPatterns/States/PizzaEnemyStates/AttackState.h"
+#include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
 #include "GameObject/MovingObject/PizzaEnemy.h"
-#include "GameObject/MovingObject/CheeseWeapon.h"
+#include "GameObject/MovingObject/CheeseBullet.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
 AttackState::AttackState(const ObjectAnimation animation) :
 	PizzaEnemyState(animation), m_generateCheese(false)
@@ -11,6 +13,10 @@ AttackState::AttackState(const ObjectAnimation animation) :
 
 std::unique_ptr<PizzaEnemyState> AttackState::handleTime(PizzaEnemy& pizzaEnemy, sf::Time deltaTime)
 {
+	if (m_generateCheese)
+	{
+		return std::make_unique<MoveState>(PIZZA_ENEMY_MOVE);
+	}
 	return nullptr;
 }
 
@@ -18,9 +24,23 @@ std::unique_ptr<PizzaEnemyState> AttackState::handleTime(PizzaEnemy& pizzaEnemy,
 void AttackState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy)
 {
 	m_generateCheese = setAnimationFrame(pizzaEnemy, deltaTime);
-	if (m_generateCheese)
-	{
-		//m_cheese.setTexture()
-		//std::make_unique<CheeseWeapon>()
+	if (!m_generateCheese) return;
+	
+	auto pos = pizzaEnemy.getObjectSprite().getPosition();
+	m_cheese.setTexture(ResourceManager::instance().getTexture("cheese"));
+	pos.y -= 30;
+	m_cheese.setScale(1.5, 1.5);
+	
+	if (pizzaEnemy.isHeadDirectionRight()) {
+		m_cheese.scale(-1, 1);
+		pos.x += 110;
 	}
+
+	else {
+		pos.x -= 110;
+	}
+	m_cheese.setPosition(pos);
+
+	pizzaEnemy.createCheese(std::make_unique<CheeseBullet>(m_cheese, std::make_unique<SideToSideStrategy>(300.f), pizzaEnemy.isHeadDirectionRight()));
+	
 }

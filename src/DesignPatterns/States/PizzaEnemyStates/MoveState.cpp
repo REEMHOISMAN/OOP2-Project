@@ -11,8 +11,8 @@ MoveState::MoveState(const ObjectAnimation animation):
 
 std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy, sf::Time deltaTime)
 {	
-	if (m_jumps == 2 && m_walkTime.asSeconds() <= 0.75f) {
-		return std::make_unique<AttackState>(PIZZA_ENEMY_ATTACK);
+	if (m_jumps == 2 && m_walkTime.asSeconds() <= 0.75f && pizzaEnemy.isOnGround()) {
+  		return std::make_unique<AttackState>(PIZZA_ENEMY_ATTACK);
 	}
 	
 	return nullptr;
@@ -21,13 +21,13 @@ std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy, s
 void MoveState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy) 
 {
 
-	if (m_walkTime.asSeconds() <= 0.f)
+	if (m_walkTime.asSeconds() <= 0.f && !pizzaEnemy.isBlockedFromSide())
 	{
 
 		float posX = deltaTime.asSeconds() * 100.f;
 		pizzaEnemy.setStrategy(std::make_unique<UpDownStrategy>(posX));
 		m_walkTime = sf::seconds(1.5f);
-
+		m_jumps++;
 	}
 	else
 	{

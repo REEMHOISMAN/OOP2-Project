@@ -4,6 +4,9 @@
 class SideToSideStrategy: public MovingStrategy 
 {
 public:
-	SideToSideStrategy() = default;
+	SideToSideStrategy(float speed);
 	virtual sf::Vector2f& move(sf::Time deltaTime,bool rightDirection,float gravity)override;
+
+private:
+	float m_speed;
 };

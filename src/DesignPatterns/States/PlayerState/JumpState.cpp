@@ -2,17 +2,22 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/DivingState.h"
+#include "DesignPatterns/States/PlayerState/CheesedState.h"
 #include "CollisionHandling.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
-JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), 
-								m_jumpSpeed(0.f), m_rightLeftSpeed(0), m_jumpTimer(0){}
+JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)), 
+								m_jumpSpeed(0.f), m_rightLeftSpeed(0.f), m_jumpTimer(0.f){}
 
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
+
+	if (player.isCheesed())
+		return std::make_unique<CheesedState>(PLAYER_CHEESED);
+
 	if (player.isOnGround() || player.isBlockedFromSide()) // ***put the second condition in "note" and run
 		return std::make_unique<StandState>(PLAYER_STAND);
 	
@@ -48,7 +53,7 @@ void JumpState::update(sf::Time elapsedTime, Player& player)
 	if ((newPos.x < 0 && player.isHeadDirectionRight()) ||
 		(newPos.x > 0 && !player.isHeadDirectionRight()))
 	{
-		player.setHeadDirection();
+		player.setHeadDirection(!player.isHeadDirectionRight());
 		player.setScale();
 	}
 

@@ -34,18 +34,22 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
  *---------------------------------------------**/
 void ResourceManager::initAnimations()
 {
-    m_animations.emplace(std::make_pair(PLAYER_STAND, std::vector<sf::IntRect>{sf::IntRect({ 174, 50, 170, 390 })}));
+    m_animations.emplace(std::make_pair(PLAYER_STAND, std::vector<sf::IntRect>{sf::IntRect({ 188, 50, 170, 390 })}));
     
-    m_animations.emplace(std::make_pair(PLAYER_WALK, std::vector<sf::IntRect>{sf::IntRect({ 174, 50 , 170, 390 }),
-                                                                              sf::IntRect(627, 50, 190, 390) }));
+    m_animations.emplace(std::make_pair(PLAYER_WALK, std::vector<sf::IntRect>{sf::IntRect({ 188, 50 , 170, 390 }),
+                                                                              sf::IntRect(639, 50, 190, 411) }));
     
-    m_animations.emplace(std::make_pair(PLAYER_RUN, std::vector<sf::IntRect>{sf::IntRect(1130, 50, 170, 390),
-                                                                             sf::IntRect(1600, 50, 205, 390),
-                                                                             sf::IntRect(174, 530, 170, 390) }));
+    m_animations.emplace(std::make_pair(PLAYER_RUN, std::vector<sf::IntRect>{sf::IntRect(1142, 26, 187, 390),
+                                                                             sf::IntRect(1619, 42, 197, 390),
+                                                                             sf::IntRect(204, 527, 184, 390) }));
    
-    m_animations.emplace(std::make_pair(PLAYER_JUMP, std::vector<sf::IntRect>{sf::IntRect(627, 50, 190, 390) }));
+    m_animations.emplace(std::make_pair(PLAYER_JUMP, std::vector<sf::IntRect>{sf::IntRect(639, 50, 190, 411) }));
 
-    m_animations.emplace(std::make_pair(PLAYER_DIVE, std::vector<sf::IntRect>{sf::IntRect(1455, 1040, 488, 430)}));
+    m_animations.emplace(std::make_pair(PLAYER_DIVE, std::vector<sf::IntRect>{sf::IntRect(1472, 1040, 488, 430)}));
+
+    m_animations.emplace(std::make_pair(PLAYER_CHEESED, std::vector<sf::IntRect>{sf::IntRect(167, 1588, 253, 391),
+                                                                                 sf::IntRect(673, 1580, 253, 390),
+                                                                                 sf::IntRect(1147, 1580, 253, 400)}));
 
     m_animations.emplace(std::make_pair(ONION_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 45,50, 54,62 }),
                                                                                sf::IntRect({ 115,50, 54,62 }),
@@ -59,15 +63,9 @@ void ResourceManager::initAnimations()
                                                                                 sf::IntRect({ 198,140,37,33 }) }));
 
     m_animations.emplace(std::make_pair(PIZZA_ENEMY_MOVE, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,148 }),
-                                                                               sf::IntRect({ 304,88,171,148 }),
-                                                                               sf::IntRect({ 517,88,171,148 })
-                                                                               /*sf::IntRect({ 304,88,37,152 }),
-                                                                               sf::IntRect({ 304,88,37,152 }),
-                                                                               sf::IntRect({ 304,88,37,152 }),
-                                                                               sf::IntRect({ 304,88,37,152 }),
-                                                                               sf::IntRect({ 304,88,37,152 }), 
-                                                                               sf::IntRect({ 304,88,37,152 }), 
-                                                                               sf::IntRect({ 304,88,37,152 })*/}));
+                                                                                    sf::IntRect({ 304,88,171,148 }),
+                                                                                    sf::IntRect({ 517,88,171,148 })}));
+    
     m_animations.emplace(std::make_pair(PIZZA_ENEMY_ATTACK, std::vector<sf::IntRect>{  sf::IntRect({ 517,88,171,148 }),
                                                                                        sf::IntRect({ 738,88,174,148 }),
                                                                                        sf::IntRect({ 67,319,196,151 })}));

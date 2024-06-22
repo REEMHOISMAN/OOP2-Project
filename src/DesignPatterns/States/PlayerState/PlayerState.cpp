@@ -4,7 +4,7 @@
 
 //load the vector of animation for the relevant state using ResourceManager
 //each state's constructor holds its unique ObjectAnimation
-PlayerState::PlayerState(const ObjectAnimation type, const sf::Time& animationTimer) : m_frame(0), m_animationTimer(animationTimer),
+PlayerState::PlayerState(const ObjectAnimation type, const sf::Time& animationTimer) : m_frame(-1), m_animationTimer(animationTimer),
 							m_animation(ResourceManager::instance().getAnimation(type)) {}
 
 

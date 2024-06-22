@@ -10,12 +10,12 @@ public:
 	virtual void draw(sf::RenderWindow& window)const;
 	sf::Sprite getObjectSprite()const;
 	void setScale();
-	void setOrigin(const sf::Vector2f& origin);
+	//void setOrigin(const sf::Vector2f& origin);
 	void setTextureRect(const sf::IntRect&);
 	bool isCollide(const sf::Sprite& sprite);
 	bool playerIsColide()const;
 	void setToErase();
-	bool ToErase();
+	bool ToErase()const;
 
 private:
 	sf::Sprite m_sprite;

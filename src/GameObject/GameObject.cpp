@@ -24,16 +24,16 @@ void GameObject::setScale()
  	m_sprite.scale(-1.f,1.f);
 }
 //---------------------------------------------------------
-void GameObject::setOrigin(const sf::Vector2f& origin)
-{
-	m_sprite.setOrigin(origin);
-}
+//void GameObject::setOrigin(const sf::Vector2f& origin)
+//{
+//	m_sprite.setOrigin(origin);
+//}
 
 //---------------------------------------------------------
 void GameObject::setTextureRect(const sf::IntRect& rect)
 {
 	m_sprite.setTextureRect(rect);
-	m_sprite.setOrigin(rect.width / 2, rect.width / 2);
+	m_sprite.setOrigin(static_cast<float>(rect.width / 2), static_cast<float>(rect.height / 2));
 }
 
 bool GameObject::isCollide(const sf::Sprite& sprite)
@@ -49,11 +49,12 @@ bool GameObject::playerIsColide() const
 {
 	return m_isCollide;
 }
+
 void GameObject::setToErase() 
 {
-	m_eraseCondition = !m_eraseCondition;
+	m_eraseCondition = true;
 }
-bool GameObject::ToErase()
+bool GameObject::ToErase()const
 {
 	return m_eraseCondition;
 }

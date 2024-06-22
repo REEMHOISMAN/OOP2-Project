@@ -1,6 +1,8 @@
 #include "DesignPatterns/States/PlayerState/RunState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
+#include "DesignPatterns/States/PlayerState/CheesedState.h"
+
 #include "GameObject/MovingObject/Player.h"
 #include "Macros.h"
 #include <memory>
@@ -10,6 +12,9 @@ RunState::RunState(const ObjectAnimation animation) : PlayerState(animation, sf:
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {	
+	if (player.isCheesed())
+		return std::make_unique<CheesedState>(PLAYER_CHEESED);
+
 	if ((input != RIGHT && input != LEFT))
 		return std::make_unique<StandState>(PLAYER_STAND);
 	
@@ -38,7 +43,7 @@ void RunState::update(sf::Time delta, Player& player)
 	if ((newPos.x < 0 && player.isHeadDirectionRight()) ||
 		(newPos.x > 0 && !player.isHeadDirectionRight()))
 	{
-		player.setHeadDirection();
+		player.setHeadDirection(!player.isHeadDirectionRight());
 		player.setScale();
 	}
 

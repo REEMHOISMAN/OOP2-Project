@@ -2,13 +2,18 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "DesignPatterns/States/PlayerState/RunState.h"
+#include "DesignPatterns/States/PlayerState/CheesedState.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 
-WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_walkTimer(0.f){}
+WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)), m_walkTimer(0.f){}
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
+    if (player.isCheesed()) {
+        return std::make_unique<CheesedState>(PLAYER_CHEESED);
+    }
+
     if (input == NONE)
     {
         return std::make_unique<StandState>(PLAYER_STAND);
@@ -45,7 +50,7 @@ void WalkState::update(sf::Time time, Player& player)
    if ((newPos.x < 0 && player.isHeadDirectionRight()) || 
        (newPos.x > 0 && !player.isHeadDirectionRight()))
    {
-       player.setHeadDirection();
+       player.setHeadDirection(!player.isHeadDirectionRight());
        player.setScale();
    }
 

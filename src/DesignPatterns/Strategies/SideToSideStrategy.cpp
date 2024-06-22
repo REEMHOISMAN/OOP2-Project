@@ -1,18 +1,26 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
+//----------------------------------------------------
+SideToSideStrategy::SideToSideStrategy(float speed): m_speed(speed)
+{
+}
+
+//----------------------------------------------------
 sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,float gravity)
 {
-	sf::Vector2f newPosX;
-	float speed;
-	gravity < 1.8f ? speed = deltaTime.asSeconds() * 220.f : speed = 0;
+	sf::Vector2f newPos;
+	float newX;
+	gravity < 0.6f ? newX = deltaTime.asSeconds() * m_speed : newX = 0;
 	
 	if (rightDirection)
 	{
-		newPosX={speed,gravity };
+		newPos={ newX,gravity };
 	}
 	else 
 	{
-		newPosX = {-speed, gravity };
+		newPos = {-newX, gravity };
 	}
-	return newPosX;
+	return newPos;
 }
+
+//220.f

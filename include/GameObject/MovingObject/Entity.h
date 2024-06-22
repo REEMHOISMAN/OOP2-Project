@@ -7,7 +7,7 @@ public:
 	Entity(sf::Sprite&);
 	virtual void move(sf::Time) = 0;
 	bool isHeadDirectionRight() const;
-	void setHeadDirection();
+	void setHeadDirection(bool);
 	
 
 private:

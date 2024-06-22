@@ -3,7 +3,7 @@
 
 MovingSaltBomb::MovingSaltBomb(sf::Sprite& sprite,bool rightDirection)
 	:MovingObject(sprite),m_rightDirection(rightDirection), 
-	m_jumpSpeed(0),m_startegy(std::make_unique<SideToSideStrategy>()),m_toExplode(false){}
+	m_jumpSpeed(0),m_startegy(std::make_unique<SideToSideStrategy>(220.f)),m_toExplode(false){}
 
 void MovingSaltBomb::move(sf::Time time)
 {
