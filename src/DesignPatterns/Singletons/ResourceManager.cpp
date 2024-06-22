@@ -19,6 +19,8 @@ ResourceManager::ResourceManager()
 {
     initTextures();
     initAnimations();
+    m_font.loadFromFile("papaLoueiFont.ttf");
+    m_font.setSmooth(true);
 }
 
 
