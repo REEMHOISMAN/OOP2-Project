@@ -1,7 +1,7 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
 //----------------------------------------------------
-SideToSideStrategy::SideToSideStrategy(float speed): m_speed(speed)
+SideToSideStrategy::SideToSideStrategy(float speed,float height): m_speed(speed),m_height(height)
 {
 }
 
@@ -14,11 +14,11 @@ sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,f
 	
 	if (rightDirection)
 	{
-		newPos={ newX,gravity };
+	    newPos={ newX,m_height+=gravity};
 	}
 	else 
 	{
-		newPos = {-newX, gravity };
+		newPos = {-newX, m_height+=gravity};
 	}
 	return newPos;
 }

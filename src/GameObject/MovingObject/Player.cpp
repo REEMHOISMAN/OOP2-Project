@@ -3,10 +3,12 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
+#include "DesignPatterns/States/GameState/InGameState.h"
+#include "GameObject/MovingObject/MovingSaltBomb.h"
 #include <iostream>
 
 //-----------------------------------------
-Player::Player(sf::Sprite& sprite): Entity(sprite), m_frame(0), m_saltBombsStack(0), m_isCheesed(false)
+Player::Player(sf::Sprite& sprite, InGameState& game): Entity(sprite), m_frame(0), m_saltBombsStack(0), m_isCheesed(false),m_game(game)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
@@ -61,4 +63,9 @@ void Player::setCheesed(bool cheesed)
 bool Player::isCheesed() const
 {
 	return m_isCheesed;
+}
+
+void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
+{
+	m_game.insertMovingObject(std::move(salt));
 }

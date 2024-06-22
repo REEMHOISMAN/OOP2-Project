@@ -2,6 +2,7 @@
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "DesignPatterns/States/PlayerState/CheesedState.h"
+#include "DesignPatterns/States/PlayerState/BombState.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
@@ -19,6 +20,9 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
         }
         if (player.isCheesed()) {
             return std::make_unique<CheesedState>(PLAYER_CHEESED);
+        }
+        if (input == ATTACK) {
+            return std::make_unique<BombState>(PLAYER_CHEESED);
         }
     }
 

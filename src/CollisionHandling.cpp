@@ -123,13 +123,8 @@ void pizzaEnemyFloor(GameObject& object1, GameObject& object2)
 void PlayerStaticObject(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
-	sf::FloatRect intersect;
-	auto staticSprite = object2.getObjectSprite();
-	auto playerSprite = player.getObjectSprite();
-	if (playerSprite.getGlobalBounds().intersects(staticSprite.getGlobalBounds())) {
-		object2.setToErase();
-		player.increaseSaltBombs();
-	}
+	object2.setToErase();
+	player.increaseSaltBombs();
 }
 
 //----------------------------------------------
@@ -142,28 +137,24 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 	auto newPos = sf::Vector2f();
 	salt.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
 
-
-	if (intersect.height > intersect.width) 
+	/*if (intersect.height > intersect.width) 
 	{
-		if (salt.isDirectionRight()) 
-		{
-			newPos.x = -intersect.width;
-		}
+		newPos.x = -intersect.width;
 		else
 		{
 			newPos.x = intersect.width;
 		}
-	}
-	else 
+	}*/
+	/*if (intersect.height < intersect.width)
 	{
 		newPos.y = -intersect.height;
-	}
+	}*/
 
 	//from here logic of second jump when we exit from here we return to side to side strategy
 	sf::Vector2f prevPos= salt.getObjectSprite().getPosition();
 	if (!salt.toExplode()) {
 		auto Jumpspeed=salt.getJumpSpeed();
-		sf::Vector2f fixedPos = { newPos.x, Jumpspeed + newPos.y };
+		sf::Vector2f fixedPos = { newPos.x,Jumpspeed + newPos.y };
 		salt.setObjectPosition(prevPos + fixedPos);
 		salt.setExplode();
 	}

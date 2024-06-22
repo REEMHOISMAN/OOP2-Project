@@ -1,20 +1,16 @@
 #pragma once
-#include "GameObject/MovingObject/MovingObject.h"
+#include "GameObject/MovingObject/Weapon.h"
 #include "DesignPatterns/Strategies/MovingStrategy.h"
 
-class MovingSaltBomb :public MovingObject 
+class MovingSaltBomb :public Weapon 
 {
 public:
-	MovingSaltBomb(sf::Sprite&,bool);
-	virtual void move(sf::Time)override;
+	MovingSaltBomb(sf::Sprite&, std::unique_ptr<MovingStrategy> ,bool, float);
 	void setExplode();
 	bool toExplode();
-	bool isDirectionRight()const;
 	float getJumpSpeed()const;
 private:
 	float m_jumpSpeed;
-	
-	bool m_rightDirection;
 	bool m_toExplode;
 	std::unique_ptr<MovingStrategy> m_startegy;
 };

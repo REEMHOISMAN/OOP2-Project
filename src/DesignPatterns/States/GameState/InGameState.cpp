@@ -54,7 +54,7 @@ void InGameState::initTileMap()
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 				sprite.scale(0.4f, 0.4f);
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-				m_movingObjects.emplace_back(std::make_unique<Player>(sprite));
+				m_movingObjects.emplace_back(std::make_unique<Player>(sprite,*this));
 			}
 			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
 			{

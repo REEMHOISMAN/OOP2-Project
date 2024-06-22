@@ -5,10 +5,13 @@
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Obstacle.h"
 
+class MovingSaltBomb;
+class InGameState;
+
 class Player :public Entity
 {
 public:
-    Player(sf::Sprite&);
+    Player(sf::Sprite&, InGameState& );
 	void move(sf::Time);
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
@@ -17,6 +20,7 @@ public:
 	int getSaltBombsAmount()const;
 	void setCheesed(bool);
 	bool isCheesed()const;
+	void createBomb(std::unique_ptr< MovingSaltBomb>);
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
@@ -24,4 +28,5 @@ private:
 	int m_frame;
 	bool m_isCheesed;
 	sf::Time m_elapsed;
+	InGameState& m_game;
 };
