@@ -44,7 +44,7 @@ void BombState::update(sf::Time elapsed, Player& player)
     {   
         auto speed = elapsed.asSeconds() * 2000.f;
         player.createBomb(std::make_unique<MovingSaltBomb>(m_saltBomb, 
-            std::make_unique<SideToSideStrategy>(300.f,-2.f), player.isHeadDirectionRight(), -speed));
+            std::make_unique<SideToSideStrategy>(300.f,-4.f), player.isHeadDirectionRight(), -speed));
         player.decreaseSaltBombs();
 
     }

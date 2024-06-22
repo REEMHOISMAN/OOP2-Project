@@ -4,7 +4,7 @@
 MovingSaltBomb::MovingSaltBomb(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy,bool rightDirection,float Jumpspeed)
 	:Weapon(sprite,std::move(strategy), rightDirection), m_jumpSpeed(Jumpspeed), m_toExplode(false) 
 {
-	activateGravity(0.1f);
+	/*activateGravity(0.2f);*/
 }
 
 void MovingSaltBomb::setExplode()
@@ -16,7 +16,12 @@ bool MovingSaltBomb::toExplode()
 {
 	return m_toExplode;
 }
-float MovingSaltBomb::getJumpSpeed() const
+
+void MovingSaltBomb::move(sf::Time time)
 {
-	return m_jumpSpeed ;
+	if (!m_toExplode)
+		activateGravity(0.2f);
+	else
+		activateGravity(0.3f);
+	Weapon::move(time);
 }

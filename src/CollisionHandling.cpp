@@ -2,6 +2,7 @@
 #include "CollisionHandling.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
+#include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/MovingObject/BasicEnemy.h"
 #include "GameObject/MovingObject/PizzaEnemy.h"
@@ -136,7 +137,6 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 	auto obstacleSprite = object2.getObjectSprite();
 	auto newPos = sf::Vector2f();
 	salt.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-
 	/*if (intersect.height > intersect.width) 
 	{
 		newPos.x = -intersect.width;
@@ -145,17 +145,17 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 			newPos.x = intersect.width;
 		}
 	}*/
-	/*if (intersect.height < intersect.width)
+	if (intersect.height < intersect.width)
 	{
 		newPos.y = -intersect.height;
-	}*/
+	}
 
 	//from here logic of second jump when we exit from here we return to side to side strategy
 	sf::Vector2f prevPos= salt.getObjectSprite().getPosition();
 	if (!salt.toExplode()) {
-		auto Jumpspeed=salt.getJumpSpeed();
-		sf::Vector2f fixedPos = { newPos.x,Jumpspeed + newPos.y };
-		salt.setObjectPosition(prevPos + fixedPos);
+		salt.setObjectPosition(prevPos + newPos);
+		salt.resetGravity();
+		salt.setStrategy(std::make_unique< UpDownStrategy>(5));
 		salt.setExplode();
 	}
 	else

@@ -8,7 +8,7 @@ public:
 	MovingSaltBomb(sf::Sprite&, std::unique_ptr<MovingStrategy> ,bool, float);
 	void setExplode();
 	bool toExplode();
-	float getJumpSpeed()const;
+	virtual void move(sf::Time)override;
 private:
 	float m_jumpSpeed;
 	bool m_toExplode;

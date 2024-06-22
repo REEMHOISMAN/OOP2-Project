@@ -7,6 +7,7 @@ class Weapon : public MovingObject
 {
 public:
 	Weapon(sf::Sprite&, std::unique_ptr<MovingStrategy>, bool);
+	void setStrategy(std::unique_ptr<MovingStrategy> strategy);
 	void move(sf::Time)override;
 
 private:

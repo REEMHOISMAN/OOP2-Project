@@ -10,15 +10,15 @@ sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,f
 {
 	sf::Vector2f newPos;
 	float newX;
-	gravity < 0.6f ? newX = deltaTime.asSeconds() * m_speed : newX = 0;
-	
+	//gravity < 0.6f ? newX = deltaTime.asSeconds() * m_speed : newX = 0;
+	newX = deltaTime.asSeconds() * m_speed;
 	if (rightDirection)
 	{
-	    newPos={ newX,m_height+=gravity};
+	    newPos={ newX,m_height+gravity};
 	}
 	else 
 	{
-		newPos = {-newX, m_height+=gravity};
+		newPos = {-newX, m_height+gravity};
 	}
 	return newPos;
 }

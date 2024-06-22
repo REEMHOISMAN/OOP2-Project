@@ -9,3 +9,8 @@ void Weapon::move(sf::Time elapsedTime)
 	auto newPos = m_moveStrategy->move(elapsedTime, m_rightDirection, getGravity());
 	setObjectPosition(getObjectSprite().getPosition() + newPos );
 }
+
+void Weapon::setStrategy(std::unique_ptr<MovingStrategy> strategy)
+{
+	m_moveStrategy = std::move(strategy);
+}
