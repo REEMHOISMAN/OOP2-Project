@@ -20,26 +20,18 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
 	sf::Text score;
 	score.setFont(ResourceManager::instance().getFont());
 	score.setFillColor(sf::Color::White);
+	
 	score.setPosition(window.getView().getCenter().x + 80, window.getView().getCenter().y + 315);
 	score.setString("x "+ std::to_string(player.getSaltBombsAmount()));
 	score.setCharacterSize(50);
+	
+	window.draw(sprite);
+	window.draw(score);
+	sprite.setTexture(ResourceManager::instance().getTexture("coin"), true);
+	sprite.setPosition(window.getView().getCenter().x-280, window.getView().getCenter().y + 320);
+	sprite.scale(1.3, 1.3);
+	score.setPosition(window.getView().getCenter().x -200, window.getView().getCenter().y + 315);
+	score.setString("x " + std::to_string(player.getCoins()));
 	window.draw(sprite);
 	window.draw(score);
 }
-
-//void UserInterface::setStaticObjectInfo(std::string& str, float factorX, float factorY)
-//{
-//	m_userInterface.setPosition(window.getView().getCenter());
-//	window.draw(m_userInterface);
-//	sf::Sprite sprite(ResourceManager::instance().getTexture("salt"));
-//	sprite.setPosition(window.getView().getCenter().x, window.getView().getCenter().y + 310);
-//	sprite.scale(2.5f, 2.5f);
-//	sf::Text score;
-//	score.setFont(ResourceManager::instance().getFont());
-//	score.setFillColor(sf::Color::White);
-//	score.setPosition(window.getView().getCenter().x + 80, window.getView().getCenter().y + 315);
-//	score.setString("x " + std::to_string(player.getSaltBombsAmount()));
-//	score.setCharacterSize(50);
-//	window.draw(sprite);
-//	window.draw(score);
-//}

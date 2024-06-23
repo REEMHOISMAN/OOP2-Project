@@ -9,8 +9,10 @@ class UserInterface
 public:
 	UserInterface();
 	void showGameInfo(sf::RenderWindow& window, Player&);
-	void setStaticObjectInfo(Player& ,sf::RenderWindow& window,std::string str,std::string toStr,float factorX, float factorY);
+	void setStaticObjectInfo(std::string& str, float factorX, float factorY);
 
 private:
+	void setSpriteInfo(sf::Sprite& sprite, float factorX, float factorY);
+	void setSpriteInfo(std::string& str, float factorX, float factorY);
 	sf::RectangleShape m_userInterface;
 };
