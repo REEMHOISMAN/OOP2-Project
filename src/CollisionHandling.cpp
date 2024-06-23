@@ -157,15 +157,20 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 
 	//from here logic of second jump when we exit from here we return to side to side strategy
 	sf::Vector2f prevPos= salt.getObjectSprite().getPosition();
-	if (!salt.toExplode()) {
+	if (salt.getJumps()<1) {
 		salt.setObjectPosition(prevPos + newPos);
 		salt.resetGravity();
 		salt.setStrategy(std::make_unique< UpDownStrategy>(5));
-		salt.setExplode();
+		salt.setJumps();
 	}
-	else
-	{
-		salt.setToErase();
+	else {
+		salt.setObjectPosition(prevPos+newPos);
+		sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
+		sprite.setPosition({ object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y - 35 });
+		sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
+		sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+		salt.setObjectSprite(sprite);
+		salt.setExplode();
 	}
 }
 
@@ -188,6 +193,12 @@ void playerCheeseBullet(GameObject& object1, GameObject& object2)
 //-----------------------------------------------
 void enemySaltBomb(GameObject& object1, GameObject& object2)
 {
+	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
 	object1.setToErase();
-	object2.setToErase();
+	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
+	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
+	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
+	sprite.setPosition(object2.getObjectSprite().getPosition());
+	saltBomb.setObjectSprite(sprite);
+	saltBomb.setExplode();
 }

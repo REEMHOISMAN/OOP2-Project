@@ -78,6 +78,10 @@ void ResourceManager::initAnimations()
                                                                                        sf::IntRect({ 738,88,174,148 }),
                                                                                        sf::IntRect({ 67,319,196,151 })}));
 
+    m_animations.emplace(std::make_pair(EXPLOSION, std::vector<sf::IntRect>{  sf::IntRect({ 34,115,116,61 }),
+                                                                              sf::IntRect({ 257,127,105,53 }),
+                                                                              sf::IntRect({ 498,101,118,86 })}));
+
  }
 /*================== getAnimation =================*/
 std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation type)
@@ -96,7 +100,9 @@ std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation ty
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "frameBackground",  "tileMap", "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", "cheese","salt"};
+    { "playerSpriteSheet", "background", "frameBackground",  "tileMap", 
+       "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", 
+        "cheese","salt", "explosionSpriteSheet"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

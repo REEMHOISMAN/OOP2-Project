@@ -25,7 +25,7 @@ public:
 	virtual void setAnimationFrame(Player& player, sf::Time delta);
 
 private:
-	std::vector<sf::IntRect> m_animation;
+	Animation m_animation;
 	sf::Time m_elapsed;
 	sf::Time m_animationTimer;
 	int m_frame;

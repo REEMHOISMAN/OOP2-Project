@@ -1,27 +1,52 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 
 MovingSaltBomb::MovingSaltBomb(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy,bool rightDirection)
-	:Weapon(sprite,std::move(strategy), rightDirection), m_toExplode(false) 
+	:Weapon(sprite,std::move(strategy), rightDirection), m_toExplode(false), m_frame(-1), m_elapsed(sf::seconds(0.f)),m_jumps(0)
 {
-	/*activateGravity(0.2f);*/
+	m_explodeAnimation =ResourceManager::instance().getAnimation(EXPLOSION);
 }
 
 void MovingSaltBomb::setExplode()
 {
-	m_toExplode = !m_toExplode;
+	m_toExplode = true;
 }
 
-bool MovingSaltBomb::toExplode()
+void MovingSaltBomb::setJumps()
 {
-	return m_toExplode;
+	m_jumps++;
+}
+
+int MovingSaltBomb::getJumps() const
+{
+	return m_jumps;
 }
 
 void MovingSaltBomb::move(sf::Time time)
 {
+	if (m_toExplode){
+		updateExplodeAnimation(time);
+		return;
+	}
 	if (!m_toExplode)
 		activateGravity(0.2f);
 	else
 		activateGravity(0.3f);
 	Weapon::move(time);
 }
+
+void MovingSaltBomb::updateExplodeAnimation(sf::Time time)
+{
+	m_elapsed += time;
+	if (m_elapsed >= sf::seconds(0.1f))
+	{
+		m_elapsed -= sf::seconds(0.1f);
+		++m_frame;
+		m_frame %= m_explodeAnimation.size();
+		setTextureRect(m_explodeAnimation[m_frame]);
+	}
+	if (m_frame == m_explodeAnimation.size() - 1)
+		setToErase();
+}
+
