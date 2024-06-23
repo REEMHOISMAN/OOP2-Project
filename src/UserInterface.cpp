@@ -18,12 +18,14 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
 	sprite.setPosition(window.getView().getCenter().x, window.getView().getCenter().y + 310);
 	sprite.scale(2.5f, 2.5f);
 	sf::Text score;
+	score.setCharacterSize(55);
+	score.setOutlineThickness(0.7);
+	score.setStyle(score.Bold);
 	score.setFont(ResourceManager::instance().getFont());
 	score.setFillColor(sf::Color::White);
 	
 	score.setPosition(window.getView().getCenter().x + 80, window.getView().getCenter().y + 315);
 	score.setString("x "+ std::to_string(player.getSaltBombsAmount()));
-	score.setCharacterSize(50);
 	
 	window.draw(sprite);
 	window.draw(score);
