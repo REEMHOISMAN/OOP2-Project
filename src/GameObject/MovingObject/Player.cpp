@@ -7,7 +7,7 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include <iostream>
 
-Player::Player(InGameState& game):m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0)
+Player::Player(InGameState& game):m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0), m_hearts(5)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
@@ -71,7 +71,8 @@ void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 
 void Player::increaseHearts()
 {
-	m_hearts++;
+	if (m_hearts < 5)
+		m_hearts++;
 }
 
 void Player::decreaseHearts()

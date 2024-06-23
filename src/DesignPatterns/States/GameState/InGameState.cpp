@@ -17,16 +17,11 @@ InGameState::InGameState() : m_player(*this)
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
 	m_background.setPosition(WIDTH/2, HEIGHT/2);
 	
-
-	/*m_userInterfaceFrame.setTexture(&ResourceManager::instance().getTexture("frameBackground"));
-	m_userInterfaceFrame.setSize({ float(WIDTH), float(HEIGHT) });
-	m_userInterfaceFrame.setOrigin(m_userInterfaceFrame.getSize().x / 2, m_userInterfaceFrame.getSize().y / 2);
-	m_userInterfaceFrame.setPosition(WIDTH / 2, HEIGHT/2);*/
 	initTileMap();
 	initCollisionFunctions();
 }
 
-
+//----------------------------------------------------------
 void InGameState::initTileMap()
 {
 	auto image = sf::Image();
@@ -86,6 +81,7 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color(136, 0, 21))
 			{
 				sprite = createNewObjectSprite(factor_x, factor_y+30, "heart", 2.f);
+				sprite.setTextureRect(sf::IntRect(36, 5, 24, 24));
 				m_staticObjects.emplace_back(std::make_unique<Heart>(sprite));
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 237, 92))
