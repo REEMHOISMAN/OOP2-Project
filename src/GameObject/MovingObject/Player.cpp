@@ -68,3 +68,28 @@ void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 {
 	m_game.insertMovingObject(std::move(salt));
 }
+
+void Player::increaseHearts()
+{
+	m_hearts++;
+}
+
+void Player::decreaseHearts()
+{
+	m_hearts--;
+}
+
+int Player::getHearts() const
+{
+	return m_hearts;
+}
+
+void Player::increaseCoins()
+{
+	m_coins++;
+}
+
+int Player::getCoins() const
+{
+	return m_coins;
+}
