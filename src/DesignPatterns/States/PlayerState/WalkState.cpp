@@ -3,6 +3,7 @@
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "DesignPatterns/States/PlayerState/RunState.h"
 #include "DesignPatterns/States/PlayerState/CheesedState.h"
+#include "DesignPatterns/States/PlayerState/BombState.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 
@@ -18,7 +19,9 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     {
         return std::make_unique<StandState>(PLAYER_STAND);
     }
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)&& player.getSaltBombsAmount() > 0) {
+        return std::make_unique<BombState>(PLAYER_STAND);
+    }
     if (input == SPACE && player.isOnGround() && !player.isBlockedFromSide()) {
         player.setOnGround(false);
         return std::make_unique<JumpState>(PLAYER_JUMP);

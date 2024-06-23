@@ -9,3 +9,4 @@ void PlayerStaticObject(GameObject&, GameObject&);
 void saltBombObstacle(GameObject&, GameObject&);
 void cheeseBulletObstacle(GameObject&, GameObject&);
 void playerCheeseBullet(GameObject&, GameObject&);
+void enemySaltBomb(GameObject&, GameObject&);

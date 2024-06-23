@@ -9,42 +9,35 @@
 #include "GameObject/MovingObject/Player.h"
 
 BombState::BombState(const ObjectAnimation animation)
-	:PlayerState(animation,sf::seconds(0.1f))
+	:PlayerState(animation,sf::seconds(0.1f)),m_XisPressed(true)
 {
 }
 
 std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 {
-	if (input == NONE) {
+	if (!m_XisPressed) {
 		return std::make_unique<StandState>(PLAYER_STAND);
 	}
-    if (player.isOnGround()) {  
-        if (input == SPACE) {
-            player.setOnGround(false);
-            return std::make_unique<JumpState>(PLAYER_JUMP);
-        }
-        if ((input == RIGHT || input == LEFT)) {
-            return std::make_unique<WalkState>(PLAYER_WALK);
-        }
-        if (player.isCheesed()) {
-            return std::make_unique<CheesedState>(PLAYER_CHEESED);
-        }
+    if (input != ATTACK)
+    {
+        m_XisPressed = false;
     }
-	return NULL;
+   
+	return nullptr;
 }
 
 void BombState::update(sf::Time elapsed, Player& player)
 {
     auto pos = player.getObjectSprite().getPosition();
-    player.activateGravity(0.3f);
+    player.activateGravity(0.1f);
     m_saltBomb.setTexture(ResourceManager::instance().getTexture("salt"));
     m_saltBomb.setScale(2.f, 2.f);
     m_saltBomb.setPosition(pos);
-    if (player.getSaltBombsAmount() > 0)
+    if (player.getSaltBombsAmount() > 0 && !m_XisPressed)
     {   
-        auto speed = elapsed.asSeconds() * 2000.f;
+
         player.createBomb(std::make_unique<MovingSaltBomb>(m_saltBomb, 
-            std::make_unique<SideToSideStrategy>(300.f,-4.f), player.isHeadDirectionRight(), -speed));
+            std::make_unique<SideToSideStrategy>(300.f,-4.f), player.isHeadDirectionRight()));
         player.decreaseSaltBombs();
 
     }

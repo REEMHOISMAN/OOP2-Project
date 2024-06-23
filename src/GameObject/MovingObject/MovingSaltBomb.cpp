@@ -1,8 +1,8 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
-MovingSaltBomb::MovingSaltBomb(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy,bool rightDirection,float Jumpspeed)
-	:Weapon(sprite,std::move(strategy), rightDirection), m_jumpSpeed(Jumpspeed), m_toExplode(false) 
+MovingSaltBomb::MovingSaltBomb(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy,bool rightDirection)
+	:Weapon(sprite,std::move(strategy), rightDirection), m_toExplode(false) 
 {
 	/*activateGravity(0.2f);*/
 }

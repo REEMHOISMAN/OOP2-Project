@@ -3,7 +3,7 @@
 #include "GameObject/MovingObject/Player.h"
 
 CheesedState::CheesedState(const ObjectAnimation animation): 
-	PlayerState(animation, sf::seconds(0.f)), m_spaceCounter(3), m_pressingOnSpace(false), m_wasPressedOnSpace(false)
+	PlayerState(animation, sf::seconds(0.f)), m_spaceCounter(3), m_pressingOnSpace(false), m_wasPressedOnSpace(true)
 {
 }
 
@@ -28,22 +28,11 @@ std::unique_ptr<PlayerState> CheesedState::handleEvent(Input input, Player& play
 //-----------------------------------------
 void CheesedState::update(sf::Time time, Player& player)
 {
-	static bool first = true;
-
-	if (first) // if we dont do this.. until the first "space" you'll see him freezing with no animation
-	{
-		setAnimationFrame(player, time);
-		first = false;
-	}
-
-	else if (!m_pressingOnSpace && m_wasPressedOnSpace)
+	if (!m_pressingOnSpace && m_wasPressedOnSpace)
 	{
 		--m_spaceCounter;
 		setAnimationFrame(player, time);
 	}
-	
-	if (m_spaceCounter == 0) // just because it static bool
-		first = true;
 	
 	m_wasPressedOnSpace = m_pressingOnSpace;
 	

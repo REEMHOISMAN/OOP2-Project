@@ -179,7 +179,6 @@ void InGameState::checkCollision()
 			}
 		}
 	}
-
 	for (auto entity = m_movingObjects.begin(); entity != m_movingObjects.end(); ++entity)
 	{
 		for (auto object = m_staticObjects.begin(); object != m_staticObjects.end(); ++object)

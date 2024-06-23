@@ -24,10 +24,15 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticObject);
+	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(BasicEnemy), &enemySaltBomb);
+	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(PizzaEnemy), &enemySaltBomb);
+	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
+	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(Obstacle), &saltBombObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Obstacle), &cheeseBulletObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Player), &playerCheeseBullet);
+
 }
 
 //-----------------------------------------------------------------------
@@ -179,4 +184,10 @@ void playerCheeseBullet(GameObject& object1, GameObject& object2)
 
 	player.setCheesed(true);
 	cheeseBulletObstacle(object2, player); // the cheese will be remove...
+}
+//-----------------------------------------------
+void enemySaltBomb(GameObject& object1, GameObject& object2)
+{
+	object1.setToErase();
+	object2.setToErase();
 }

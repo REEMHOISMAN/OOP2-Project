@@ -22,7 +22,7 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
             return std::make_unique<CheesedState>(PLAYER_CHEESED);
         }
         if (input == ATTACK) {
-            return std::make_unique<BombState>(PLAYER_CHEESED);
+            return std::make_unique<BombState>(PLAYER_STAND);
         }
     }
 
