@@ -163,12 +163,12 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 		salt.setStrategy(std::make_unique< UpDownStrategy>(5));
 		salt.setJumps();
 	}
-	else {
-		salt.setObjectPosition(prevPos+newPos);
+	else if (!salt.isExplode()){
+		//salt.setObjectPosition(prevPos+newPos);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
-		sprite.setPosition({ object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y - 35 });
 		sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
-		sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+		sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
+		sprite.setPosition(object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y-35);
 		salt.setObjectSprite(sprite);
 		salt.setExplode();
 	}

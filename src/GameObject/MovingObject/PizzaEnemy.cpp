@@ -5,6 +5,7 @@
 #include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
+#include "GameObject/StaticObject/Pizza.h"
 
 bool PizzaEnemy::m_register = EnemyFactory::registerPizzaEnemy(PIZZA_ENEMY_MOVE,
 	[](auto& sprite, auto factor, auto enemyType, auto& game)->std::unique_ptr<Enemy>
@@ -29,5 +30,10 @@ void PizzaEnemy::move(sf::Time deltaTime)
 void PizzaEnemy::createCheese(std::unique_ptr<Weapon> cheese)
 {
 	m_game.insertMovingObject(std::move(cheese));
+}
+
+void PizzaEnemy::createPizza(std::unique_ptr<Pizza> pizza)
+{
+	m_game.insertStaticObject(std::move(pizza));
 }
 

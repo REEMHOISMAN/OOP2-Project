@@ -80,7 +80,9 @@ void ResourceManager::initAnimations()
 
     m_animations.emplace(std::make_pair(EXPLOSION, std::vector<sf::IntRect>{  sf::IntRect({ 34,115,116,61 }),
                                                                               sf::IntRect({ 257,127,105,53 }),
-                                                                              sf::IntRect({ 498,101,118,86 })}));
+                                                                              sf::IntRect({ 498,101,118,86 }),
+                                                                              sf::IntRect({ 750,71,156,126 }),
+        sf::IntRect({ 1015,57,187,138 })}));
 
  }
 /*================== getAnimation =================*/

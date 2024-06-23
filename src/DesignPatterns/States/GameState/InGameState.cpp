@@ -128,6 +128,11 @@ void InGameState::insertMovingObject(std::unique_ptr<MovingObject> object)
 	m_movingObjects.emplace_back(std::move(object));
 }
 
+void InGameState::insertStaticObject(std::unique_ptr<StaticObject> object)
+{
+	m_staticObjects.emplace_back(std::move(object));
+}
+
 void InGameState::drawBoard(sf::RenderWindow& window) const
 {
 	m_player.draw(window);

@@ -13,6 +13,11 @@ void MovingSaltBomb::setExplode()
 	m_toExplode = true;
 }
 
+bool MovingSaltBomb::isExplode()
+{
+	return m_toExplode;
+}
+
 void MovingSaltBomb::setJumps()
 {
 	m_jumps++;
@@ -31,22 +36,21 @@ void MovingSaltBomb::move(sf::Time time)
 	}
 	if (!m_toExplode)
 		activateGravity(0.2f);
-	else
-		activateGravity(0.3f);
+	
 	Weapon::move(time);
 }
 
 void MovingSaltBomb::updateExplodeAnimation(sf::Time time)
 {
 	m_elapsed += time;
-	if (m_elapsed >= sf::seconds(0.1f))
+	if (m_elapsed >= sf::seconds(0.2f))
 	{
-		m_elapsed -= sf::seconds(0.1f);
+		m_elapsed -= sf::seconds(0.2f);
 		++m_frame;
 		m_frame %= m_explodeAnimation.size();
 		setTextureRect(m_explodeAnimation[m_frame]);
 	}
-	if (m_frame == m_explodeAnimation.size() - 1)
+	if (m_frame == m_explodeAnimation.size()-1)
 		setToErase();
 }
 

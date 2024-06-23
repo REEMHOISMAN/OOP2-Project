@@ -15,6 +15,7 @@ public:
 	virtual void update(sf::Time) override;
 	virtual void render(sf::RenderWindow&) override;
 	void insertMovingObject(std::unique_ptr<MovingObject>);
+	void insertStaticObject(std::unique_ptr<StaticObject>);
 
 private:
 	sf::Sprite createNewObjectSprite(float, float, const std::string,float scle=1.f)const;
