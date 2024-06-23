@@ -8,6 +8,8 @@
 #include "GameObject/MovingObject/PizzaEnemy.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
+#include "GameObject/StaticObject/Coin.h"
+#include "GameObject/StaticObject/Heart.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 
@@ -23,7 +25,9 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
-	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticObject);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticBomb);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Heart), &PlayerHeart);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Coin), &PlayerCoins);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(BasicEnemy), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(PizzaEnemy), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
@@ -126,11 +130,26 @@ void pizzaEnemyFloor(GameObject& object1, GameObject& object2)
 
 //----------------------------------------------
 //colisiion with al the static objects in game- hearts coins salts ...
-void PlayerStaticObject(GameObject& object1, GameObject& object2)
+void PlayerStaticBomb(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	object2.setToErase();
 	player.increaseSaltBombs();
+	
+}
+void PlayerHeart(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	object2.setToErase();
+	player.increaseHearts();
+
+}
+void PlayerCoins(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	object2.setToErase();
+	player.increaseCoins();
+
 }
 
 //----------------------------------------------

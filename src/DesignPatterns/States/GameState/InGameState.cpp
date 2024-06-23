@@ -4,6 +4,8 @@
 #include "CollisionHandling.h"
 #include "DesignPatterns/Factories/EnemyFactory.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
+#include "GameObject/StaticObject/Heart.h"
+#include "GameObject/StaticObject/Coin.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "Macros.h"
 
@@ -80,6 +82,16 @@ void InGameState::initTileMap()
 			{
 				sprite = createNewObjectSprite(factor_x, MIN_Y, "salt",2.f);
 				m_staticObjects.emplace_back(std::make_unique<StaticSaltBomb>(sprite));
+			}
+			else if (image.getPixel(x, y) == sf::Color(136, 0, 21))
+			{
+				sprite = createNewObjectSprite(factor_x, factor_y+30, "heart", 2.f);
+				m_staticObjects.emplace_back(std::make_unique<Heart>(sprite));
+			}
+			else if (image.getPixel(x, y) == sf::Color(255, 237, 92))
+			{
+				sprite = createNewObjectSprite(factor_x, factor_y+30, "coin", 3.f);
+				m_staticObjects.emplace_back(std::make_unique<Coin>(sprite));
 			}
 			factor_x += 85.f; 
 		}
