@@ -3,6 +3,7 @@
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/MovingObject/MovingObject.h"
 #include "GameObject/StaticObject/StaticObject.h"
+#include "UserInterface.h"
 #include <vector>
 #include <list>
 
@@ -22,8 +23,9 @@ private:
 	void checkCollision();
 
 	sf::RectangleShape m_background;
-	sf::RectangleShape m_userInterfaceFrame;
+	UserInterface m_ui;
 	std::list<std::unique_ptr<MovingObject>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
+	Player m_player;
 };
 

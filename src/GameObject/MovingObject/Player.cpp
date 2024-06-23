@@ -7,8 +7,7 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include <iostream>
 
-//-----------------------------------------
-Player::Player(sf::Sprite& sprite, InGameState& game): Entity(sprite), m_frame(0), m_saltBombsStack(0), m_isCheesed(false),m_game(game)
+Player::Player(InGameState& game):m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }

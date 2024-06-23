@@ -30,6 +30,12 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
     return m_textures[type];
 }
 
+
+sf::Font& ResourceManager::getFont()
+{
+    return m_font;
+}
+
 /*================== initAnimations =================*/
 /**----------------------------------------------
  * each enemy (or player state) had is own vector of animation

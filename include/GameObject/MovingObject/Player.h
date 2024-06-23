@@ -11,7 +11,8 @@ class InGameState;
 class Player :public Entity
 {
 public:
-    Player(sf::Sprite&, InGameState& );
+	Player(InGameState&);
+    Player(InGameState&, sf::Sprite&);
 	void move(sf::Time);
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;

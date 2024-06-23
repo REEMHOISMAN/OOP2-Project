@@ -1,6 +1,8 @@
 #include "GameObject/GameObject.h"
 #include <iostream> 
 
+GameObject::GameObject():m_eraseCondition(false){}
+
 GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{ false }, m_eraseCondition{false} {}
 
 void GameObject::setObjectPosition(const sf::Vector2f& newPos)
@@ -24,10 +26,10 @@ void GameObject::setScale()
  	m_sprite.scale(-1.f,1.f);
 }
 //---------------------------------------------------------
-//void GameObject::setOrigin(const sf::Vector2f& origin)
-//{
-//	m_sprite.setOrigin(origin);
-//}
+void GameObject::setObjectSprite(sf::Sprite& sprite)
+{
+	m_sprite = sprite;
+}
 
 //---------------------------------------------------------
 void GameObject::setTextureRect(const sf::IntRect& rect)

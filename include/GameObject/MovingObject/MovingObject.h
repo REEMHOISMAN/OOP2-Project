@@ -4,6 +4,7 @@
 class MovingObject:public GameObject 
 {
 public:
+	MovingObject() = default;
 	MovingObject(sf::Sprite&);
 	virtual void move(sf::Time)=0;
 	void setOnGround(bool val);

@@ -4,13 +4,14 @@
 class GameObject 
 {
 public:
+	GameObject();
 	GameObject(sf::Sprite&);
 	void setObjectPosition(const sf::Vector2f&);
 	virtual ~GameObject() = default;
 	virtual void draw(sf::RenderWindow& window)const;
 	sf::Sprite getObjectSprite()const;
 	void setScale();
-	//void setOrigin(const sf::Vector2f& origin);
+	void setObjectSprite(sf::Sprite&);
 	void setTextureRect(const sf::IntRect&);
 	bool isCollide(const sf::Sprite& sprite);
 	bool playerIsColide()const;

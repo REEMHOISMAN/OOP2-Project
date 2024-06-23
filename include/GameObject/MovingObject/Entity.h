@@ -4,8 +4,9 @@
 class Entity :public MovingObject
 {
 public:
+	Entity() = default;
 	Entity(sf::Sprite&);
-	virtual void move(sf::Time) = 0;
+	//virtual void move(sf::Time) = 0;
 	bool isHeadDirectionRight() const;
 	void setHeadDirection(bool);
 	

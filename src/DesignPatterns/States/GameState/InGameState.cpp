@@ -7,7 +7,7 @@
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "Macros.h"
 
-InGameState::InGameState()
+InGameState::InGameState() : m_player(*this)
 {
 	auto texture = &ResourceManager::instance().getTexture("background");
 	m_background.setTexture(texture);
@@ -16,10 +16,10 @@ InGameState::InGameState()
 	m_background.setPosition(WIDTH/2, HEIGHT/2);
 	
 
-	m_userInterfaceFrame.setTexture(&ResourceManager::instance().getTexture("frameBackground"));
+	/*m_userInterfaceFrame.setTexture(&ResourceManager::instance().getTexture("frameBackground"));
 	m_userInterfaceFrame.setSize({ float(WIDTH), float(HEIGHT) });
 	m_userInterfaceFrame.setOrigin(m_userInterfaceFrame.getSize().x / 2, m_userInterfaceFrame.getSize().y / 2);
-	m_userInterfaceFrame.setPosition(WIDTH / 2, HEIGHT/2);
+	m_userInterfaceFrame.setPosition(WIDTH / 2, HEIGHT/2);*/
 	initTileMap();
 	initCollisionFunctions();
 }
@@ -54,7 +54,7 @@ void InGameState::initTileMap()
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 				sprite.scale(0.4f, 0.4f);
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-				m_movingObjects.emplace_back(std::make_unique<Player>(sprite,*this));
+				m_player.setObjectSprite(sprite);
 			}
 			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
 			{
@@ -100,6 +100,7 @@ GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)/
 
 void InGameState::update(sf::Time time)
 {
+	m_player.move(time);
 	std::for_each(m_movingObjects.begin(), m_movingObjects.end(), [&time](auto& entity) {entity->move(time); });
 	checkCollision();
 }
@@ -119,8 +120,7 @@ void InGameState::render(sf::RenderWindow&window)
 	window.draw(m_background);
 
 	drawBoard(window);
-	m_userInterfaceFrame.setPosition(window.getView().getCenter());
-	window.draw(m_userInterfaceFrame);
+	m_ui.showGameInfo(window, m_player);
 }
 
 void InGameState::insertMovingObject(std::unique_ptr<MovingObject> object)
@@ -130,12 +130,39 @@ void InGameState::insertMovingObject(std::unique_ptr<MovingObject> object)
 
 void InGameState::drawBoard(sf::RenderWindow& window) const
 {
+	m_player.draw(window);
 	std::for_each(m_movingObjects.cbegin(), m_movingObjects.cend(), [&window](const auto& entity) {entity->draw(window); });
 	std::for_each(m_staticObjects.cbegin(), m_staticObjects.cend(), [&window](const auto& object) {object->draw(window); });
 }
 
 void InGameState::checkCollision()
 {
+
+	for (auto& entity : m_movingObjects)
+	{
+		if (m_player.isCollide(entity->getObjectSprite()))
+		{
+			auto func = GameCollisions::instance().CollusionFunc(typeid(m_player), typeid(*entity));
+			if (func != nullptr)
+			{
+				func(m_player, *entity);
+			}
+		}
+
+
+	}
+
+	for (auto& object : m_staticObjects)
+	{
+		if (m_player.isCollide(object->getObjectSprite()))
+		{
+			auto func = GameCollisions::instance().CollusionFunc(typeid(m_player), typeid(*object));
+			if (func != nullptr)
+			{
+				func(m_player, *object);
+			}
+		}
+	}
 
 	for (auto entity1 = m_movingObjects.begin(); entity1 != m_movingObjects.end(); ++entity1)
 	{

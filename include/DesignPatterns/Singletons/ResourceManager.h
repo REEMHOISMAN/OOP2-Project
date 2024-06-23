@@ -12,6 +12,7 @@ class ResourceManager
 public:
 	static ResourceManager& instance();
 	sf::Texture& getTexture(const std::string);
+	sf::Font& getFont();
 	std::vector<sf::IntRect>& getAnimation(const ObjectAnimation);
 
 private:
