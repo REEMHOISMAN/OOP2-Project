@@ -11,8 +11,7 @@ public:
 	virtual void handleColiisionWithPizza(Pizza&, Player&)override;
 
 private:
-	bool m_pickUpPizza;
 	float m_pizzaHeight;
-	bool m_pizzaWasPicked;
 	bool m_DownIsPressed;
+	bool m_holdingPizza;
 };

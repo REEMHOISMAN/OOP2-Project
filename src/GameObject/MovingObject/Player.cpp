@@ -92,6 +92,7 @@ void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 void Player::dropPizza(std::unique_ptr<Pizza>pizza)
 {
 	m_game.insertStaticObject(std::move(pizza));
+	m_pizzas--;
 }
 
 void Player::increaseHearts()
