@@ -14,7 +14,7 @@ JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, s
 
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
-{	
+     {	
 
 	if (player.isCheesed())
 		return std::make_unique<CheesedState>(PLAYER_CHEESED);

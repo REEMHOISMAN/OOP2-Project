@@ -26,7 +26,7 @@ private:
 	sf::RectangleShape m_background;
 	UserInterface m_ui;
 	std::list<std::unique_ptr<MovingObject>> m_movingObjects;
-	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
+	std::list<std::unique_ptr<StaticObject>> m_staticObjects;
 	Player m_player;
 };
 

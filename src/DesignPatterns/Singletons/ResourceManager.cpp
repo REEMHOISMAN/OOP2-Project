@@ -78,11 +78,17 @@ void ResourceManager::initAnimations()
                                                                                        sf::IntRect({ 738,88,174,148 }),
                                                                                        sf::IntRect({ 67,319,196,151 })}));
 
+    m_animations.emplace(std::make_pair(PIZZA_ENEMY_DIE, std::vector<sf::IntRect>{  sf::IntRect({ 311,322,171,148 }),
+                                                                                    sf::IntRect({ 543,328,152,140 }),
+                                                                                    sf::IntRect({ 530,578,155,92 }),
+                                                                                    sf::IntRect({ 743,596,151,75 }), 
+                                                                                    sf::IntRect({ 753,333,102,143 })}));
+
     m_animations.emplace(std::make_pair(EXPLOSION, std::vector<sf::IntRect>{  sf::IntRect({ 34,115,116,61 }),
                                                                               sf::IntRect({ 257,127,105,53 }),
                                                                               sf::IntRect({ 498,101,118,86 }),
                                                                               sf::IntRect({ 750,71,156,126 }),
-        sf::IntRect({ 1015,57,187,138 })}));
+                                                                              sf::IntRect({ 1015,57,187,138 })}));
 
  }
 /*================== getAnimation =================*/
@@ -104,7 +110,7 @@ void ResourceManager::initTextures()
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
     { "playerSpriteSheet", "background", "frameBackground",  "tileMap", 
        "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet", 
-        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead"};
+        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

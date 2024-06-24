@@ -12,6 +12,7 @@ public:
     PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, InGameState&);
     virtual void move(sf::Time) override;
     void createCheese(std::unique_ptr<Weapon> cheese);
+    void loadDieState();
     void createPizza(std::unique_ptr<Pizza>);
 
 private:

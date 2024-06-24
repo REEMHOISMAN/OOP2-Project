@@ -34,7 +34,6 @@ void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f&
 	sprite.setPosition(pos);
 	sprite.scale(scaleFactor, scaleFactor);
 	window.draw(sprite);
-
 }
 
 

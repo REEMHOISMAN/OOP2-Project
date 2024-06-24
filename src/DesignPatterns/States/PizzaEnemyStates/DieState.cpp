@@ -20,6 +20,10 @@ void DieState::update(sf::Time time, PizzaEnemy& pizzaEnemy)
 	if (end)
 	{
 		sf::Sprite sprite(ResourceManager::instance().getTexture("pizza"));
+		sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
+		sprite.setPosition(pizzaEnemy.getObjectSprite().getPosition().x,MIN_Y+47.f);
+		sprite.scale(1.7f,1.7f);
 		pizzaEnemy.createPizza(std::make_unique<Pizza>(sprite));
+		pizzaEnemy.setToErase();
 	}
 }

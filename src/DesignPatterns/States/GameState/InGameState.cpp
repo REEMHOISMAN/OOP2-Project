@@ -70,7 +70,7 @@ void InGameState::initTileMap()
 			}
 			else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
 			{
-				sprite = createNewObjectSprite(factor_x,500, "PizzaEnemySheet");
+				sprite = createNewObjectSprite(factor_x,factor_y, "PizzaEnemySheet");
 				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f, *this));
 			}
 			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
@@ -206,7 +206,7 @@ void InGameState::checkCollision()
 			}
 		}
 	}
-	std::erase_if(m_staticObjects, [](const auto& staticObject) { return staticObject->ToErase();});
+	m_staticObjects.remove_if([](const auto& staticObject) { return staticObject->ToErase();});
 	m_movingObjects.remove_if([](const auto& movingObject) { return movingObject->ToErase(); });
 }
 

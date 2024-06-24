@@ -4,6 +4,7 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
 #include "DesignPatterns/States/GameState/InGameState.h"
+#include "DesignPatterns/States/PizzaEnemyStates/DieState.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
 
@@ -32,6 +33,14 @@ void PizzaEnemy::createCheese(std::unique_ptr<Weapon> cheese)
 	m_game.insertMovingObject(std::move(cheese));
 }
 
+//-----------------------------------------------------
+void PizzaEnemy::loadDieState()
+{
+	m_state = std::make_unique<DieState>(PIZZA_ENEMY_DIE);
+}
+
+
+//-------------------------------------
 void PizzaEnemy::createPizza(std::unique_ptr<Pizza> pizza)
 {
 	m_game.insertStaticObject(std::move(pizza));
