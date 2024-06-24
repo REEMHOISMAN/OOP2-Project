@@ -12,6 +12,7 @@ public:
 
 private:
 	bool m_pickUpPizza;
+	float m_pizzaHeight;
 	bool m_pizzaWasPicked;
 	bool m_DownIsPressed;
 };
