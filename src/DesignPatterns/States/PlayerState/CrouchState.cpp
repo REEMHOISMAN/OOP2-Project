@@ -20,12 +20,6 @@ std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& playe
 
 void CrouchState::update(sf::Time time, Player& player)
 {
-	/*static bool first = true;
-	if (first)
-	{
-		first = !first;
-		return;
-	}*/
 	if (player.getPizzasAmount()>0 && !m_wasPicked)  
 	{
 		//setAnimationFrame();
