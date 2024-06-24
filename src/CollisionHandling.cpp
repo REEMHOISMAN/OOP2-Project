@@ -34,6 +34,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Player), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 
 }
 
@@ -240,4 +241,9 @@ void playerEnemy(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	player.setCollideWithEnemy();
+}
+void playerPizza(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	
 }

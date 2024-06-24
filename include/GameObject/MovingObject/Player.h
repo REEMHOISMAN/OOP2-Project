@@ -4,6 +4,7 @@
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Obstacle.h"
+#include "GameObject/StaticObject/Pizza.h"
 
 class MovingSaltBomb;
 class InGameState;
@@ -12,6 +13,7 @@ class Player :public Entity
 {
 public:
 	Player(InGameState&);
+	void pickUpPizza(Pizza&);
 	void move(sf::Time);
 	Input getUserInput();
 	void draw(sf::RenderWindow&)const override ;
@@ -21,11 +23,14 @@ public:
 	void setCheesed(bool);
 	bool isCheesed()const;
 	void createBomb(std::unique_ptr< MovingSaltBomb>);
+	void dropPizza(std::unique_ptr<Pizza>);
 	void increaseHearts();
 	void setCollideWithEnemy();
 	int getHearts()const;
 	void increaseCoins();
 	int getCoins()const;
+	void increasePizza();
+	int getPizzasAmount()const;
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
@@ -33,6 +38,7 @@ private:
 	int m_saltBombsStack;
 	int m_hearts;
 	int m_coins;
+	int m_pizzas;
 	int m_frame;
 	int m_blinks;
 	bool m_isCheesed;

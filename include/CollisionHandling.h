@@ -14,4 +14,4 @@ void playerCheeseBullet(GameObject&, GameObject&);
 void enemySaltBomb(GameObject&, GameObject&);
 void pizzaEnemySaltBomb(GameObject&, GameObject&);
 void playerEnemy(GameObject&, GameObject&);
-//void playerPizza(GameObject&, GameObject&);
+void playerPizza(GameObject&, GameObject&);

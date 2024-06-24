@@ -11,9 +11,11 @@ enum Input
 	LEFT,
 	RIGHT,
 	SPACE,
-	ATTACK
+	ATTACK,
+	DOWN
 };
 
+class Pizza;
 
 class PlayerState
 {
@@ -23,6 +25,7 @@ public:
 	virtual std::unique_ptr<PlayerState> handleEvent(Input, Player&) = 0;
 	virtual void update(sf::Time, Player&) = 0;
 	virtual void setAnimationFrame(Player& player, sf::Time delta);
+	virtual void handleColiisionWithPizza(Pizza&,Player&){}
 
 private:
 	Animation m_animation;
