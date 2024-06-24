@@ -22,18 +22,21 @@ public:
 	bool isCheesed()const;
 	void createBomb(std::unique_ptr< MovingSaltBomb>);
 	void increaseHearts();
-	void decreaseHearts();
+	void setCollideWithEnemy();
 	int getHearts()const;
 	void increaseCoins();
 	int getCoins()const;
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
+	float m_switchBlinkTime;
 	int m_saltBombsStack;
 	int m_hearts;
 	int m_coins;
 	int m_frame;
+	int m_blinks;
 	bool m_isCheesed;
-	sf::Time m_elapsed;
+	bool m_collideWithEnemy;
+	sf::Time m_blinkTimer;
 	InGameState& m_game;
 };

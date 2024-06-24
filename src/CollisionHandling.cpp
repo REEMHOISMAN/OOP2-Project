@@ -12,10 +12,10 @@
 #include "GameObject/StaticObject/Heart.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
-
+#include "GameObject/StaticObject/Pizza.h"
 #include "Macros.h"
 
-#include <iostream>//-----------------------------------------------------------------------
+//---------------------------------------------------------------------
 void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
@@ -27,14 +27,13 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Heart), &PlayerHeart);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Coin), &PlayerCoins);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(BasicEnemy), &enemySaltBomb);
-	//GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(PizzaEnemy), &enemySaltBomb);
-	//GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(MovingSaltBomb), &pizzaEnemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(Obstacle), &saltBombObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Obstacle), &cheeseBulletObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Player), &playerCheeseBullet);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
 
 }
 
@@ -234,4 +233,11 @@ void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 	saltBomb.setExplode();
 
 	pizzaEnemy.loadDieState();
+}
+
+//------------------------------------------------
+void playerEnemy(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	player.setCollideWithEnemy();
 }
