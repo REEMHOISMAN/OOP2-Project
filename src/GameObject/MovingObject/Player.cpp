@@ -136,6 +136,6 @@ int Player::getPizzasAmount() const
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 
 {
-	m_state->handleColiisionWithPizza(pizza,*this);
+	m_state->handleColiisionWithPizza(pizza, *this);
 }
 
