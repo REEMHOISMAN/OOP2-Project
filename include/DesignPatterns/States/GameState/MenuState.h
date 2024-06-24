@@ -1,6 +1,7 @@
 #pragma once
 #include "DesignPatterns/States/GameState/GameState.h"
-
+#include "Button.h"
+#include <vector>
 class MenuState : public GameState
 {
 public:
@@ -11,5 +12,5 @@ public:
 
 private:
 	sf::RectangleShape m_backGround;
-
+	std::vector<Button>m_buttons;
 };
