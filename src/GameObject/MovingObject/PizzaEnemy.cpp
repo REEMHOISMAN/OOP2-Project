@@ -17,7 +17,7 @@ bool PizzaEnemy::m_register = EnemyFactory::registerPizzaEnemy(PIZZA_ENEMY_MOVE,
 
 //--------------------------------------------------------
 PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, InGameState& game)
-	: Enemy(sprite, std::move(strategy)), m_state(std::make_unique<MoveState>(PIZZA_ENEMY_MOVE)), m_game(game) {}
+	: Enemy(sprite, std::move(strategy)), m_state(std::make_unique<MoveState>(PIZZA_ENEMY_MOVE, sf::seconds(0.25))), m_game(game) {}
 
 //--------------------------------------------------------
 void PizzaEnemy::move(sf::Time deltaTime)
@@ -36,7 +36,7 @@ void PizzaEnemy::createCheese(std::unique_ptr<Weapon> cheese)
 //-----------------------------------------------------
 void PizzaEnemy::loadDieState()
 {
-	m_state = std::make_unique<DieState>(PIZZA_ENEMY_DIE);
+	m_state = std::make_unique<DieState>(PIZZA_ENEMY_DIE, sf::seconds(0.15f));
 }
 
 

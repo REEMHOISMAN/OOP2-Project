@@ -4,7 +4,7 @@
 class DieState :public PizzaEnemyState
 {
 public:
-	DieState(const ObjectAnimation);
+	DieState(const ObjectAnimation, const sf::Time);
 	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&, sf::Time deltaTime)override;
 	virtual void update(sf::Time, PizzaEnemy&)override;
 

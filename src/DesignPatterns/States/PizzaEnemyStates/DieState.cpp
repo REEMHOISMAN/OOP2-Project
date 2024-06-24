@@ -4,7 +4,7 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include <memory>
 
-DieState::DieState(const ObjectAnimation type): PizzaEnemyState(type){}
+DieState::DieState(const ObjectAnimation type, const sf::Time frameTimer): PizzaEnemyState(type, frameTimer){}
 
 //-------------------------------------------------
 std::unique_ptr<PizzaEnemyState> DieState::handleTime(PizzaEnemy& pizzaEnemy, sf::Time deltaTime)

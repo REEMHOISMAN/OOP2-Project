@@ -3,8 +3,8 @@
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "GameObject/MovingObject/PizzaEnemy.h"
 
-MoveState::MoveState(const ObjectAnimation animation):
-	PizzaEnemyState(animation), m_jumps(0), m_walkTime(sf::seconds(1.5f))
+MoveState::MoveState(const ObjectAnimation animation, const sf::Time& frameTimer):
+	PizzaEnemyState(animation, frameTimer), m_jumps(0), m_walkTime(sf::seconds(1.5f))
 {
 
 }
@@ -12,7 +12,7 @@ MoveState::MoveState(const ObjectAnimation animation):
 std::unique_ptr<PizzaEnemyState> MoveState::handleTime(PizzaEnemy& pizzaEnemy, sf::Time deltaTime)
 {	
 	if (m_jumps == 2 && m_walkTime.asSeconds() <= 0.75f && pizzaEnemy.isOnGround()) {
-  		return std::make_unique<AttackState>(PIZZA_ENEMY_ATTACK);
+  		return std::make_unique<AttackState>(PIZZA_ENEMY_ATTACK, sf::seconds(0.25f));
 	}
 	
 	return nullptr;

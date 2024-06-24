@@ -5,8 +5,8 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 
-AttackState::AttackState(const ObjectAnimation animation) :
-	PizzaEnemyState(animation), m_generateCheese(false)
+AttackState::AttackState(const ObjectAnimation animation, const sf::Time& frameTimer) :
+	PizzaEnemyState(animation, frameTimer), m_generateCheese(false)
 {
 
 }
@@ -15,7 +15,7 @@ std::unique_ptr<PizzaEnemyState> AttackState::handleTime(PizzaEnemy& pizzaEnemy,
 {
 	if (m_generateCheese)
 	{
-		return std::make_unique<MoveState>(PIZZA_ENEMY_MOVE);
+		return std::make_unique<MoveState>(PIZZA_ENEMY_MOVE, sf::seconds(0.25f));
 	}
 	return nullptr;
 }

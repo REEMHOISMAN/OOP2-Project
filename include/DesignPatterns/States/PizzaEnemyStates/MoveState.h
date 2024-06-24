@@ -4,7 +4,7 @@
 class MoveState :public PizzaEnemyState
 {
 public:
-	MoveState(const ObjectAnimation);
+	MoveState(const ObjectAnimation, const sf::Time& frameTimer);
 	virtual std::unique_ptr<PizzaEnemyState> handleTime(PizzaEnemy&, sf::Time deltaTime)override;
 	virtual void update(sf::Time, PizzaEnemy&)override;
 private:

@@ -221,20 +221,20 @@ void enemySaltBomb(GameObject& object1, GameObject& object2)
 	sprite.setPosition(object2.getObjectSprite().getPosition());
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
+
 }
 
 //------------------------------------------------
 void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 {
-	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
-	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
+	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
+	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
 	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
 	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
-	sprite.setPosition(object2.getObjectSprite().getPosition());
+	sprite.setPosition(object1.getObjectSprite().getPosition());
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
-
 	pizzaEnemy.loadDieState();
 }
 

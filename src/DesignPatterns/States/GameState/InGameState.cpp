@@ -77,6 +77,7 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
 			{
 				sprite = createNewObjectSprite(factor_x, MIN_Y, "salt",2.f);
+				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_staticObjects.emplace_back(std::make_unique<StaticSaltBomb>(sprite));
 			}
 			else if (image.getPixel(x, y) == sf::Color(136, 0, 21))
@@ -203,8 +204,8 @@ void InGameState::checkCollision()
 			}
 		}
 	}
-	m_staticObjects.remove_if([](const auto& staticObject) { return staticObject->ToErase();});
 	m_movingObjects.remove_if([](const auto& movingObject) { return movingObject->ToErase(); });
+	m_staticObjects.remove_if([](const auto& staticObject) { return staticObject->ToErase();});
 }
 
 sf::Sprite InGameState::createNewObjectSprite(float x, float y, const std::string filename,float scale)const
