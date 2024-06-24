@@ -21,6 +21,8 @@ void Player::move(sf::Time time)
 	auto state = m_state->handleEvent(input, *this);
 	if (state) m_state = std::move(state);
 	m_state->update(time, *this);
+	
+	
 	if (m_blinkTimer > sf::seconds(0.f))
 	{
 		if (m_switchBlinkTime <= 0.f)
