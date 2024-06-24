@@ -7,7 +7,7 @@ const int HEIGHT = 800;
 const int NUM_OF_TEXTURES = 17;
 const int MAX_LIVES = 5;
 const float MIN_Y = 560.f;
-const float PLAYER_MAX_Y = 300.f;
+const float PLAYER_MAX_Y = 300.f;//
 
 enum class PlayerStateTypes
 {
