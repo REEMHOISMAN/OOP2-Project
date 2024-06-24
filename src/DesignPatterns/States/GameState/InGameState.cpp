@@ -8,8 +8,9 @@
 #include "GameObject/StaticObject/Coin.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "Macros.h"
+#include "GameController.h"
 
-InGameState::InGameState() : m_player(*this)
+InGameState::InGameState(GameController&controller, GameState& state) : m_player(*this)
 {
 	auto texture = &ResourceManager::instance().getTexture("background");
 	m_background.setTexture(texture);
@@ -96,14 +97,10 @@ void InGameState::initTileMap()
 }
 
 // for switch to pasue/menu
-GameState* InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// change to handle event
+void InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// change to handle event
 {
-	if (event.type == sf::Event::KeyReleased)
-	{
-		
-	}
 
-	return nullptr;
+
 }
 
 void InGameState::update(sf::Time time)

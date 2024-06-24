@@ -1,11 +1,16 @@
 #include "GameController.h"
 #include "Macros.h"
 
-GameController::GameController()
-	:m_window(sf::VideoMode{WIDTH,HEIGHT},"PAPA LOUIE: WHEN PIZZAS ATTACK")
+GameController::GameController():m_menuState(*this, m_inGameState), m_window(sf::VideoMode{WIDTH,HEIGHT},"PAPA LOUIE: WHEN PIZZAS ATTACK"),m_inGameState(*this,m_menuState)
 {
-	m_state = &m_inGameState;
+	m_state = &m_menuState;
 	m_window.setFramerateLimit(60);
+}
+
+
+void GameController::changeState(GameState& state)
+{
+	m_state = &state;
 }
 
 void GameController::run()
@@ -20,12 +25,7 @@ void GameController::run()
 			{
 				m_window.close();
 			}
-			
-			auto state = m_state->handleEvent(event, m_window);
-			if (state)
-			{
-				m_state = state;
-			}
+			m_state->handleEvent(event, m_window);
 		}
 		m_state->update(clock.getElapsedTime());
 		clock.restart();

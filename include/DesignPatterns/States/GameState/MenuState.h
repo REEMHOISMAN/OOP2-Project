@@ -2,15 +2,18 @@
 #include "DesignPatterns/States/GameState/GameState.h"
 #include "Button.h"
 #include <vector>
+
+class GameController;
+
 class MenuState : public GameState
 {
 public:
-	MenuState();
-	virtual GameState* handleEvent(sf::Event&, sf::RenderWindow&) override { return nullptr; }
+	MenuState(GameController&, GameState&);
+	virtual void handleEvent(sf::Event&, sf::RenderWindow&) override;
 	virtual void update(sf::Time) override {}
-	virtual void render(sf::RenderWindow&) override {}
+	virtual void render(sf::RenderWindow&) override;
 
 private:
-	sf::RectangleShape m_backGround;
+	sf::RectangleShape m_background;
 	std::vector<Button>m_buttons;
 };

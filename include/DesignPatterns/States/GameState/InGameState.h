@@ -4,14 +4,17 @@
 #include "GameObject/MovingObject/MovingObject.h"
 #include "GameObject/StaticObject/StaticObject.h"
 #include "UserInterface.h"
+
 #include <vector>
 #include <list>
+
+class GameController;
 
 class InGameState : public GameState
 {
 public:
-	InGameState();
-	virtual GameState* handleEvent(sf::Event&, sf::RenderWindow& window) override;
+	InGameState(GameController&, GameState&);
+	virtual void handleEvent(sf::Event&, sf::RenderWindow& window) override;
 	virtual void update(sf::Time) override;
 	virtual void render(sf::RenderWindow&) override;
 	void insertMovingObject(std::unique_ptr<MovingObject>);
