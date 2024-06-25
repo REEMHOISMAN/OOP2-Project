@@ -23,9 +23,11 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
 	drawSpriteInfo(window,{ window.getView().getCenter().x - 150, window.getView().getCenter().y + 300 }, "salt", 2.5f);
 	drawInfo(window, { window.getView().getCenter().x-70, window.getView().getCenter().y + 300 }, player.getSaltBombsAmount());
 	
-	drawSpriteInfo(window, { window.getView().getCenter().x+140, window.getView().getCenter().y + 300+15 }, "coin", 2.9f);
+	drawSpriteInfo(window, { window.getView().getCenter().x+140, window.getView().getCenter().y + 315 }, "coin", 2.9f);
 	drawInfo(window, { window.getView().getCenter().x + 200, window.getView().getCenter().y + 300 }, player.getCoins());
 
+	drawSpritesPizza(window, { window.getView().getCenter().x + 550, window.getView().getCenter().y + 345 }, 
+						"pizza", 2.9f, player.getPizzasAmount());
 }
 
 void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor)
@@ -72,6 +74,32 @@ void UserInterface::drawHeartSprites(sf::RenderWindow& window, const sf::Vector2
 		sprite.setPosition(x, pos.y);
 		window.draw(sprite);
 		x += 50.f;
+	}
+
+}
+
+//--------------------------------------------------------------------
+void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val)
+{
+	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));
+	sprite.setTextureRect(sf::IntRect(0, 0, 41, 23));
+	sprite.scale(scaleFactor, scaleFactor);
+	float y = pos.y;
+
+	for (int i = 0; i < MAX_PIZZAS; i++)
+	{
+		sprite.setPosition(pos.x, y);
+		window.draw(sprite);
+		y -= 23.f;
+	}
+	
+	y = pos.y;
+	sprite.setTextureRect(sf::IntRect(41, 0, 41, 23));
+	for (int i = 0; i < val; i++)
+	{
+		sprite.setPosition(pos.x, y);
+		window.draw(sprite);
+		y -= 23.f;
 	}
 
 }

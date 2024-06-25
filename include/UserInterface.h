@@ -14,5 +14,6 @@ private:
 	void drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scale);
 	void drawInfo(sf::RenderWindow& window, const sf::Vector2f& pos, int val);
 	void drawHeartSprites(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int);
+	void drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int);
 	sf::RectangleShape m_userInterface;
 };

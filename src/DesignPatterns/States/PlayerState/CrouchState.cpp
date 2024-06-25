@@ -26,11 +26,12 @@ void CrouchState::update(sf::Time time, Player& player)
 		auto prevPos = player.getObjectSprite().getPosition();
 		sf::Sprite sprite(ResourceManager::instance().getTexture("pizza"));
 		sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
-		sprite.setPosition(prevPos.x,HEIGHT/2);
+		sprite.setPosition(prevPos.x, prevPos.y + player.getObjectSprite().getGlobalBounds().height/2-30);
 		sprite.scale(1.7f, 1.7f);
 		player.dropPizza(std::make_unique<Pizza>(sprite));
-	}	
+	}
 }
+
 void CrouchState::handleColiisionWithPizza(Pizza& pizza, Player& player)
 {
 	pizza.setToErase();
