@@ -82,7 +82,7 @@ void UserInterface::drawHeartSprites(sf::RenderWindow& window, const sf::Vector2
 void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));
-	sprite.setTextureRect(sf::IntRect(0, 0, 41, 23));
+	sprite.setTextureRect(sf::IntRect(0, 0, 41, 10));
 	sprite.scale(scaleFactor, scaleFactor);
 	float y = pos.y;
 
@@ -94,7 +94,7 @@ void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2
 	}
 	
 	y = pos.y;
-	sprite.setTextureRect(sf::IntRect(41, 0, 41, 23));
+	sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
 	for (int i = 0; i < val; i++)
 	{
 		sprite.setPosition(pos.x, y);
