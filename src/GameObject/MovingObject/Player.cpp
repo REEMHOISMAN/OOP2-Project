@@ -10,7 +10,7 @@
 Player::Player(InGameState& game) :
 	m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
 	m_hearts(5), m_collideWithEnemy(false), m_blinks(0), m_blinkTimer(sf::seconds(0.f)),
-	m_switchBlinkTime(0.2f),m_pizzas(0)
+	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
@@ -127,11 +127,27 @@ int Player::getCoins() const
 void Player::increasePizza()
 {
 	m_pizzas++;
+	
 }
 //----------------------------------------------------
 int Player::getPizzasAmount() const 
 {
 	return m_pizzas;
+}
+//----------------------------------------------------
+void Player::HoldingPizzaTimer(sf::Time elapsed)
+{
+	m_pickedPizzaTimer += elapsed.asSeconds();
+}
+//-----------------------------------------------------
+float Player::GetPizzaTimer() const
+{
+	return m_pickedPizzaTimer;
+}
+//----------------------------------------------------
+void Player::resetPizzTimer()
+{
+	m_pickedPizzaTimer = 0.f;
 }
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 
