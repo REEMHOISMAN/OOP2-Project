@@ -13,6 +13,7 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
+#include <SFML/Audio.hpp>
 #include "Macros.h"
 
 //---------------------------------------------------------------------

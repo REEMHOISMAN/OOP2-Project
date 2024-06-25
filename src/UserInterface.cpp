@@ -28,6 +28,15 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
 
 	drawSpritesPizza(window, { window.getView().getCenter().x + 550, window.getView().getCenter().y + 345 }, 
 						"pizza", 2.9f, player.getPizzasAmount());
+
+	score.setString(std::to_string(player.getPizzasAmount()) + " / " + std::to_string(MAX_PIZZAS));
+	score.setPosition(window.getView().getCenter().x + 440, window.getView().getCenter().y + 310);
+	score.setCharacterSize(55);
+	score.setOutlineThickness(0.7);
+	score.setStyle(score.Bold);
+	score.setFont(ResourceManager::instance().getFont());
+	score.setFillColor(sf::Color::White);
+	window.draw(score);
 }
 
 void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor)
