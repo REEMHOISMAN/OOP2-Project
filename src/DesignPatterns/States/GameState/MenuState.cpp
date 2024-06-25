@@ -3,12 +3,18 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Command/SwitchScreenCommand.h"
 
-MenuState::MenuState(GameController& controller, GameState& state)
+MenuState::MenuState(GameController& controller, GameState& state1, GameState& state2)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("menuBackground"));
 	m_background.setSize({ WIDTH, HEIGHT });
-	m_buttons.emplace_back(std::make_pair(sf::IntRect(42, 35, 166, 34), sf::IntRect(42, 106, 166, 34)), 
-											std::make_unique<SwitchScreenCommand>(controller, state));
+	
+	m_buttons.emplace_back(std::make_pair(sf::IntRect(42, 35, 166, 34), sf::IntRect(42, 106, 166, 34)),
+						   std::make_unique<SwitchScreenCommand>(controller, state1), 
+							sf::Vector2f{ 530.f, 250.f });
+
+	m_buttons.emplace_back(std::make_pair(sf::IntRect(36, 304, 118, 23), sf::IntRect(36, 365, 118, 23)),
+											std::make_unique<SwitchScreenCommand>(controller, state2), 
+											sf::Vector2f{ 530.f, 360.f });
 }
 
 void MenuState::handleEvent(sf::Event& event, sf::RenderWindow& window)

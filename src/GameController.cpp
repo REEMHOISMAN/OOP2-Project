@@ -1,7 +1,8 @@
 #include "GameController.h"
 #include "Macros.h"
 
-GameController::GameController():m_menuState(*this, m_inGameState), m_window(sf::VideoMode{WIDTH,HEIGHT},"PAPA LOUIE: WHEN PIZZAS ATTACK"),m_inGameState(*this,m_menuState)
+GameController::GameController():m_menuState(*this, m_inGameState, m_helpState), m_window(sf::VideoMode{WIDTH,HEIGHT},"PAPA LOUIE: WHEN PIZZAS ATTACK"),
+								m_inGameState(*this,m_menuState), m_helpState(*this, m_menuState)
 {
 	m_state = &m_menuState;
 	m_window.setFramerateLimit(60);

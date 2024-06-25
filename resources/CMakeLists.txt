@@ -16,6 +16,8 @@ configure_file ("explosionSpriteSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("pizza.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("papaLoueiHead.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("buttons.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("controls.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 configure_file ("menuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

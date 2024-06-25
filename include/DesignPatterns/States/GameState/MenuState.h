@@ -8,7 +8,7 @@ class GameController;
 class MenuState : public GameState
 {
 public:
-	MenuState(GameController&, GameState&);
+	MenuState(GameController&, GameState&, GameState&);
 	virtual void handleEvent(sf::Event&, sf::RenderWindow&) override;
 	virtual void update(sf::Time) override {}
 	virtual void render(sf::RenderWindow&) override;
