@@ -14,4 +14,5 @@ private:
 	float m_pizzaHeight;
 	bool m_wasPicked;
 	bool m_DownWasPressed;
+	bool m_stand;
 };
