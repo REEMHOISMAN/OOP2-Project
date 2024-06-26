@@ -13,6 +13,7 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
+#include "GameObject/MovingObject/FatMan.h"
 #include <SFML/Audio.hpp>
 #include "Macros.h"
 
@@ -21,8 +22,7 @@ void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
+	GameCollisions::instance().addCollusionFunc(typeid(FatMan), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Heart), &PlayerHeart);

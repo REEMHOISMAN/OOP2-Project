@@ -112,7 +112,7 @@ void ResourceManager::initTextures()
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
     { "playerSpriteSheet", "background", "frameBackground",  "tileMap", "menuBackground",
        "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage",
-        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza"};
+        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza","fatPerson" };
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

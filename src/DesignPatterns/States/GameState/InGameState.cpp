@@ -8,7 +8,9 @@
 #include "GameObject/StaticObject/Coin.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/MovingObject/Cage.h"
+#include "GameObject/MovingObject/FatMan.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
+#include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "Macros.h"
 #include "GameController.h"
 
@@ -31,7 +33,7 @@ void InGameState::initTileMap()
 	float factor_y = 620.f; 
 	image.loadFromFile("tileMap.png");
 	sf::Sprite sprite;
-	
+	float cageCenterX;
 	for (int y = int(image.getSize().y)-1; y >= 0; y--) // read from the end because print from the begin
 	{
 		float factor_x = 0.f;
@@ -96,7 +98,16 @@ void InGameState::initTileMap()
 			else if (image.getPixel(x, y) == sf::Color(127, 127, 127))
 			{
 				sprite = createNewObjectSprite(factor_x,-1256, "cage", 2.f);
+				sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });
 				m_movingObjects.emplace_back(std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f)));
+				cageCenterX = factor_x;
+			}
+			else if (image.getPixel(x, y) == sf::Color(3, 38, 196))
+			{
+				sprite = createNewObjectSprite(factor_x, 300, "fatPerson", 0.7f);
+				sprite.setTextureRect({ 118,86,155,215 });
+				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+				m_movingObjects.emplace_back(std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f),cageCenterX));
 			}
 			factor_x += 85.f; 
 		}

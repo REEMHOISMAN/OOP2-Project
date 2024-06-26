@@ -6,8 +6,8 @@
 #include <memory>
 #include <iostream>
 
-bool BasicEnemy::m_register =
-EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
+bool BasicEnemy::m_register = 
+	EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
 	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(enemyType);

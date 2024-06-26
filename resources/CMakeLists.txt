@@ -18,6 +18,7 @@ configure_file ("papaLoueiHead.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("buttons.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("controls.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cage.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("fatPerson.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 
