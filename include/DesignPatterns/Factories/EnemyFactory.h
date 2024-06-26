@@ -1,23 +1,32 @@
 #pragma once
 #include <memory>
 #include "GameObject/MovingObject/Enemy.h"
+#include <functional>
 #include <map>
 
 class InGameState;
-using createPizzaEnemyFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation, InGameState&);
-using createBasicEnemyFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation);
+using createEnemyFunc = std::function<std::unique_ptr<Enemy>(float, float,  InGameState*)>;
+//using enemyMap = std::map<sf::Color, createEnemyFunc>;
 
-using pizzaEnemyMap = std::map<ObjectAnimation, createPizzaEnemyFunc>;
-using basicEnemyMap = std::map<ObjectAnimation, createBasicEnemyFunc>;
+
+struct CompareEnemyColor
+{
+	bool operator()(const sf::Color color1, const sf::Color color2)const
+	{
+		return color1.toInteger() < color2.toInteger();
+	}
+};
+//using createPizzaEnemyFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation, InGameState&);
+//using createBasicEnemyFunc = std::unique_ptr<Enemy>(*)(sf::Sprite&, float, const ObjectAnimation);
+
+using enemyMap = std::map<sf::Color, createEnemyFunc, CompareEnemyColor>;
 
 class EnemyFactory
 {
 public:
-	static std::unique_ptr<Enemy>createEnemy(const ObjectAnimation, sf::Sprite&, float, InGameState&);
-	static bool registerBasicEnemy(const ObjectAnimation, createBasicEnemyFunc);
-	static bool registerPizzaEnemy(const ObjectAnimation, createPizzaEnemyFunc);
+	static std::unique_ptr<Enemy>createEnemy(const sf::Color, float, float, InGameState* = nullptr);
+	static bool registerEnemy(const sf::Color, createEnemyFunc);
 
 private:
-	static basicEnemyMap& getBasicMap();
-	static pizzaEnemyMap& getPizzaMap();
+	static enemyMap& getEnemyMap();
 };

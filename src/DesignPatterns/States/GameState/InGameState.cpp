@@ -13,6 +13,7 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "Macros.h"
 #include "GameController.h"
+#include <algorithm>
 
 InGameState::InGameState(GameController&controller, GameState& state) : m_player(*this)
 {
@@ -58,25 +59,12 @@ void InGameState::initTileMap()
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_player.setObjectSprite(sprite);
 			}
-			else if (image.getPixel(x, y) == sf::Color(115, 43, 245))
-			{
-				sprite = createNewObjectSprite(factor_x,300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ONION_ENEMY, sprite, 1.9f, *this));
+			else if (auto p = EnemyFactory::createEnemy(color, factor_x, 300)) {
+				m_movingObjects.emplace_back(std::move(p));
 			}
-			else if (image.getPixel(x, y) == sf::Color(55, 126, 71))
+			else if (auto p1 = EnemyFactory::createEnemy(color, factor_x, 300, this))
 			{
-				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PEPPER_ENEMY, sprite,1.9f, *this));
-			}
-			else if (image.getPixel(x, y) == sf::Color(255, 127, 39))
-			{
-				sprite = createNewObjectSprite(factor_x, 300, "basicEnemiesSheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(ORANGE_ENEMY, sprite, 1.9f, *this));
-			}
-			else if (image.getPixel(x, y) == sf::Color(255, 201, 14))
-			{
-				sprite = createNewObjectSprite(factor_x,factor_y, "PizzaEnemySheet");
-				m_movingObjects.emplace_back(EnemyFactory::createEnemy(PIZZA_ENEMY_MOVE, sprite,0.85f, *this));
+				m_movingObjects.emplace_back(std::move(p1));
 			}
 			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
 			{

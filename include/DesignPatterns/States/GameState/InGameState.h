@@ -1,11 +1,9 @@
 #pragma once
 #include "DesignPatterns/States/GameState/GameState.h"
 #include "GameObject/MovingObject/Player.h"
-#include "GameObject/MovingObject/MovingObject.h"
 #include "GameObject/StaticObject/StaticObject.h"
 #include "UserInterface.h"
-
-#include <vector>
+#include <memory>
 #include <list>
 
 class GameController;

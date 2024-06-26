@@ -1,7 +1,7 @@
 #include "GameObject/GameObject.h"
 #include <iostream> 
 
-GameObject::GameObject():m_eraseCondition(false){}
+GameObject::GameObject():m_eraseCondition(false), m_isCollide(false){}
 
 GameObject::GameObject(sf::Sprite& sprite) : m_sprite(sprite), m_isCollide{ false }, m_eraseCondition{false} {}
 

@@ -5,46 +5,32 @@
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include <vector>
 
-//each time SideToSide enemy is being created -> the ONLY DIFFERENCE is the "ObjectAnimation" that being pass
-//for example: "PEPPER_ENEMY" / "PEPPER_ENEMY"
 //--------------------------------------------------
-std::unique_ptr<Enemy> EnemyFactory::createEnemy(const ObjectAnimation enemy, sf::Sprite& sprite,float factor, InGameState& game)
+std::unique_ptr<Enemy> EnemyFactory::createEnemy(const sf::Color enemyColor, float x, float y, InGameState* game)
 {
-	auto it = getBasicMap().find(enemy);
-	if (it != getBasicMap().end())
-		return it->second(sprite, factor, enemy);
-	
-	auto it1 = getPizzaMap().find(enemy);
-	if (it1 != getPizzaMap().end())
-		return it1->second(sprite, factor, enemy, game);
+	auto it = getEnemyMap().find(enemyColor);
+	if (it != getEnemyMap().end())
+		return it->second(x, y, game);
 	
 	return nullptr;
 }
 
 //--------------------------------------------------
-bool EnemyFactory::registerPizzaEnemy(const ObjectAnimation enemy, createPizzaEnemyFunc createEnemy)
+//bool EnemyFactory::registerEnemy(const ObjectAnimation enemy, createPizzaEnemyFunc createEnemy)
+//{
+//	getPizzaMap().emplace(enemy, createEnemy);
+//	return true;
+//}
+
+//--------------------------------------------------
+bool EnemyFactory::registerEnemy(const sf::Color color, createEnemyFunc createEnemy)
 {
-	getPizzaMap().emplace(enemy, createEnemy);
+	getEnemyMap().emplace(color, std::move(createEnemy));
 	return true;
 }
-//--------------------------------------------------
-bool EnemyFactory::registerBasicEnemy(const ObjectAnimation enemy, createBasicEnemyFunc createEnemy)
-{
-	getBasicMap().emplace(enemy, createEnemy);
-	return true;
-}
 
-//--------------------------------------------------
-pizzaEnemyMap& EnemyFactory::getPizzaMap()
+enemyMap& EnemyFactory::getEnemyMap()
 {
-	static pizzaEnemyMap map;
+	static enemyMap map;
 	return map;
 }
-
-//--------------------------------------------------
-basicEnemyMap& EnemyFactory::getBasicMap()
-{
-	static basicEnemyMap map;
-	return map;
-}
-

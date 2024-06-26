@@ -2,7 +2,6 @@
 #include "DesignPatterns/States/PlayerState/PlayerState.h"
 #include "GameObject/MovingObject/Entity.h"
 #include "Macros.h"
-#include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Obstacle.h"
 #include "GameObject/StaticObject/Pizza.h"
 

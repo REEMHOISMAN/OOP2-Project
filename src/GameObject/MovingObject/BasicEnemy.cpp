@@ -6,33 +6,39 @@
 #include <memory>
 #include <iostream>
 
-bool BasicEnemy::m_register = 
-	EnemyFactory::registerBasicEnemy(ORANGE_ENEMY,
-	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+bool BasicEnemy::m_register =
+EnemyFactory::registerEnemy(sf::Color(255, 127, 39),
+	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
 	{
-		Animation animation = ResourceManager::instance().getAnimation(enemyType);
-		setEnemySprite(sprite, factor);
+		Animation animation = ResourceManager::instance().getAnimation(ORANGE_ENEMY);
+		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
 		sprite.setTextureRect(animation[0]);
+		sprite.setScale(1.9f, 1.9f);
+		sprite.setPosition(x, y);
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(0.f),
 			animation);
 	})
 	&&
-	EnemyFactory::registerBasicEnemy(PEPPER_ENEMY,
-	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+	EnemyFactory::registerEnemy(sf::Color(55, 126, 71),
+		[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
 	{
-		Animation animation = ResourceManager::instance().getAnimation(enemyType);
-		setEnemySprite(sprite, factor);
+		Animation animation = ResourceManager::instance().getAnimation(PEPPER_ENEMY);
+		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
 		sprite.setTextureRect(animation[0]);
+		sprite.setPosition(x, y);
+		sprite.setScale(1.9f, 1.9f);
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
 			animation);
 	})
 	&&
-	EnemyFactory::registerBasicEnemy(ONION_ENEMY,
-	[](auto& sprite, auto factor, auto enemyType)->std::unique_ptr<Enemy>
+	EnemyFactory::registerEnemy(sf::Color(115, 43, 245),
+	[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
 	{
-		Animation animation = ResourceManager::instance().getAnimation(enemyType);
-		setEnemySprite(sprite, factor);
+		Animation animation = ResourceManager::instance().getAnimation(ONION_ENEMY);
+		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
 		sprite.setTextureRect(animation[0]);
+		sprite.setPosition(x, y);
+		sprite.setScale(1.9f, 1.9f);
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
 			animation);
 	});
