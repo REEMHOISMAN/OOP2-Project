@@ -23,7 +23,6 @@ void CrouchState::update(sf::Time time, Player& player)
 {
 	if (player.getPizzasAmount() > 0 && !m_wasPicked)
 	{
-		//setAnimationFrame();
 		auto prevPos = player.getObjectSprite().getPosition();
 		sf::Sprite sprite(ResourceManager::instance().getTexture("pizza"));
 		sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
@@ -34,6 +33,7 @@ void CrouchState::update(sf::Time time, Player& player)
 		if (player.GetPizzaTimer() >= 1.f)
 			player.resetPizzTimer();
 	}
+	setAnimationFrame(player, time);
 }
 
 void CrouchState::handleColiisionWithPizza(Pizza& pizza, Player& player)

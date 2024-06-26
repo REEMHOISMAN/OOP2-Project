@@ -59,6 +59,8 @@ void ResourceManager::initAnimations()
                                                                                  sf::IntRect(673, 1580, 253, 390),
                                                                                  sf::IntRect(1147, 1580, 253, 400)}));
 
+    m_animations.emplace(std::make_pair(PLAYER_CROUCH, std::vector<sf::IntRect>{sf::IntRect(1142, 1088, 228, 392)}));
+
     m_animations.emplace(std::make_pair(ONION_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 45,50, 54,62 }),
                                                                                sf::IntRect({ 115,50, 54,62 }),
                                                                                sf::IntRect({ 188,50, 54,62 }) }));
