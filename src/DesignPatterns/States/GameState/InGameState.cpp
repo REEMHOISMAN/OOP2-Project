@@ -7,6 +7,8 @@
 #include "GameObject/StaticObject/Heart.h"
 #include "GameObject/StaticObject/Coin.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
+#include "GameObject/MovingObject/Cage.h"
+#include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "Macros.h"
 #include "GameController.h"
 
@@ -90,6 +92,11 @@ void InGameState::initTileMap()
 			{
 				sprite = createNewObjectSprite(factor_x, factor_y+30, "coin", 3.f);
 				m_staticObjects.emplace_back(std::make_unique<Coin>(sprite));
+			}
+			else if (image.getPixel(x, y) == sf::Color(127, 127, 127))
+			{
+				sprite = createNewObjectSprite(factor_x,-1256, "cage", 2.f);
+				m_movingObjects.emplace_back(std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f)));
 			}
 			factor_x += 85.f; 
 		}
