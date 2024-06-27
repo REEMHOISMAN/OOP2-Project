@@ -10,11 +10,13 @@ MovingObjectFactory::registerMovingObject(sf::Color(127, 127, 127),
 		sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });
 		sprite.setScale(2.f, 2.f);
 		sprite.setPosition(x, -1257);
-		return std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f));
+		sprite.setTextureRect(sf::IntRect(75, 2, 130, 929));
+		auto secondRect = sf::IntRect(271, 2, 130, 929);
+		return std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f), secondRect);
 	});
 
-Cage::Cage(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy):
-	MovingObject(sprite),m_strategy(std::move(strategy)), m_liftCage(false){}
+Cage::Cage(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy, sf::IntRect& rect):
+	MovingObject(sprite),m_strategy(std::move(strategy)), m_liftCage(false), m_unlockedCageRect(rect){}
 
 void Cage::move(sf::Time delta)
 {

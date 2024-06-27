@@ -59,6 +59,15 @@ void ResourceManager::initAnimations()
                                                                                  sf::IntRect(673, 1580, 253, 390),
                                                                                  sf::IntRect(1147, 1580, 253, 400)}));
 
+
+    m_animations.emplace(std::make_pair(FAT_MAN_HAPPY, std::vector<sf::IntRect>{sf::IntRect(639, 50, 190, 207) }));
+
+    m_animations.emplace(std::make_pair(FAT_MAN_ANGRY, std::vector<sf::IntRect>{sf::IntRect(1472, 1040, 488, 430)}));
+
+    m_animations.emplace(std::make_pair(FAT_MAN_MOVE, std::vector<sf::IntRect>{sf::IntRect(0, 91, 350, 207),
+                                                                               sf::IntRect(360, 89, 350, 224),
+                                                                               sf::IntRect(709, 83, 350, 224)}));//307
+
     m_animations.emplace(std::make_pair(PLAYER_CROUCH, std::vector<sf::IntRect>{sf::IntRect(1142, 1088, 228, 392)}));
 
     m_animations.emplace(std::make_pair(ONION_ENEMY, std::vector<sf::IntRect>{ sf::IntRect({ 45,50, 54,62 }),
@@ -73,7 +82,7 @@ void ResourceManager::initAnimations()
                                                                                 sf::IntRect({ 198,140,37,33 }) }));
 
     m_animations.emplace(std::make_pair(PIZZA_ENEMY_MOVE, std::vector<sf::IntRect>{ sf::IntRect({ 87,90,175,148 }),
-                                                                                    sf::IntRect({ 304,88,171,148 }),
+                                                                                    sf::IntRect({ 304,89,171,148 }),
                                                                                     sf::IntRect({ 517,88,171,148 })}));
     
     m_animations.emplace(std::make_pair(PIZZA_ENEMY_ATTACK, std::vector<sf::IntRect>{  sf::IntRect({ 517,88,171,148 }),
