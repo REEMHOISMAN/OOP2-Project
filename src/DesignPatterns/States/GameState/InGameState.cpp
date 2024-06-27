@@ -42,17 +42,7 @@ void InGameState::initTileMap()
 		for (int x = 0; x < int(image.getSize().x); x++)
 		{
 			auto color = image.getPixel(x, y);
-			if (color == sf::Color::Green)
-			{
-				sprite = createNewObjectSprite(factor_x, factor_y, "mainGround");
-				m_staticObjects.emplace_back(std::make_unique<Obstacle>(sprite));
-			}
-			else if (color == sf::Color::Black)
-			{
-				sprite = createNewObjectSprite(factor_x, factor_y, "ground");
-				m_staticObjects.emplace_back(std::make_unique<Obstacle>(sprite));
-			}
-			else if (image.getPixel(x, y) == sf::Color::Red)
+			if (image.getPixel(x, y) == sf::Color::Red)
 			{
 				sprite = createNewObjectSprite(factor_x, 300, "playerSpriteSheet");
 				sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
@@ -67,23 +57,6 @@ void InGameState::initTileMap()
 			else if (auto staticObject = StaticObjectFactory::createStaticObject(color, factor_x, factor_y)) 
 			{
 				m_staticObjects.emplace_back(std::move(staticObject));
-			}
-			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
-			{
-				sprite = createNewObjectSprite(factor_x, MIN_Y, "salt",2.f);
-				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-				m_staticObjects.emplace_back(std::make_unique<StaticSaltBomb>(sprite));
-			}
-			else if (image.getPixel(x, y) == sf::Color(136, 0, 21))
-			{
-				sprite = createNewObjectSprite(factor_x, factor_y+30, "heart", 2.f);
-				sprite.setTextureRect(sf::IntRect(36, 5, 24, 24));
-				m_staticObjects.emplace_back(std::make_unique<Heart>(sprite));
-			}
-			else if (image.getPixel(x, y) == sf::Color(255, 237, 92))
-			{
-				sprite = createNewObjectSprite(factor_x, factor_y+30, "coin", 3.f);
-				m_staticObjects.emplace_back(std::make_unique<Coin>(sprite));
 			}
 			factor_x += 85.f; 
 		}

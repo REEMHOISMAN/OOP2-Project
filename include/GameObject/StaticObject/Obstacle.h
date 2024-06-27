@@ -4,5 +4,7 @@
 class Obstacle : public StaticObject
 {
 public:
-	Obstacle(sf::Sprite& sprite) : StaticObject(sprite){}
+	Obstacle(sf::Sprite& sprite);
+private:
+	static bool m_register;
 };

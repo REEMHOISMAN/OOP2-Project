@@ -4,5 +4,7 @@
 class Heart :public StaticObject 
 {
 public:
-	Heart(sf::Sprite& sprite) :StaticObject(sprite){}
+	Heart(sf::Sprite& sprite);
+private:
+	static bool m_register;
 };

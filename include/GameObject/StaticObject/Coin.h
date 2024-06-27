@@ -4,5 +4,7 @@
 class Coin :public StaticObject
 {
 public:
-	Coin(sf::Sprite& sprite) :StaticObject(sprite) {}
+	Coin(sf::Sprite& sprite);
+private:
+	static bool m_register;
 };
