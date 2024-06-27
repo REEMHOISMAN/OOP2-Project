@@ -19,6 +19,7 @@ ResourceManager::ResourceManager()
 {
     initTextures();
     initAnimations();
+    initSounds();
     m_font.loadFromFile("papaLoueiFont.ttf");
     m_font.setSmooth(true);
 }
@@ -133,10 +134,37 @@ void ResourceManager::initTextures()
         m_textures[textureNames[i]].setSmooth(true);
     }
 }
+/*================== initSounds =================*/
+void ResourceManager::initSounds()
+{
+    std::array<std::string, NUM_OF_SOUNDS>soundsName = 
+    { "coinSound","explodeSound","flySound","jumpSound","levelUpSound"
+        ,"playerEnemySound","takeSaltSound" };
+    for (int i = 0; i < NUM_OF_SOUNDS; ++i)
+    {
+        sf::SoundBuffer sound;
+        if (!sound.loadFromFile(soundsName[i] + ".ogg")) failedLoad(soundsName[i] + ".ogg");
+
+        m_sounds[soundsName[i]] = sound;
+    }
+}
 
 /*================== failedLoad =================*/
 void ResourceManager::failedLoad(const std::string msg) const
 {
     std::cerr << "failed load " << msg << " in ResourceManager\n";
     exit(1);
+}
+void ResourceManager::playSound(const std::string& soundName,bool val)
+{
+    if (val)
+    {
+        m_currentSound.setVolume(99.9f);
+    }
+    if (m_currentSound.getStatus() != sf::Sound::Playing) {
+        m_currentSound.setBuffer(m_sounds[soundName]);
+        m_currentSound.play();
+    }
+    
+ 
 }

@@ -2,11 +2,15 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 #include "CollisionHandling.h"
 #include "GameObject/MovingObject/Player.h"
 #include "Macros.h"
 
-DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_rightLeftSpeed(0.f){}
+DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_rightLeftSpeed(0.f)
+{
+	ResourceManager::instance().playSound("flySound");
+}
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
