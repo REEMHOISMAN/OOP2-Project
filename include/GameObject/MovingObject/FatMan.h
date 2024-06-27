@@ -9,6 +9,9 @@ class FatMan:public Enemy
 public:
 	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation);
 	virtual void move(sf::Time)override;
+	void setIsHappy();
+	void setIsAngry();
+
 private:
 	void loadAnimationFrame(sf::Time);
 
@@ -17,4 +20,6 @@ private:
 	int m_animationIndex;
 	sf::Time m_elapsed;
 	float m_startPosX;
+	bool m_isHappy;
+	bool m_isAngry;
 };

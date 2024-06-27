@@ -37,6 +37,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Pizza), typeid(Player), &playerPizza);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(FatMan), &playerFatMan);
 
 
 }
@@ -255,4 +256,37 @@ void playerPizza(GameObject& object1, GameObject& object2)
 	if (player.GetPizzaTimer()==0.f) {
 		player.pickUpPizza(pizza);
 	}
+}
+
+
+
+//-----------------------------------------------------------------------
+void playerFatMan(GameObject& object1, GameObject& object2)
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	FatMan& fatMan = dynamic_cast<FatMan&>(object2);
+	sf::FloatRect intersect;
+	auto enemySprite = fatMan.getObjectSprite();
+	auto playerSprite = player.getObjectSprite();
+	auto newPos = sf::Vector2f();
+
+	playerSprite.getGlobalBounds().intersects(enemySprite.getGlobalBounds(), intersect);
+
+
+	if (intersect.height > intersect.width) //collide with wall
+	{
+		if (fatMan.isHeadDirectionRight()) {
+			fatMan.setHeadDirection(false);
+		}
+		player.setBlockedOnSide(true);
+		if (player.getPizzasAmount() != MAX_PIZZAS) {
+			fatMan.setIsAngry();
+		}
+		else{
+			fatMan.setIsHappy();
+		}
+	}
+
+	sf::Vector2f currentPos = playerSprite.getPosition();
+	player.setObjectPosition(currentPos + newPos);
 }

@@ -62,7 +62,7 @@ void ResourceManager::initAnimations()
 
     m_animations.emplace(std::make_pair(FAT_MAN_HAPPY, std::vector<sf::IntRect>{sf::IntRect(639, 50, 190, 207) }));
 
-    m_animations.emplace(std::make_pair(FAT_MAN_ANGRY, std::vector<sf::IntRect>{sf::IntRect(1472, 1040, 488, 430)}));
+    m_animations.emplace(std::make_pair(FAT_MAN_ANGRY, std::vector<sf::IntRect>{sf::IntRect(299, 396, 325, 279)}));
 
     m_animations.emplace(std::make_pair(FAT_MAN_MOVE, std::vector<sf::IntRect>{sf::IntRect(0, 91, 350, 207),
                                                                                sf::IntRect(360, 89, 350, 224),
