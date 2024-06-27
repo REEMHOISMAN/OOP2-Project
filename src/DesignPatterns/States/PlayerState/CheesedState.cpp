@@ -13,7 +13,7 @@ std::unique_ptr<PlayerState> CheesedState::handleEvent(Input input, Player& play
 	if (m_spaceCounter == 0)
 	{
 		player.setCheesed(false);
-		return std::make_unique<StandState>(PLAYER_STAND);
+		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}
 
 	if (input == NONE)

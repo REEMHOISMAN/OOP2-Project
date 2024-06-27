@@ -64,8 +64,6 @@ void Level::checkCollision(Player& player)
 				func(player, *entity);
 			}
 		}
-
-
 	}
 
 	for (auto& object : m_staticObjects)

@@ -14,10 +14,9 @@ DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animatio
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
-	if (input != SPACE || player.isOnGround() || player.isBlockedFromSide())
-	{
+	if (input != SPACE || player.isOnGround() || player.isBlockedFromSide()){
 		player.resetGravity();
-		return std::make_unique<StandState>(PLAYER_STAND);
+		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}
 	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))

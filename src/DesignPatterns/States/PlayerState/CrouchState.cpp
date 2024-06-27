@@ -3,10 +3,11 @@
 #include "GameObject/StaticObject/Pizza.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "GameObject/MovingObject/Player.h"
+#include "GameObject/StaticObject/Pizza.h"
 
 
 CrouchState::CrouchState(const ObjectAnimation animation)
-	:PlayerState(animation, sf::seconds(0.f)),m_pizzaHeight(0.f),m_wasPicked(false),m_stand(false)
+	:PlayerState(animation, sf::seconds(0.f)),m_pizzaHeight(0.f),m_wasPicked(false),m_stand(false), m_DownWasPressed(false)
 {
 }
 
@@ -14,9 +15,8 @@ std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& playe
 {
 	if (input != DOWN) {
 		player.resetPizzTimer();
-		return std::make_unique<StandState>(PLAYER_STAND);
+		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}
-	if(input!=DOWN)
 	return nullptr;
 }
 

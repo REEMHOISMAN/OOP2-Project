@@ -11,24 +11,25 @@ WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, s
 
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
+    int pizzaAmount = player.getPizzasAmount();
     if (player.isCheesed()) {
         return std::make_unique<CheesedState>(PLAYER_CHEESED);
     }
-
-    if (input == NONE)
-    {
-        return std::make_unique<StandState>(PLAYER_STAND);
+    
+    if (input == NONE){
+        return pizzaAmount == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
     }
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)&& player.getSaltBombsAmount() > 0) {
-        return std::make_unique<BombState>(PLAYER_STAND);
+        return pizzaAmount == 0 ? std::make_unique<BombState>(PLAYER_STAND) : std::make_unique<BombState>(PLAYER_STAND_PIZZA);
     }
+
     if (input == SPACE && player.isOnGround() && !player.isBlockedFromSide()) {
         player.setOnGround(false);
-        return std::make_unique<JumpState>(PLAYER_JUMP);
+        return pizzaAmount == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
     }
-
     if (m_walkTimer >= 1.1f && player.isOnGround()) {
-        return std::make_unique<RunState>(PLAYER_RUN);
+        return pizzaAmount == 0 ? std::make_unique<RunState>(PLAYER_RUN) : std::make_unique<RunState>(PLAYER_RUN_PIZZA);
     }
 
     return nullptr;

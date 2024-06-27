@@ -2,8 +2,8 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
+#include "DesignPatterns/States/PlayerState/CrouchState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
-//#include "DesignPatterns/States/GameState/InGameState.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "DesignPatterns/States/PlayerState/PlayerState.h"
 #include "Level.h"
@@ -175,6 +175,8 @@ void Player::setPlayer(float x, float y)
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	setObjectSprite(sprite);
 }
+
+
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 
 {

@@ -18,16 +18,17 @@ JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, s
 
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
-     {	
-
+{	
+	int pizzaAmount = player.getPizzasAmount();
 	if (player.isCheesed())
 		return std::make_unique<CheesedState>(PLAYER_CHEESED);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)&&player.getSaltBombsAmount()>0)
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && player.getSaltBombsAmount()>0)
 		return std::make_unique<BombState>(PLAYER_STAND);
 
-	if (player.isOnGround() || player.isBlockedFromSide()) // ***put the second condition in "note" and run
-		return std::make_unique<StandState>(PLAYER_STAND);
-	
+	if ((player.isOnGround() || player.isBlockedFromSide()))
+		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
+
 	if (m_jumpTimer >= 1.1f && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		return std::make_unique<DivingState>(PLAYER_DIVE);
 

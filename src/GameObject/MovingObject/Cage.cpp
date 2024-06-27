@@ -9,7 +9,7 @@ MovingObjectFactory::registerMovingObject(sf::Color(127, 127, 127),
 		sf::Sprite sprite(ResourceManager::instance().getTexture("cage"));
 		sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });
 		sprite.setScale(2.f, 2.f);
-		sprite.setPosition(x, -1257);
+		sprite.setPosition(x, -1230);
 		sprite.setTextureRect(sf::IntRect(75, 2, 130, 929));
 		auto secondRect = sf::IntRect(271, 2, 130, 929);
 		return std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f), secondRect);

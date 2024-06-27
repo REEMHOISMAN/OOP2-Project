@@ -1,6 +1,7 @@
 #pragma once 
 #include "DesignPatterns/States/PlayerState/PlayerState.h"
-#include "GameObject/StaticObject/Pizza.h"
+
+class Pizza;
 
 class CrouchState :public PlayerState 
 {

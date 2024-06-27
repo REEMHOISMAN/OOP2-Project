@@ -5,7 +5,6 @@
 #include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
 #include "DesignPatterns/States/PizzaEnemyStates/DieState.h"
 #include "DesignPatterns/States/PizzaEnemyStates/PizzaEnemyState.h"
-
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
 #include "Level.h"

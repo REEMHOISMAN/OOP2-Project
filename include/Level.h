@@ -18,6 +18,7 @@ public:
 	void insertStaticObject(std::unique_ptr<StaticObject>);
 	void draw(sf::RenderWindow& window) const;
 
+
 	
 private:
 	void checkCollision(Player&);

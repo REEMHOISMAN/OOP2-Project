@@ -16,7 +16,7 @@ BombState::BombState(const ObjectAnimation animation)
 std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 {
 	if (!m_XisPressed) {
-		return std::make_unique<StandState>(PLAYER_STAND);
+		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}
     if (input != ATTACK)
     {

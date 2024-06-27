@@ -11,13 +11,14 @@ StandState::StandState(const ObjectAnimation animation) : PlayerState(animation,
 
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
+    int pizzaAmount = player.getPizzasAmount();
     if (player.isOnGround()) {  // Check if the player is on the ground
-        if (input == SPACE) {
+        if (input == SPACE/* && pizzaAmount == 0*/) {
             player.setOnGround(false);
-            return std::make_unique<JumpState>(PLAYER_JUMP);
+            return pizzaAmount == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
         }
         if ((input == RIGHT || input == LEFT)) {
-            return std::make_unique<WalkState>(PLAYER_WALK);
+            return pizzaAmount == 0 ? std::make_unique<WalkState>(PLAYER_WALK) : std::make_unique<WalkState>(PLAYER_WALK_PIZZA);
         }
         if (player.isCheesed()) {
             return std::make_unique<CheesedState>(PLAYER_CHEESED);

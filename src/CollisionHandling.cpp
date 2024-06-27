@@ -166,14 +166,6 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 	auto obstacleSprite = object2.getObjectSprite();
 	auto newPos = sf::Vector2f();
 	salt.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
-	/*if (intersect.height > intersect.width) 
-	{
-		newPos.x = -intersect.width;
-		else
-		{
-			newPos.x = intersect.width;
-		}
-	}*/
 	if (intersect.height < intersect.width)
 	{
 		newPos.y = -intersect.height;
@@ -188,7 +180,6 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 		salt.setJumps();
 	}
 	else if (!salt.isExplode()){
-		//salt.setObjectPosition(prevPos+newPos);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
 		ResourceManager::instance().playSound("explodeSound",true);
 
@@ -243,7 +234,6 @@ void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 	saltBomb.setExplode();
 	pizzaEnemy.loadDieState();
 	ResourceManager::instance().playSound("explodeSound",true);
-
 }
 
 //------------------------------------------------
@@ -283,10 +273,6 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 
 	if (intersect.height > intersect.width) //collide with wall
 	{
-		if (fatMan.isHeadDirectionRight()) {
-			fatMan.setHeadDirection(false);
-		}
-		player.setBlockedOnSide(true);
 		if (player.getPizzasAmount() != MAX_PIZZAS) {
 			fatMan.setIsAngry();
 		}

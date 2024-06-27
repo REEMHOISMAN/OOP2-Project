@@ -12,14 +12,15 @@ RunState::RunState(const ObjectAnimation animation) : PlayerState(animation, sf:
 
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 {	
+	int pizzaAmount = player.getPizzasAmount();
 	if (player.isCheesed())
 		return std::make_unique<CheesedState>(PLAYER_CHEESED);
 
-	if ((input != RIGHT && input != LEFT))
-		return std::make_unique<StandState>(PLAYER_STAND);
+	if (input != RIGHT && input != LEFT)
+		return pizzaAmount == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	
 	if (player.isOnGround()&&!player.isBlockedFromSide()&&input == SPACE)
-		return std::make_unique<JumpState>(PLAYER_JUMP);
+		return pizzaAmount == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
 
 	return nullptr;
 }
