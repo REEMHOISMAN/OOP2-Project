@@ -33,7 +33,7 @@ void InGameState::initTileMap()
 {
 	auto image = sf::Image();
 	float factor_y = 620.f; 
-	image.loadFromFile("tileMap.png");
+	image.loadFromFile("level1.png");
 	sf::Sprite sprite;
 	float cageCenterX;
 	for (int y = int(image.getSize().y)-1; y >= 0; y--) // read from the end because print from the begin

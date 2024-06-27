@@ -1,7 +1,6 @@
 ﻿configure_file ("playerSpriteSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("background.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("frameBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("tileMap.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mainGround.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("basicEnemiesSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -19,6 +18,10 @@ configure_file ("controls.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cage.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("fatPerson.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level1.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("‏‏level2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 
 

@@ -4,7 +4,7 @@
 
 const int WIDTH = 1400;
 const int HEIGHT = 800;
-const int NUM_OF_TEXTURES = 20;
+const int NUM_OF_TEXTURES = 19;
 const int NUM_OF_SOUNDS = 7;
 const int MAX_LIVES = 5;
 const int MAX_PIZZAS = 3;
