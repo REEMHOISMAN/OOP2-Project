@@ -2,15 +2,15 @@
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
-#include "DesignPatterns/States/GameState/InGameState.h"
+#include "Level.h"
 #include <vector>
 
 //--------------------------------------------------
-std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::Color enemyColor, float x, float y, InGameState* game)
+std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::Color enemyColor, float x, float y, Level* level)
 {
 	auto it = getMovingObjectMap().find(enemyColor);
 	if (it != getMovingObjectMap().end())
-		return it->second(x, y, game);
+		return it->second(x, y, level);
 	
 	return nullptr;
 }

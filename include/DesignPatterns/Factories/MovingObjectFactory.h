@@ -5,8 +5,8 @@
 #include <map>
 #include "Macros.h"
 
-class InGameState;
-using MovingObjectFunc = std::function<std::unique_ptr<MovingObject>(float, float,  InGameState*)>;
+class Level;
+using MovingObjectFunc = std::function<std::unique_ptr<MovingObject>(float, float,  Level*)>;
 
 
 
@@ -15,7 +15,7 @@ using movingObjectMap = std::map<sf::Color, MovingObjectFunc, CompareColor>;
 class MovingObjectFactory
 {
 public:
-	static std::unique_ptr<MovingObject>createMovingObject(const sf::Color, float, float, InGameState*);
+	static std::unique_ptr<MovingObject>createMovingObject(const sf::Color, float, float, Level*);
 	static bool registerMovingObject(const sf::Color, MovingObjectFunc);
 
 private:

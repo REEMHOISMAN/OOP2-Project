@@ -8,7 +8,7 @@
 
 bool BasicEnemy::m_register =
 MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
-	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
+	[](float x, float y, Level* inGameState)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ORANGE_ENEMY);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
@@ -20,7 +20,7 @@ MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 	})
 	&&
 	MovingObjectFactory::registerMovingObject(sf::Color(55, 126, 71),
-		[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
+		[](float x, float y, Level*)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(PEPPER_ENEMY);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
@@ -32,7 +32,7 @@ MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 	})
 	&&
 	MovingObjectFactory::registerMovingObject(sf::Color(115, 43, 245),
-	[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
+	[](float x, float y, Level*)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ONION_ENEMY);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));

@@ -10,18 +10,18 @@
 #include <memory>
 
 bool PizzaEnemy::m_register = MovingObjectFactory::registerMovingObject(sf::Color(255, 201, 14),
-	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
+	[](float x, float y, Level* level)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(PIZZA_ENEMY_MOVE);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("PizzaEnemySheet"));
 		sprite.setTextureRect(animation[0]);
 		sprite.setPosition(x, y);
 		sprite.setScale(0.85f, 0.85f);
-		return std::make_unique<PizzaEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f), *inGameState);
+		return std::make_unique<PizzaEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f), *level);
 	});
 
 //--------------------------------------------------------
-PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, InGameState& game)
+PizzaEnemy::PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Level& game)
 	: Enemy(sprite, std::move(strategy)), m_state(std::make_unique<MoveState>(PIZZA_ENEMY_MOVE, sf::seconds(0.25))), m_game(game) {}
 
 //--------------------------------------------------------

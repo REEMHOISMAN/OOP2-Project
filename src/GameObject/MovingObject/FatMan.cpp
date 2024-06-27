@@ -4,7 +4,7 @@
 #include "DesignPatterns/Factories/MovingObjectFactory.h"
 
 bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3, 38, 196),
-	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
+	[](float x, float y, Level* )->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(FAT_MAN_MOVE);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("fatPerson"));

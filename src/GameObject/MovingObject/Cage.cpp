@@ -4,7 +4,7 @@
 
 bool Cage::m_register =
 MovingObjectFactory::registerMovingObject(sf::Color(127, 127, 127),
-	[](float x, float y, InGameState* inGameState)->std::unique_ptr<MovingObject>
+	[](float x, float y, Level* )->std::unique_ptr<MovingObject>
 	{
 		sf::Sprite sprite(ResourceManager::instance().getTexture("cage"));
 		sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });

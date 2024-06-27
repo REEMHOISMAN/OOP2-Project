@@ -3,12 +3,13 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
-#include "DesignPatterns/States/GameState/InGameState.h"
+//#include "DesignPatterns/States/GameState/InGameState.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
+#include "Level.h"
 #include <iostream>
 
-Player::Player(InGameState& game) :
-	m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
+Player::Player(Level& level) :
+	m_level(level), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
 	m_hearts(5), m_collideWithEnemy(false), m_blinks(0), m_blinkTimer(sf::seconds(0.f)),
 	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f),m_dropPizza(true)
 {
@@ -86,12 +87,12 @@ bool Player::isCheesed() const
 
 void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 {
-	m_game.insertMovingObject(std::move(salt));
+	m_level.insertMovingObject(std::move(salt));
 }
 
 void Player::dropPizza(std::unique_ptr<Pizza>pizza)
 {
-	m_game.insertStaticObject(std::move(pizza));
+	m_level.insertStaticObject(std::move(pizza));
 }
 
 void Player::increaseHearts()
@@ -164,6 +165,14 @@ void Player::resetPizzaAmount()
 {
 	
 	m_pizzas = 0;
+}
+void Player::setPlayer(float x, float y)
+{
+	auto sprite = getObjectSprite();
+	sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
+	sprite.scale({ 0.4f, 0.4f });
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+	setObjectSprite(sprite);
 }
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 

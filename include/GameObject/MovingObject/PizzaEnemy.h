@@ -3,13 +3,13 @@
 #include "DesignPatterns/States/PizzaEnemyStates/PizzaEnemyState.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 
-class InGameState;
+class Level;
 class Pizza;
 
 class PizzaEnemy: public Enemy
 {
 public:
-    PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, InGameState&);
+    PizzaEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Level&);
     virtual void move(sf::Time) override;
     void createCheese(std::unique_ptr<CheeseBullet> cheese);
     void loadDieState();
@@ -18,5 +18,5 @@ public:
 private:
     static bool m_register;
     std::unique_ptr< PizzaEnemyState> m_state;
-    InGameState& m_game;
+    Level& m_game;
 };

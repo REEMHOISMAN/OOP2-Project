@@ -6,12 +6,12 @@
 #include "GameObject/StaticObject/Pizza.h"
 
 class MovingSaltBomb;
-class InGameState;
+class Level;
 
 class Player :public Entity
 {
 public:
-	Player(InGameState&);
+	Player(Level&);
 	void pickUpPizza(Pizza&);
 	void move(sf::Time);
 	Input getUserInput();
@@ -36,6 +36,7 @@ public:
 	bool dropPizza()const;
 	void setDropPizza(bool);
 	void resetPizzaAmount();
+	void setPlayer(float, float);
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
@@ -51,5 +52,5 @@ private:
 	bool m_collideWithEnemy;
 	float m_pickedPizzaTimer;
 	sf::Time m_blinkTimer;
-	InGameState& m_game;
+	Level& m_level;
 };
