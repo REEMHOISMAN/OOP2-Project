@@ -10,7 +10,7 @@
 Player::Player(InGameState& game) :
 	m_game(game), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
 	m_hearts(5), m_collideWithEnemy(false), m_blinks(0), m_blinkTimer(sf::seconds(0.f)),
-	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f)
+	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f),m_dropPizza(true)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
@@ -92,7 +92,6 @@ void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 void Player::dropPizza(std::unique_ptr<Pizza>pizza)
 {
 	m_game.insertStaticObject(std::move(pizza));
-	m_pizzas--;
 }
 
 void Player::increaseHearts()
@@ -148,6 +147,21 @@ float Player::GetPizzaTimer() const
 void Player::resetPizzTimer()
 {
 	m_pickedPizzaTimer = 0.f;
+}
+//---------------------------------------------------
+bool Player::dropPizza() const
+{
+	return m_dropPizza;
+}
+void Player::setDropPizza(bool value)
+{
+	m_dropPizza = value;
+}
+//----------------------------------------------------
+void Player::resetPizzaAmount()
+{
+	
+	m_pizzas = 0;
 }
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 

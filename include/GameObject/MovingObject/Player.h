@@ -33,6 +33,9 @@ public:
 	void HoldingPizzaTimer(sf::Time elapsed);
 	float GetPizzaTimer()const;
 	void resetPizzTimer();
+	bool dropPizza()const;
+	void setDropPizza(bool);
+	void resetPizzaAmount();
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
@@ -41,6 +44,7 @@ private:
 	int m_hearts;
 	int m_coins;
 	int m_pizzas;
+	bool m_dropPizza;
 	int m_frame;
 	int m_blinks;
 	bool m_isCheesed;

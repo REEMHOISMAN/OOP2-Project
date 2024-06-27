@@ -248,10 +248,11 @@ void playerEnemy(GameObject& object1, GameObject& object2)
 //------------------------------------------------
 void playerPizza(GameObject& object1, GameObject& object2)
 {
+	
 	Player& player = dynamic_cast<Player&>(object1);
 	Pizza& pizza = dynamic_cast<Pizza&>(object2);
+	player.setDropPizza(false);
 	if (player.GetPizzaTimer()==0.f) {
 		player.pickUpPizza(pizza);
 	}
-	
 }

@@ -27,7 +27,7 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
         }
         if (input == DOWN)
         {
-            return std::make_unique<CrouchState>(PLAYER_STAND);
+            return std::make_unique<CrouchState>(PLAYER_CROUCH);
         }
     }
 
