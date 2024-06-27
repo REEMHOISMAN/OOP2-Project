@@ -1,21 +1,16 @@
 #pragma once
 #include <memory>
-#include "GameObject/MovingObject/Enemy.h"
+#include "GameObject/MovingObject/MovingObject.h"
 #include <functional>
 #include <map>
+#include "Macros.h"
 
 class InGameState;
 using MovingObjectFunc = std::function<std::unique_ptr<MovingObject>(float, float,  InGameState*)>;
 
-struct CompareColor
-{
-	bool operator()(const sf::Color color1, const sf::Color color2)const
-	{
-		return color1.toInteger() < color2.toInteger();
-	}
-};
 
-using enemyMap = std::map<sf::Color, MovingObjectFunc, CompareColor>;
+
+using movingObjectMap = std::map<sf::Color, MovingObjectFunc, CompareColor>;
 
 class MovingObjectFactory
 {
@@ -24,5 +19,5 @@ public:
 	static bool registerMovingObject(const sf::Color, MovingObjectFunc);
 
 private:
-	static enemyMap& getEnemyMap();
+	static movingObjectMap& getMovingObjectMap();
 };

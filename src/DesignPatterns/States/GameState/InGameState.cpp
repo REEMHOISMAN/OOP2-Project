@@ -3,6 +3,7 @@
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "CollisionHandling.h"
 #include "DesignPatterns/Factories/MovingObjectFactory.h"
+#include "DesignPatterns/Factories/StaticObjectFactory.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
 #include "GameObject/StaticObject/Heart.h"
 #include "GameObject/StaticObject/Coin.h"
@@ -59,9 +60,13 @@ void InGameState::initTileMap()
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_player.setObjectSprite(sprite);
 			}
-			else if (auto p1 = MovingObjectFactory::createMovingObject(color, factor_x, 300, this))
+			else if (auto movingObject = MovingObjectFactory::createMovingObject(color, factor_x, 300, this))
 			{
-				m_movingObjects.emplace_back(std::move(p1));
+				m_movingObjects.emplace_back(std::move(movingObject));
+			}
+			else if (auto staticObject = StaticObjectFactory::createStaticObject(color, factor_x, factor_y)) 
+			{
+				m_staticObjects.emplace_back(std::move(staticObject));
 			}
 			else if (image.getPixel(x, y) == sf::Color(195, 195, 195))
 			{

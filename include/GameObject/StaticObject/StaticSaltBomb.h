@@ -4,5 +4,7 @@
 class StaticSaltBomb: public StaticObject
 {
 public:
-	StaticSaltBomb(sf::Sprite& sprite) : StaticObject(sprite) {}
+	StaticSaltBomb(sf::Sprite& sprite);
+private:
+	static bool m_register;
 };

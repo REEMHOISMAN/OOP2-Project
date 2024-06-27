@@ -8,8 +8,8 @@
 //--------------------------------------------------
 std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::Color enemyColor, float x, float y, InGameState* game)
 {
-	auto it = getEnemyMap().find(enemyColor);
-	if (it != getEnemyMap().end())
+	auto it = getMovingObjectMap().find(enemyColor);
+	if (it != getMovingObjectMap().end())
 		return it->second(x, y, game);
 	
 	return nullptr;
@@ -18,12 +18,12 @@ std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::
 //--------------------------------------------------
 bool MovingObjectFactory::registerMovingObject(const sf::Color color, MovingObjectFunc createMovingObject)
 {
-	getEnemyMap().emplace(color, std::move(createMovingObject));
+	getMovingObjectMap().emplace(color, std::move(createMovingObject));
 	return true;
 }
 
-enemyMap& MovingObjectFactory::getEnemyMap()
+movingObjectMap& MovingObjectFactory::getMovingObjectMap()
 {
-	static enemyMap map;
+	static movingObjectMap map;
 	return map;
 }

@@ -39,3 +39,11 @@ enum ObjectAnimation
 };
 
 using Animation = std::vector<sf::IntRect>;
+
+struct CompareColor
+{
+	bool operator()(const sf::Color color1, const sf::Color color2)const
+	{
+		return color1.toInteger() < color2.toInteger();
+	}
+};
