@@ -2,7 +2,7 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "CollisionHandling.h"
-#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Factories/MovingObjectFactory.h"
 #include "GameObject/StaticObject/StaticSaltBomb.h"
 #include "GameObject/StaticObject/Heart.h"
 #include "GameObject/StaticObject/Coin.h"
@@ -59,7 +59,7 @@ void InGameState::initTileMap()
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_player.setObjectSprite(sprite);
 			}
-			else if (auto p1 = EnemyFactory::createEnemy(color, factor_x, 300, this))
+			else if (auto p1 = MovingObjectFactory::createMovingObject(color, factor_x, 300, this))
 			{
 				m_movingObjects.emplace_back(std::move(p1));
 			}
@@ -79,13 +79,6 @@ void InGameState::initTileMap()
 			{
 				sprite = createNewObjectSprite(factor_x, factor_y+30, "coin", 3.f);
 				m_staticObjects.emplace_back(std::make_unique<Coin>(sprite));
-			}
-			else if (image.getPixel(x, y) == sf::Color(3, 38, 196))
-			{
-				sprite = createNewObjectSprite(factor_x, 300, "fatPerson", 0.7f);
-				sprite.setTextureRect({ 118,86,155,215 });
-				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-				m_movingObjects.emplace_back(std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f),cageCenterX));
 			}
 			factor_x += 85.f; 
 		}

@@ -1,4 +1,4 @@
-#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Factories/MovingObjectFactory.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
@@ -6,7 +6,7 @@
 #include <vector>
 
 //--------------------------------------------------
-std::unique_ptr<MovingObject> EnemyFactory::createEnemy(const sf::Color enemyColor, float x, float y, InGameState* game)
+std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::Color enemyColor, float x, float y, InGameState* game)
 {
 	auto it = getEnemyMap().find(enemyColor);
 	if (it != getEnemyMap().end())
@@ -16,13 +16,13 @@ std::unique_ptr<MovingObject> EnemyFactory::createEnemy(const sf::Color enemyCol
 }
 
 //--------------------------------------------------
-bool EnemyFactory::registerEnemy(const sf::Color color, createEnemyFunc createEnemy)
+bool MovingObjectFactory::registerMovingObject(const sf::Color color, MovingObjectFunc createMovingObject)
 {
-	getEnemyMap().emplace(color, std::move(createEnemy));
+	getEnemyMap().emplace(color, std::move(createMovingObject));
 	return true;
 }
 
-enemyMap& EnemyFactory::getEnemyMap()
+enemyMap& MovingObjectFactory::getEnemyMap()
 {
 	static enemyMap map;
 	return map;

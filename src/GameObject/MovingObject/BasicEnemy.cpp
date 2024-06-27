@@ -1,5 +1,5 @@
 #include "GameObject/MovingObject/BasicEnemy.h"
-#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Factories/MovingObjectFactory.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
@@ -7,7 +7,7 @@
 #include <iostream>
 
 bool BasicEnemy::m_register =
-EnemyFactory::registerEnemy(sf::Color(255, 127, 39),
+MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ORANGE_ENEMY);
@@ -19,7 +19,7 @@ EnemyFactory::registerEnemy(sf::Color(255, 127, 39),
 			animation);
 	})
 	&&
-	EnemyFactory::registerEnemy(sf::Color(55, 126, 71),
+	MovingObjectFactory::registerMovingObject(sf::Color(55, 126, 71),
 		[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(PEPPER_ENEMY);
@@ -31,7 +31,7 @@ EnemyFactory::registerEnemy(sf::Color(255, 127, 39),
 			animation);
 	})
 	&&
-	EnemyFactory::registerEnemy(sf::Color(115, 43, 245),
+	MovingObjectFactory::registerMovingObject(sf::Color(115, 43, 245),
 	[](float x, float y, InGameState*)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ONION_ENEMY);

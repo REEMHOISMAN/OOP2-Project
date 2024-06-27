@@ -1,5 +1,5 @@
 #include "GameObject/MovingObject/PizzaEnemy.h"
-#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Factories/MovingObjectFactory.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
@@ -9,7 +9,7 @@
 #include "GameObject/StaticObject/Pizza.h"
 #include <memory>
 
-bool PizzaEnemy::m_register = EnemyFactory::registerEnemy(sf::Color(255, 201, 14),
+bool PizzaEnemy::m_register = MovingObjectFactory::registerMovingObject(sf::Color(255, 201, 14),
 	[](float x, float y, InGameState* inGameState)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(PIZZA_ENEMY_MOVE);

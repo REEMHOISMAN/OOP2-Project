@@ -1,9 +1,9 @@
 #include "GameObject/MovingObject/Cage.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
-#include "DesignPatterns/Factories/EnemyFactory.h"
+#include "DesignPatterns/Factories/MovingObjectFactory.h"
 
 bool Cage::m_register =
-EnemyFactory::registerEnemy(sf::Color(127, 127, 127),
+MovingObjectFactory::registerMovingObject(sf::Color(127, 127, 127),
 	[](float x, float y, InGameState* inGameState)->std::unique_ptr<MovingObject>
 	{
 		sf::Sprite sprite(ResourceManager::instance().getTexture("cage"));

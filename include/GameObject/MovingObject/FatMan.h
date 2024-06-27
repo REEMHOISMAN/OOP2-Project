@@ -7,8 +7,9 @@
 class FatMan:public Enemy
 {
 public:
-	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>,const float);
+	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>);
 	virtual void move(sf::Time)override;
 private:
-	float m_cageX;
+	static bool m_register;
+	//float m_cageX;
 };
