@@ -23,12 +23,12 @@ FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Ani
 void FatMan::move(sf::Time time)
 {
 	activateGravity(0.3f);
-	if (getObjectSprite().getPosition().x > m_startPosX )
+	if (getObjectSprite().getPosition().x > m_startPosX && isHeadDirectionRight())
 	{
 		setHeadDirection(false);
 		setScale();
 	}
-	else if (getObjectSprite().getPosition().x < m_startPosX - FAT_MAN_OFFSET- 400)
+	else if (getObjectSprite().getPosition().x < m_startPosX - FAT_MAN_OFFSET- 400 && !isHeadDirectionRight())
 	{
 		setHeadDirection(true);
 		setScale();
