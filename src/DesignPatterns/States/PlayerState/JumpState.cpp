@@ -4,13 +4,17 @@
 #include "DesignPatterns/States/PlayerState/DivingState.h"
 #include "DesignPatterns/States/PlayerState/CheesedState.h"
 #include "DesignPatterns/States/PlayerState/BombState.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 #include "CollisionHandling.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
 JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)), 
-								m_jumpSpeed(0.f), m_rightLeftSpeed(0.f), m_jumpTimer(0.f){}
+								m_jumpSpeed(0.f), m_rightLeftSpeed(0.f), m_jumpTimer(0.f)
+{
+	ResourceManager::instance().playSound("jumpSound");
+}
 
 //---------------------------------------------------------
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
@@ -50,6 +54,7 @@ void JumpState::update(sf::Time elapsedTime, Player& player)
     player.isBlockedFromSide() ? newPos.x = 0.f :newPos.x = sec*m_rightLeftSpeed;
     newPos.y = -m_jumpSpeed+gravity;
     player.setObjectPosition(player.getObjectSprite().getPosition()+newPos);
+	
 
 	m_jumpTimer += sec;
 	

@@ -106,7 +106,9 @@ void Player::setCollideWithEnemy()
 	{
 		m_blinkTimer = sf::seconds(1.5f);
 		m_hearts--;
+		ResourceManager::instance().playSound("playerEnemySound");
 	}
+
 }
 
 int Player::getHearts() const

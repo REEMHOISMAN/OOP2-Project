@@ -135,6 +135,8 @@ void pizzaEnemyFloor(GameObject& object1, GameObject& object2)
 void PlayerStaticBomb(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
+	ResourceManager::instance().playSound("takeSaltSound");
+
 	object2.setToErase();
 	player.increaseSaltBombs();
 	
@@ -149,6 +151,8 @@ void PlayerHeart(GameObject& object1, GameObject& object2)
 void PlayerCoins(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
+	ResourceManager::instance().playSound("coinSound");
+
 	object2.setToErase();
 	player.increaseCoins();
 
@@ -187,6 +191,8 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 	else if (!salt.isExplode()){
 		//salt.setObjectPosition(prevPos+newPos);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
+		ResourceManager::instance().playSound("explodeSound",true);
+
 		sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
 		sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
 		sprite.setPosition(object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y-35);
@@ -221,8 +227,8 @@ void enemySaltBomb(GameObject& object1, GameObject& object2)
 	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
 	sprite.setPosition(object2.getObjectSprite().getPosition());
 	saltBomb.setObjectSprite(sprite);
-	saltBomb.setExplode();
-
+	saltBomb.setExplode();	
+	ResourceManager::instance().playSound("explodeSound",true);
 }
 
 //------------------------------------------------
@@ -237,13 +243,17 @@ void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
 	pizzaEnemy.loadDieState();
+	ResourceManager::instance().playSound("explodeSound",true);
+
 }
 
 //------------------------------------------------
 void playerEnemy(GameObject& object1, GameObject& object2)
 {
+	
 	Player& player = dynamic_cast<Player&>(object1);
 	player.setCollideWithEnemy();
+
 }
 //------------------------------------------------
 void playerPizza(GameObject& object1, GameObject& object2)
