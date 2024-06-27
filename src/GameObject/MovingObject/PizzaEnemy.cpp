@@ -3,10 +3,12 @@
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/States/PizzaEnemyStates/MoveState.h"
-#include "DesignPatterns/States/GameState/InGameState.h"
 #include "DesignPatterns/States/PizzaEnemyStates/DieState.h"
+#include "DesignPatterns/States/PizzaEnemyStates/PizzaEnemyState.h"
+
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
+#include "Level.h"
 #include <memory>
 
 bool PizzaEnemy::m_register = MovingObjectFactory::registerMovingObject(sf::Color(255, 201, 14),

@@ -1,8 +1,12 @@
 #include "Level.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
+#include "DesignPatterns/Singletons/GameCollisions.h"
+#include "CollisionHandling.h"
 #include "DesignPatterns/Factories/MovingObjectFactory.h"
 #include "DesignPatterns/Factories/StaticObjectFactory.h"
-#include "DesignPatterns/States/GameState/InGameState.h"
-#include "DesignPatterns/Singletons/GameCollisions.h"
+#include "GameObject/MovingObject/MovingObject.h"
+#include "GameObject/StaticObject/StaticObject.h"
+#include "GameController.h"
 
 Level::Level(InGameState& game)
 	:m_game(game)

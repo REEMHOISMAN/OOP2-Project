@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObject/MovingObject/Enemy.h"
-#include "DesignPatterns/States/PizzaEnemyStates/PizzaEnemyState.h"
 #include "GameObject/MovingObject/CheeseBullet.h"
 
+class PizzaEnemyState;
 class Level;
 class Pizza;
 

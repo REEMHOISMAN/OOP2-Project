@@ -1,8 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameObject/MovingObject/Player.h"
-#include "GameObject/StaticObject/StaticObject.h"
 
+#include <list>
+
+class MovingObject;
+class StaticObject;
 class InGameState;
 class Player;
 

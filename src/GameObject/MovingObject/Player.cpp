@@ -5,6 +5,7 @@
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 //#include "DesignPatterns/States/GameState/InGameState.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
+#include "DesignPatterns/States/PlayerState/PlayerState.h"
 #include "Level.h"
 #include <iostream>
 

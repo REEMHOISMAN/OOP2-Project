@@ -1,4 +1,3 @@
-#pragma once
 #include "CollisionHandling.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
@@ -14,7 +13,6 @@
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
 #include "GameObject/MovingObject/FatMan.h"
-#include <SFML/Audio.hpp>
 #include "Macros.h"
 
 //---------------------------------------------------------------------

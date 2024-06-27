@@ -1,20 +1,6 @@
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
-#include "DesignPatterns/Singletons/GameCollisions.h"
 #include "CollisionHandling.h"
-#include "DesignPatterns/Factories/MovingObjectFactory.h"
-#include "DesignPatterns/Factories/StaticObjectFactory.h"
-#include "GameObject/StaticObject/StaticSaltBomb.h"
-#include "GameObject/StaticObject/Heart.h"
-#include "GameObject/StaticObject/Coin.h"
-#include "GameObject/MovingObject/CheeseBullet.h"
-#include "GameObject/MovingObject/Cage.h"
-#include "GameObject/MovingObject/FatMan.h"
-#include "DesignPatterns/Strategies/UpDownStrategy.h"
-#include "DesignPatterns/Strategies/SideToSideStrategy.h"
-#include "Macros.h"
-#include "GameController.h"
-#include <algorithm>
 
 InGameState::InGameState(GameController&controller, GameState& state) : m_level(*this), m_player(m_level)
 {
