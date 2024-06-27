@@ -6,7 +6,7 @@
 #include <vector>
 
 //--------------------------------------------------
-std::unique_ptr<Enemy> EnemyFactory::createEnemy(const sf::Color enemyColor, float x, float y, InGameState* game)
+std::unique_ptr<MovingObject> EnemyFactory::createEnemy(const sf::Color enemyColor, float x, float y, InGameState* game)
 {
 	auto it = getEnemyMap().find(enemyColor);
 	if (it != getEnemyMap().end())
@@ -14,13 +14,6 @@ std::unique_ptr<Enemy> EnemyFactory::createEnemy(const sf::Color enemyColor, flo
 	
 	return nullptr;
 }
-
-//--------------------------------------------------
-//bool EnemyFactory::registerEnemy(const ObjectAnimation enemy, createPizzaEnemyFunc createEnemy)
-//{
-//	getPizzaMap().emplace(enemy, createEnemy);
-//	return true;
-//}
 
 //--------------------------------------------------
 bool EnemyFactory::registerEnemy(const sf::Color color, createEnemyFunc createEnemy)

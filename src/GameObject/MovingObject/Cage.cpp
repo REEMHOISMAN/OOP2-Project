@@ -1,5 +1,18 @@
 #include "GameObject/MovingObject/Cage.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
+#include "DesignPatterns/Factories/EnemyFactory.h"
+
+bool Cage::m_register =
+EnemyFactory::registerEnemy(sf::Color(127, 127, 127),
+	[](float x, float y, InGameState* inGameState)->std::unique_ptr<MovingObject>
+	{
+		sf::Sprite sprite(ResourceManager::instance().getTexture("cage"));
+		sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });
+		sprite.setScale(2.f, 2.f);
+		sprite.setPosition(x, -1257);
+		return std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f));
+	});
+
 Cage::Cage(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy):
 	MovingObject(sprite),m_strategy(std::move(strategy)), m_liftCage(false){}
 

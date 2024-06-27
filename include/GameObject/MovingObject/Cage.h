@@ -9,6 +9,7 @@ public:
 	virtual void move(sf::Time) override;
 
 private:
+	static bool m_register;
 	std::unique_ptr<UpDownStrategy> m_strategy;
 	bool m_liftCage;
 };

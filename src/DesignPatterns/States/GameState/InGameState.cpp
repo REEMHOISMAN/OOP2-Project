@@ -59,9 +59,6 @@ void InGameState::initTileMap()
 				sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 				m_player.setObjectSprite(sprite);
 			}
-			else if (auto p = EnemyFactory::createEnemy(color, factor_x, 300)) {
-				m_movingObjects.emplace_back(std::move(p));
-			}
 			else if (auto p1 = EnemyFactory::createEnemy(color, factor_x, 300, this))
 			{
 				m_movingObjects.emplace_back(std::move(p1));
@@ -82,13 +79,6 @@ void InGameState::initTileMap()
 			{
 				sprite = createNewObjectSprite(factor_x, factor_y+30, "coin", 3.f);
 				m_staticObjects.emplace_back(std::make_unique<Coin>(sprite));
-			}
-			else if (image.getPixel(x, y) == sf::Color(127, 127, 127))
-			{
-				sprite = createNewObjectSprite(factor_x,-1256, "cage", 2.f);
-				sprite.setOrigin({ sprite.getGlobalBounds().width / 2,0 });
-				m_movingObjects.emplace_back(std::make_unique<Cage>(sprite, std::make_unique<UpDownStrategy>(0.f)));
-				cageCenterX = factor_x;
 			}
 			else if (image.getPixel(x, y) == sf::Color(3, 38, 196))
 			{
