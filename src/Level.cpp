@@ -7,6 +7,7 @@
 #include "GameObject/MovingObject/MovingObject.h"
 #include "GameObject/StaticObject/StaticObject.h"
 #include "GameController.h"
+#include "GameObject/MovingObject/Cage.h"
 
 Level::Level(InGameState& game)
 	:m_game(game)
@@ -27,7 +28,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 		for (int x = 0; x < int(image.getSize().x); x++)
 		{
 			auto color = image.getPixel(x, y);
-			if (image.getPixel(x, y) == sf::Color::Red)
+			if (color == sf::Color::Red)
 			{
 				player.setPlayer(factor_x, 300);
 			}
@@ -38,6 +39,14 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 			else if (auto staticObject = StaticObjectFactory::createStaticObject(color, factor_x, factor_y))
 			{
 				m_staticObjects.emplace_back(std::move(staticObject));
+			}
+			else if (color == sf::Color(127, 127, 127))
+			{
+				auto cage = std::make_unique<Cage>(factor_x, factor_y-207);
+				/*player.setCage(cage.get());*/
+				m_movingObjects.emplace_back(std::move(cage));
+				auto* cagePtr = dynamic_cast<Cage*>(m_movingObjects.back().get());
+				player.setCage(cagePtr);
 			}
 			factor_x += 85.f;
 		}

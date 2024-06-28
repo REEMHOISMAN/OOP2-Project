@@ -2,15 +2,15 @@
 #include "GameObject/MovingObject/MovingObject.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 
+class Player;
 class Cage : public MovingObject
 {
 public:
-	Cage(sf::Sprite&, std::unique_ptr<UpDownStrategy>, sf::IntRect&);
+	Cage(float, float);
 	virtual void move(sf::Time) override;
+	void setLiftCage();
 
 private:
-	static bool m_register;
-	std::unique_ptr<UpDownStrategy> m_strategy;
-	sf::IntRect m_unlockedCageRect;
+	std::pair<sf::IntRect, sf::IntRect> m_cageStatusRect;
 	bool m_liftCage;
 };

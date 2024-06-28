@@ -6,10 +6,11 @@
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "DesignPatterns/States/PlayerState/PlayerState.h"
+#include "GameObject/MovingObject/Cage.h"
 #include "Level.h"
 #include <iostream>
 
-Player::Player(Level& level) :
+Player::Player(Level& level, Cage* cage) : m_cage(cage),
 	m_level(level), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
 	m_hearts(5), m_collideWithEnemy(false), m_blinks(0), m_blinkTimer(sf::seconds(0.f)),
 	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f),m_dropPizza(true)
@@ -172,8 +173,19 @@ void Player::setPlayer(float x, float y)
 	auto sprite = getObjectSprite();
 	sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
 	sprite.scale({ 0.4f, 0.4f });
+	sprite.setPosition(x, y);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	setObjectSprite(sprite);
+}
+
+void Player::setCage(Cage* cage)
+{
+	m_cage = cage;
+}
+
+void Player::rescueFriend()
+{
+	m_cage->setLiftCage();
 }
 
 
@@ -182,4 +194,5 @@ void Player::pickUpPizza(Pizza& pizza)
 {
 	m_state->handleColiisionWithPizza(pizza, *this);
 }
+
 

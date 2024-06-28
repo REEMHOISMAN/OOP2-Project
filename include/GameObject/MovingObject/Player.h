@@ -7,11 +7,12 @@
 
 class MovingSaltBomb;
 class Level;
+class Cage;
 
 class Player :public Entity
 {
 public:
-	Player(Level&);
+	Player(Level&, Cage* = nullptr);
 	void pickUpPizza(Pizza&);
 	void move(sf::Time);
 	Input getUserInput();
@@ -37,9 +38,13 @@ public:
 	void setDropPizza(bool);
 	void resetPizzaAmount();
 	void setPlayer(float, float);
+	void setCage(Cage*);
+	void rescueFriend();
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
+
+	Cage* m_cage;
 	float m_switchBlinkTime;
 	int m_saltBombsStack;
 	int m_hearts;
