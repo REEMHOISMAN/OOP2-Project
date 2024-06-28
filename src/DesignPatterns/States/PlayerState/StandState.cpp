@@ -4,6 +4,7 @@
 #include "DesignPatterns/States/PlayerState/CheesedState.h"
 #include "DesignPatterns/States/PlayerState/BombState.h"
 #include "DesignPatterns/States/PlayerState/CrouchState.h"
+#include "DesignPatterns/States/PlayerState/ClimbingState.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
 
@@ -29,6 +30,9 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
         if (input == DOWN)
         {
             return std::make_unique<CrouchState>(PLAYER_CROUCH);
+        }
+        if (input == CLIMB) {
+            return std::make_unique<ClimbingState>(PLAYER_STAND);
         }
     }
 

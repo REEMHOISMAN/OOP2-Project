@@ -13,7 +13,7 @@
 Player::Player(Level& level, Cage* cage) : m_cage(cage),
 	m_level(level), m_frame(0), m_saltBombsStack(0), m_isCheesed(false), m_coins(0),
 	m_hearts(5), m_collideWithEnemy(false), m_blinks(0), m_blinkTimer(sf::seconds(0.f)),
-	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f),m_dropPizza(true)
+	m_switchBlinkTime(0.2f),m_pizzas(0),m_pickedPizzaTimer(0.f),m_dropPizza(true), m_climb(false)
 {
 	m_state = std::make_unique<StandState>(PLAYER_STAND);
 }
@@ -46,6 +46,11 @@ Input Player::getUserInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return RIGHT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return LEFT;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) return DOWN;
+	if (m_climb)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) return CLIMB;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) return CLIMB;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) return ATTACK;
 	return NONE;
 }
@@ -194,5 +199,15 @@ void Player::pickUpPizza(Pizza& pizza)
 {
 	m_state->handleColiisionWithPizza(pizza, *this);
 }
+//----------------------------------------------------
+void Player::setClimb(bool val) 
+{
+	m_climb = val;
+}
+//----------------------------------------------------
 
+bool Player::isClimb()const
+{
+	return m_climb;
+}
 

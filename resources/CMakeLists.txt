@@ -19,6 +19,7 @@ configure_file ("cage.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("fatPerson.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ladder.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("‏‏level2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

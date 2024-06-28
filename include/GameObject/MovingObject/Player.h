@@ -40,6 +40,8 @@ public:
 	void setPlayer(float, float);
 	void setCage(Cage*);
 	void rescueFriend();
+	void setClimb(bool);
+	bool isClimb()const;
 	
 private:
 	std::unique_ptr<PlayerState> m_state;
@@ -50,11 +52,12 @@ private:
 	int m_hearts;
 	int m_coins;
 	int m_pizzas;
-	bool m_dropPizza;
 	int m_frame;
 	int m_blinks;
+	bool m_dropPizza;
 	bool m_isCheesed;
 	bool m_collideWithEnemy;
+	bool m_climb;
 	float m_pickedPizzaTimer;
 	sf::Time m_blinkTimer;
 	Level& m_level;

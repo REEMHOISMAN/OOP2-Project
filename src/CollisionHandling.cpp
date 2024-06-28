@@ -13,6 +13,7 @@
 #include "GameObject/MovingObject/CheeseBullet.h"
 #include "GameObject/StaticObject/Pizza.h"
 #include "GameObject/MovingObject/FatMan.h"
+#include "GameObject/StaticObject/Ladder.h"
 #include "Macros.h"
 
 //---------------------------------------------------------------------
@@ -36,8 +37,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Pizza), typeid(Player), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(FatMan), &playerFatMan);
-
-
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Ladder), &playerLadder);
 }
 
 //-----------------------------------------------------------------------
@@ -284,4 +284,24 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 
 	sf::Vector2f currentPos = playerSprite.getPosition();
 	player.setObjectPosition(currentPos + newPos);
+}
+
+void playerLadder(GameObject& object1, GameObject& object2) 
+{
+	Player& player = dynamic_cast<Player&>(object1);
+	Ladder& ladder = dynamic_cast<Ladder&>(object2);
+	sf::FloatRect intersect;
+	auto playerSprite = player.getObjectSprite();
+	auto newPos = sf::Vector2f();
+
+	playerSprite.getGlobalBounds().intersects(ladder.getObjectSprite().getGlobalBounds(), intersect);
+	
+	if (intersect.height < intersect.width && !player.isClimb())
+	{
+		newPos.y = -intersect.height;
+	}
+	player.setClimb(true);
+	sf::Vector2f currentPos = playerSprite.getPosition();
+	player.setObjectPosition(currentPos + newPos);
+
 }

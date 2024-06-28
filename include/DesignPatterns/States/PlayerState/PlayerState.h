@@ -12,7 +12,8 @@ enum Input
 	RIGHT,
 	SPACE,
 	ATTACK,
-	DOWN
+	DOWN,
+	CLIMB
 };
 
 class Pizza;
