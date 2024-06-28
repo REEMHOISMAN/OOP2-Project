@@ -32,18 +32,17 @@ void FatMan::move(sf::Time time)
 		setOnGround(false);
 		setBlockedOnSide(false);
 	}
-	else if (getObjectSprite().getPosition().x > m_startPosX && isHeadDirectionRight())
+	if (getObjectSprite().getPosition().x > m_startPosX && isHeadDirectionRight())
 	{
 		setHeadDirection(false);
 		setScale();
 	}
-	else if (getObjectSprite().getPosition().x < m_startPosX - FAT_MAN_OFFSET- 400 && !isHeadDirectionRight())
+	else if (getObjectSprite().getPosition().x < m_startPosX - FAT_MAN_OFFSET && !isHeadDirectionRight())
 	{
 		setHeadDirection(true);
 		setScale();
 	}
 
-	//m_isHappy = false;
 	m_isAngry = false;
 }
 

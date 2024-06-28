@@ -13,4 +13,5 @@ public:
 private:
 	std::pair<sf::IntRect, sf::IntRect> m_cageStatusRect;
 	bool m_liftCage;
+	float m_cageHeight;
 };

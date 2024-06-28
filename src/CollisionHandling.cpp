@@ -279,6 +279,7 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 		else{
 			fatMan.setIsHappy();
 			player.rescueFriend();
+			player.resetPizzaAmount();
 		}
 	}
 
