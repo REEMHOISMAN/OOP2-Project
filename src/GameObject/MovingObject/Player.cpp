@@ -52,6 +52,7 @@ Input Player::getUserInput()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) return CLIMB;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) return ATTACK;
+	m_climb = false;
 	return NONE;
 }
 

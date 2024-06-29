@@ -303,17 +303,23 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	sf::FloatRect intersect;
 	auto playerSprite = player.getObjectSprite();
 	auto newPos = sf::Vector2f();
-
 	playerSprite.getGlobalBounds().intersects(ladder.getObjectSprite().getGlobalBounds(), intersect);
-	
-	if (intersect.height < intersect.width && !player.isClimb())
+	if (intersect.width > ladder.getObjectSprite().getGlobalBounds().width/1.5)
 	{
-		newPos.y = -intersect.height;
+		if (intersect.height > intersect.width) {
+			player.setClimb(true);
+		}
+		else if (intersect.height < intersect.width&&!player.isClimb())
+		{
+			newPos.y = -intersect.height;
+			player.setClimb(true);
+			sf::Vector2f currentPos = playerSprite.getPosition();
+			player.setObjectPosition(currentPos + newPos);
+		}
 	}
-	player.setClimb(true);
-	sf::Vector2f currentPos = playerSprite.getPosition();
-	player.setObjectPosition(currentPos + newPos);
-
+	else {
+		player.setClimb(false);
+	}
 }
 
 //-----------------------------------------------------------------

@@ -11,12 +11,18 @@ ClimbingState::ClimbingState(const ObjectAnimation type)
 
 std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& player)
 {
-	if (!player.isOnGround()) 
+	if (!player.isClimb())
+	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
-	if(input==SPACE)
+	}
+	if (input == SPACE)
+	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
-	if(input==LEFT||input==RIGHT)
+	}
+	if (input == LEFT || input == RIGHT) 
+	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<WalkState>(PLAYER_WALK) : std::make_unique<WalkState>(PLAYER_WALK_PIZZA);
+	}	
 	return nullptr;
 }
 
