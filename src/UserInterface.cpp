@@ -10,7 +10,7 @@ UserInterface::UserInterface()
 	m_userInterface.setPosition(WIDTH / 2, HEIGHT / 2);
 }
 
-void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
+void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int maxPizzas)
 {
 	m_userInterface.setPosition(window.getView().getCenter());
 	window.draw(m_userInterface);
@@ -27,9 +27,9 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player)
 	drawInfo(window, { window.getView().getCenter().x + 200, window.getView().getCenter().y + 300 }, player.getCoins());
 
 	drawSpritesPizza(window, { window.getView().getCenter().x + 550, window.getView().getCenter().y + 345 }, 
-						"pizza", 2.9f, player.getPizzasAmount());
+						"pizza", 2.9f, player.getPizzasAmount(), maxPizzas);
 
-	score.setString(std::to_string(player.getPizzasAmount()) + " / " + std::to_string(MAX_PIZZAS));
+	score.setString(std::to_string(player.getPizzasAmount()) + " / " + std::to_string(maxPizzas));
 	score.setPosition(window.getView().getCenter().x + 440, window.getView().getCenter().y + 310);
 	score.setCharacterSize(55);
 	score.setOutlineThickness(0.7);
@@ -88,14 +88,14 @@ void UserInterface::drawHeartSprites(sf::RenderWindow& window, const sf::Vector2
 }
 
 //--------------------------------------------------------------------
-void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val)
+void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val, int maxPizzas)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));
 	sprite.setTextureRect(sf::IntRect(0, 0, 41, 10));
 	sprite.scale(scaleFactor, scaleFactor);
 	float y = pos.y;
 
-	for (int i = 0; i < MAX_PIZZAS; i++)
+	for (int i = 0; i < maxPizzas; i++)
 	{
 		sprite.setPosition(pos.x, y);
 		window.draw(sprite);

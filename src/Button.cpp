@@ -20,6 +20,7 @@ void Button::handleClick(const sf::Vector2f& pos)
 	if (m_button.getGlobalBounds().contains(pos))
 	{
 		m_command->execute();
+		m_button.getTextureRect() == m_frames.first ? m_button.setTextureRect(m_frames.second) : m_button.setTextureRect(m_frames.first);
 	}
 }
 
@@ -32,4 +33,9 @@ void Button::markButton(const sf::Vector2f& pos)
 	else {
 		m_button.setTextureRect(m_frames.first);
 	}
+}
+
+void Button::setPosition(const sf::Vector2f& pos)
+{
+	m_button.setPosition(pos.x + 450.f, pos.y - 330.f);
 }

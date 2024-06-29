@@ -4,14 +4,13 @@
 
 const int WIDTH = 1400;
 const int HEIGHT = 800;
-const int NUM_OF_TEXTURES = 20;
+const int NUM_OF_TEXTURES = 22;
 const int NUM_OF_SOUNDS = 7;
 const int MAX_LIVES = 5;
-const int MAX_PIZZAS = 3;
 const float MAX_CAGE_HEIGHT = 230.f;
 const float FAT_MAN_OFFSET = 400.f;
 const float MIN_Y = 560.f;
-const float PLAYER_MAX_Y = 300.f;//
+const float PLAYER_MAX_Y = 300.f;
 
 enum class PlayerStateTypes
 {

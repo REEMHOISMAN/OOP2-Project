@@ -9,12 +9,16 @@
 #include "GameController.h"
 #include "GameObject/MovingObject/Cage.h"
 
-Level::Level(InGameState& game)
-	:m_game(game)
+//-----------------------------------------------------------------------------
+Level::Level(InGameState& game) :m_game(game), m_pizzas(0), m_levelFinishTimer(sf::seconds(1.5f)), m_levelFinish(false)
 {
-
+	m_loadLevel.setTexture(&ResourceManager::instance().getTexture("loading"));
+	m_loadLevel.setSize({ static_cast<float>(WIDTH/2), static_cast<float>(HEIGHT/2) });
+	m_loadLevel.setOrigin(m_loadLevel.getGlobalBounds().width / 2, m_loadLevel.getGlobalBounds().height / 2);
 }
 
+
+//-----------------------------------------------------------------------------
 void Level::readLevelMap(const std::string levelImgName, Player& player)
 {
 	auto image = sf::Image();
@@ -42,97 +46,133 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 			}
 			else if (color == sf::Color(127, 127, 127))
 			{
-				auto cage = std::make_unique<Cage>(factor_x, factor_y-207);
-				/*player.setCage(cage.get());*/
-				m_movingObjects.emplace_back(std::move(cage));
+				m_movingObjects.emplace_back(std::make_unique<Cage>(factor_x, factor_y - 205));
 				auto* cagePtr = dynamic_cast<Cage*>(m_movingObjects.back().get());
 				player.setCage(cagePtr);
 			}
 			factor_x += 85.f;
 		}
-		factor_y -= 90.f; //the height of each texture
+		factor_y -= 90.f; 
 	}
 
 }
 
+//-----------------------------------------------------------------------------
 void Level::updateLevel(sf::Time& time, Player& player)
 {
-	std::for_each(m_movingObjects.begin(), m_movingObjects.end(), [&time](auto& movingObject) {movingObject->move(time); });
-	checkCollision(player);
+	if (!m_levelFinish) { //level is NOT finish!
+		
+		std::for_each(m_movingObjects.begin(), m_movingObjects.end(), [&time](auto& movingObject) {movingObject->move(time); }); //move object..
+		
+		proccessCollusionWithPlayer(player, m_movingObjects.begin(), m_movingObjects.end()); // player and moving objects collusion
+		proccessCollusionWithPlayer(player, m_staticObjects.begin(), m_staticObjects.end()); // player and static objects collusion
+		processCollisions(m_movingObjects.begin(), m_movingObjects.end(), std::next(m_movingObjects.begin()), m_movingObjects.end()); //moving with moving collusion
+		processCollisions(m_movingObjects.begin(), m_movingObjects.end(), m_staticObjects.begin(), m_staticObjects.end());  //moving with static collusion
+
+		m_movingObjects.remove_if([](const auto& movingObject) { return movingObject->ToErase(); });
+		m_staticObjects.remove_if([](const auto& staticObject) { return staticObject->ToErase(); });
+	}
+	
+	if (m_levelFinish && m_levelFinishTimer.asSeconds() > 0.f) { //level is finish but still "loading.." new level
+		m_levelFinishTimer -= time;
+	}
+
+	else if (m_levelFinish) { //level is finish and also the loading is finished!
+		resetLevel();
+	}
 }
 
-void Level::checkCollision(Player& player)
+
+//-----------------------------------------------------------------------------
+template<typename T>
+void Level::proccessCollusionWithPlayer(Player& player, T begin, T end)
 {
-	for (auto& entity : m_movingObjects)
+	for (auto it = begin; it != end; ++it)
 	{
-		if (player.isCollide(entity->getObjectSprite()))
-		{
-			auto func = GameCollisions::instance().CollusionFunc(typeid(player), typeid(*entity));
-			if (func != nullptr)
-			{
-				func(player, *entity);
+		if (player.isCollide((*it)->getObjectSprite())) {
+			auto func = GameCollisions::instance().CollusionFunc(typeid(player), typeid(**it));
+			if (func) {
+				func(player, **it);
 			}
 		}
 	}
-
-	for (auto& object : m_staticObjects)
-	{
-		if (player.isCollide(object->getObjectSprite()))
-		{
-			auto func = GameCollisions::instance().CollusionFunc(typeid(player), typeid(*object));
-			if (func != nullptr)
-			{
-				func(player, *object);
-			}
-		}
-	}
-
-	for (auto entity1 = m_movingObjects.begin(); entity1 != m_movingObjects.end(); ++entity1)
-	{
-		auto entity2 = entity1;
-		for (++entity2; entity2 != m_movingObjects.end(); ++entity2)
-		{
-			if ((*entity1)->isCollide((*entity2)->getObjectSprite()))
-			{
-				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity1), typeid(**entity2));
-				if (func != nullptr)
-				{
-					func(*(*entity1), *(*entity2));
-				}
-			}
-		}
-	}
-	for (auto entity = m_movingObjects.begin(); entity != m_movingObjects.end(); ++entity)
-	{
-		for (auto object = m_staticObjects.begin(); object != m_staticObjects.end(); ++object)
-		{
-			if ((*entity)->isCollide((*object)->getObjectSprite()))
-			{
-				auto func = GameCollisions::instance().CollusionFunc(typeid(**entity), typeid(**object));
-				if (func != nullptr)
-				{
-					func(*(*entity), *(*object));
-				}
-			}
-		}
-	}
-	m_movingObjects.remove_if([](const auto& movingObject) { return movingObject->ToErase(); });
-	m_staticObjects.remove_if([](const auto& staticObject) { return staticObject->ToErase();});
 }
 
+//-----------------------------------------------------------------------------
+template<typename T1, typename T2>
+void Level::processCollisions(T1 begin1, T1 end1, T2 begin2, T2 end2)
+{
+	for (auto it1 = begin1; it1 != end1; ++it1)
+	{
+		for (auto it2 = begin2; it2 != end2; ++it2)
+		{
+			if ((*it1)->isCollide((*it2)->getObjectSprite())) {
+				auto func = GameCollisions::instance().CollusionFunc(typeid(**it1), typeid(**it2));
+				if (func) {
+					func(**it1, **it2);
+				}
+			}
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
 void Level::insertMovingObject(std::unique_ptr<MovingObject> object)
 {
 	m_movingObjects.emplace_back(std::move(object));
 }
 
+//-----------------------------------------------------------------------------
 void Level::insertStaticObject(std::unique_ptr<StaticObject> object)
 {
 	m_staticObjects.emplace_back(std::move(object));
 }
 
-
-void Level::draw(sf::RenderWindow& window) const
+//-----------------------------------------------------------------------------
+void Level::draw(sf::RenderWindow& window)
 {
-	std::for_each(m_movingObjects.cbegin(), m_movingObjects.cend(), [&window](const auto& moving) {moving->draw(window); });
+	if (m_levelFinish){
+		m_loadLevel.setPosition(window.getView().getCenter());
+		window.clear();
+		window.draw(m_loadLevel);
+		return;
+	}
+	std::for_each(m_movingObjects.crbegin(), m_movingObjects.crend(), [&window](const auto& moving) {moving->draw(window); });
 	std::for_each(m_staticObjects.cbegin(), m_staticObjects.cend(), [&window](const auto& stati) {stati->draw(window); });
+}
+
+//-----------------------------------------------------------------------------
+void Level::setLevelFinished()
+{
+	m_levelFinish = true;
+}
+
+//-----------------------------------------------------------------------------
+// the player saved his friend. new level is about to be loading -> reset everything
+void Level::resetLevel()
+{
+	m_movingObjects.clear();
+	m_staticObjects.clear();
+	m_pizzas = 0;
+	m_levelFinish = false;
+	m_levelFinishTimer = sf::seconds(1.5f);
+	m_game.readNewLevel();
+}
+
+//-----------------------------------------------------------------------------
+void Level::inceasePizzaAmount()
+{
+	++m_pizzas;
+}
+
+//-----------------------------------------------------------------------------
+int Level::levelPizzaAmount() const
+{
+	return m_pizzas;
+}
+
+//-----------------------------------------------------------------------------
+bool Level::isLevelFinished() const
+{
+	return m_levelFinish;
 }

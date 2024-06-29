@@ -10,6 +10,7 @@ public:
 	void draw(sf::RenderWindow&)const;
 	void handleClick(const sf::Vector2f& pos);
 	void markButton(const sf::Vector2f& pos);
+	void setPosition(const sf::Vector2f& pos);
 
 private:
 	sf::RectangleShape m_button;

@@ -15,6 +15,8 @@ public:
 	sf::Font& getFont();
 	std::vector<sf::IntRect>& getAnimation(const ObjectAnimation);
 	void playSound(const std::string&,bool val=false);
+	void setSoundStatus();
+
 private:
 	ResourceManager(const ResourceManager&) = delete;
 	ResourceManager& operator=(const ResourceManager&) = delete;
@@ -30,4 +32,5 @@ private:
 	std::unordered_map<std::string, sf::SoundBuffer> m_sounds;
 	sf::Font m_font;
 	sf::Sound m_currentSound;
+	bool m_muteSound;
 };

@@ -14,6 +14,8 @@
 #include "GameObject/StaticObject/Pizza.h"
 #include "GameObject/MovingObject/FatMan.h"
 #include "GameObject/StaticObject/Ladder.h"
+#include "GameObject/MovingObject/Cage.h"
+#include "GameObject/MovingObject/Friend.h"
 #include "Macros.h"
 
 //---------------------------------------------------------------------
@@ -26,18 +28,20 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Heart), &PlayerHeart);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Coin), &PlayerCoins);
-	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(BasicEnemy), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(MovingSaltBomb), &pizzaEnemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(MovingSaltBomb), &enemySaltBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(MovingSaltBomb), typeid(Obstacle), &saltBombObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Obstacle), &cheeseBulletObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
-	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Player), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Pizza), typeid(Player), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(FatMan), &playerFatMan);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Ladder), &playerLadder);
+	GameCollisions::instance().addCollusionFunc(typeid(Cage), typeid(Friend), &friendCage);
+	GameCollisions::instance().addCollusionFunc(typeid(Friend), typeid(Obstacle), &friendObstacle);
+
+
 }
 
 //-----------------------------------------------------------------------
@@ -264,16 +268,20 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 	Player& player = dynamic_cast<Player&>(object1);
 	FatMan& fatMan = dynamic_cast<FatMan&>(object2);
 	sf::FloatRect intersect;
-	auto enemySprite = fatMan.getObjectSprite();
+	auto fatManSprite = fatMan.getObjectSprite();
 	auto playerSprite = player.getObjectSprite();
 	auto newPos = sf::Vector2f();
 
-	playerSprite.getGlobalBounds().intersects(enemySprite.getGlobalBounds(), intersect);
+	playerSprite.getGlobalBounds().intersects(fatManSprite.getGlobalBounds(), intersect);
 
 
-	if (intersect.height > intersect.width) //collide with wall
+	if (intersect.height > intersect.width && !fatMan.isHappy()) 
 	{
-		if (player.getPizzasAmount() != MAX_PIZZAS) {
+		if (fatMan.isHeadDirectionRight()) {
+			fatMan.setHeadDirection(false);
+			fatMan.setScale();
+		}
+		if (player.getPizzasAmount() != fatMan.getTotalPizzas()) {
 			fatMan.setIsAngry();
 		}
 		else{
@@ -287,6 +295,7 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 	player.setObjectPosition(currentPos + newPos);
 }
 
+//-----------------------------------------------------------------
 void playerLadder(GameObject& object1, GameObject& object2) 
 {
 	Player& player = dynamic_cast<Player&>(object1);
@@ -305,4 +314,36 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	sf::Vector2f currentPos = playerSprite.getPosition();
 	player.setObjectPosition(currentPos + newPos);
 
+}
+
+//-----------------------------------------------------------------
+void friendCage(GameObject& object1, GameObject& object2)
+{
+	Friend& pal = dynamic_cast<Friend&>(object2);
+
+	sf::FloatRect intersect;
+	auto palSprite = pal.getObjectSprite();
+	auto newPos = sf::Vector2f();
+
+	palSprite.getGlobalBounds().intersects(object1.getObjectSprite().getGlobalBounds(), intersect);
+
+	if (intersect.height+10 < palSprite.getTextureRect().height * 0.3f-10 && !pal.isHappy() && pal.isOnGround()) {
+		pal.setHappy();
+	}
+}
+
+//-----------------------------------------------------------------
+void friendObstacle(GameObject& object1, GameObject& object2)
+{
+	Friend& pal = dynamic_cast<Friend&>(object1);
+
+	sf::FloatRect intersect;
+	auto palSprite = pal.getObjectSprite();
+	auto newPos = sf::Vector2f();
+
+	palSprite.getGlobalBounds().intersects(object2.getObjectSprite().getGlobalBounds(), intersect);
+
+	newPos.y = -intersect.height;
+	pal.resetGravity();
+	pal.setOnGround(true);
 }

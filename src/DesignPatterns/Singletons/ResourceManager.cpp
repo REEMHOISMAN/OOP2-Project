@@ -15,7 +15,7 @@ ResourceManager& ResourceManager::instance()
 }
 
 /*================== ResourcesManager constructor =================*/
-ResourceManager::ResourceManager()
+ResourceManager::ResourceManager() : m_muteSound(false)
 {
     initTextures();
     initAnimations();
@@ -133,7 +133,7 @@ void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
     { "playerSpriteSheet", "background", "frameBackground", "menuBackground",
-       "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage",
+       "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage", "friend", "loading",
         "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza","fatPerson","ladder" };
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
@@ -169,6 +169,8 @@ void ResourceManager::failedLoad(const std::string msg) const
 }
 void ResourceManager::playSound(const std::string& soundName,bool val)
 {
+    if (m_muteSound) return;
+
     if (val)
     {
         m_currentSound.setVolume(99.9f);
@@ -179,4 +181,9 @@ void ResourceManager::playSound(const std::string& soundName,bool val)
     }
     
  
+}
+
+void ResourceManager::setSoundStatus()
+{
+    m_muteSound = !m_muteSound;
 }

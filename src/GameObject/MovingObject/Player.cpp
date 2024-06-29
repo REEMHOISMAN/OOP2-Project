@@ -55,6 +55,7 @@ Input Player::getUserInput()
 	return NONE;
 }
 
+//----------------------------------------------------
 void Player::draw(sf::RenderWindow& window)const
 {
 	auto sprite = getObjectSprite();
@@ -67,14 +68,19 @@ void Player::draw(sf::RenderWindow& window)const
 	GameObject::draw(window);
 }
 
+//----------------------------------------------------
 void Player::increaseSaltBombs() 
 {
 	m_saltBombsStack++;
 }
+
+//----------------------------------------------------
 void Player::decreaseSaltBombs()
 {
 	m_saltBombsStack--;
 }
+
+//----------------------------------------------------
 int Player::getSaltBombsAmount()const
 {
 	return m_saltBombsStack;
@@ -92,22 +98,26 @@ bool Player::isCheesed() const
 	return m_isCheesed;
 }
 
+//----------------------------------------------------
 void Player::createBomb(std::unique_ptr<MovingSaltBomb> salt)
 {
 	m_level.insertMovingObject(std::move(salt));
 }
 
+//----------------------------------------------------
 void Player::dropPizza(std::unique_ptr<Pizza>pizza)
 {
 	m_level.insertStaticObject(std::move(pizza));
 }
 
+//----------------------------------------------------
 void Player::increaseHearts()
 {
 	if (m_hearts < 5)
 		m_hearts++;
 }
 
+//----------------------------------------------------
 void Player::setCollideWithEnemy()
 {
 	if (m_blinkTimer <= sf::seconds(0.f))
@@ -119,40 +129,48 @@ void Player::setCollideWithEnemy()
 
 }
 
+//----------------------------------------------------
 int Player::getHearts() const
 {
 	return m_hearts;
 }
 
+//----------------------------------------------------
 void Player::increaseCoins()
 {
 	m_coins++;
 }
 
+//----------------------------------------------------
 int Player::getCoins() const
 {
 	return m_coins;
 }
+
+//----------------------------------------------------
 void Player::increasePizza()
 {
 	m_pizzas++;
-	
 }
+
 //----------------------------------------------------
 int Player::getPizzasAmount() const 
 {
 	return m_pizzas;
 }
+
 //----------------------------------------------------
 void Player::HoldingPizzaTimer(sf::Time elapsed)
 {
 	m_pickedPizzaTimer += elapsed.asSeconds();
 }
+
 //-----------------------------------------------------
 float Player::GetPizzaTimer() const
 {
 	return m_pickedPizzaTimer;
 }
+
 //----------------------------------------------------
 void Player::resetPizzTimer()
 {
@@ -163,49 +181,54 @@ bool Player::dropPizza() const
 {
 	return m_dropPizza;
 }
+
+//----------------------------------------------------
 void Player::setDropPizza(bool value)
 {
 	m_dropPizza = value;
 }
+
 //----------------------------------------------------
 void Player::resetPizzaAmount()
 {
-	
 	m_pizzas = 0;
 }
+
+//----------------------------------------------------
 void Player::setPlayer(float x, float y)
 {
 	auto sprite = getObjectSprite();
 	sprite.setTextureRect(sf::IntRect(sf::Vector2i(174, 50), sf::Vector2i(170, 390)));
-	sprite.scale({ 0.4f, 0.4f });
 	sprite.setPosition(x, y);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	setObjectSprite(sprite);
 }
 
+//----------------------------------------------------
 void Player::setCage(Cage* cage)
 {
 	m_cage = cage;
 }
 
+//----------------------------------------------------
 void Player::rescueFriend()
 {
 	m_cage->setLiftCage();
 }
-
 
 //----------------------------------------------------
 void Player::pickUpPizza(Pizza& pizza) 
 {
 	m_state->handleColiisionWithPizza(pizza, *this);
 }
+
 //----------------------------------------------------
 void Player::setClimb(bool val) 
 {
 	m_climb = val;
 }
-//----------------------------------------------------
 
+//----------------------------------------------------
 bool Player::isClimb()const
 {
 	return m_climb;

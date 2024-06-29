@@ -4,7 +4,7 @@
 #include "DesignPatterns/Factories/MovingObjectFactory.h"
 
 bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3, 38, 196),
-	[](float x, float y, Level* )->std::unique_ptr<Enemy>
+	[](float x, float y, Level* level)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(FAT_MAN_MOVE);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("fatPerson"));
@@ -12,18 +12,22 @@ bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3,
 		sprite.setScale(0.7f, 0.7f);
 		sprite.setPosition(x, y+30);
 		sprite.setOrigin(animation[0].width / 2, animation[0].height / 2);
-		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation);
+		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation, level->levelPizzaAmount());
 	});
 
-FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation animation)
+FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation animation, int pizzas)
 	:Enemy(sprite, std::move(strategy)), m_animation(animation), m_animationIndex(-1),
-	m_startPosX(sprite.getPosition().x), m_isHappy(false), m_isAngry(false)
+	m_startPosX(sprite.getPosition().x), m_isHappy(false), m_isAngry(false), m_totalPizzas(pizzas)
 {
 
 }
 
 void FatMan::move(sf::Time time)
 {
+	if (m_isAngry || m_isHappy) {
+		m_isAngry = false;
+		return;
+	}
 	if (!m_isHappy && !m_isAngry)
 	{
 		activateGravity(0.3f);
@@ -37,13 +41,12 @@ void FatMan::move(sf::Time time)
 		setHeadDirection(false);
 		setScale();
 	}
-	else if (getObjectSprite().getPosition().x < m_startPosX - FAT_MAN_OFFSET && !isHeadDirectionRight())
+	else if (getObjectSprite().getPosition().x < m_startPosX - 200 && !isHeadDirectionRight())
 	{
 		setHeadDirection(true);
 		setScale();
 	}
 
-	m_isAngry = false;
 }
 
 //------------------------------------
@@ -61,6 +64,16 @@ void FatMan::setIsAngry()
 	setTextureRect(ResourceManager::instance().getAnimation(FAT_MAN_ANGRY)[0]);
 	m_elapsed = sf::seconds(0.17f);
 	m_isAngry = true;
+}
+
+bool FatMan::isHappy() const
+{
+	return m_isHappy;
+}
+
+int FatMan::getTotalPizzas() const
+{
+	return m_totalPizzas;
 }
 
 //------------------------------------

@@ -20,12 +20,10 @@ configure_file ("fatPerson.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ladder.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
-configure_file ("‏‏level2.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
-
-
-
+configure_file ("friend.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("playlist.txt" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("loading.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("coinSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("explodeSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("flySound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -33,6 +31,7 @@ configure_file ("jumpSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelUpSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("playerEnemySound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("takeSaltSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("papaLoueiSong.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 
