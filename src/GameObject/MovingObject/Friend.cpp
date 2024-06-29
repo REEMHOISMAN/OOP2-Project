@@ -21,7 +21,7 @@ bool Friend::m_register = MovingObjectFactory::registerMovingObject(sf::Color(47
 Friend::Friend(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy, std::pair<sf::IntRect, sf::IntRect>& rect, Level& level) :
 	m_strategy(std::move(strategy)), MovingObject(sprite),
 	m_collideWithCageHeight(rect.first.height), m_friendStatusRect(rect),
-	m_isHappy(false), m_level(level), m_happyTimer(sf::seconds(2.f))
+	m_isHappy(false), m_level(level), m_happyTimer(sf::seconds(3.f))
 {}
 
 void Friend::move(sf::Time time)
