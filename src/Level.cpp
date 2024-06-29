@@ -36,7 +36,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 			{
 				player.setPlayer(factor_x, 300);
 			}
-			else if (auto movingObject = MovingObjectFactory::createMovingObject(color, factor_x, 300, this))
+			else if (auto movingObject = MovingObjectFactory::createMovingObject(color, factor_x, factor_y, this))
 			{
 				m_movingObjects.emplace_back(std::move(movingObject));
 			}
