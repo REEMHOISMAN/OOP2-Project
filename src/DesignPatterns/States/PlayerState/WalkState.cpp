@@ -40,7 +40,7 @@ void WalkState::update(sf::Time time, Player& player)
     sf::Vector2f newPos;
    float sec = time.asSeconds();
    player.activateGravity(0.3f); 
-
+   player.setClimb(false);
    float gravity = player.getGravity();
    newPos.y = gravity;
    

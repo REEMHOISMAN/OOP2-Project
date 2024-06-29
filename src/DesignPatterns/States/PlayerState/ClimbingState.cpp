@@ -11,7 +11,7 @@ ClimbingState::ClimbingState(const ObjectAnimation type)
 
 std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& player)
 {
-	if (!player.isClimb())
+	if (!player.isOnGround())
 	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}

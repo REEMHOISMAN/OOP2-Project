@@ -309,10 +309,13 @@ void playerLadder(GameObject& object1, GameObject& object2)
 		if (intersect.height > intersect.width) {
 			player.setClimb(true);
 		}
-		else if (intersect.height < intersect.width&&!player.isClimb())
+		else if (intersect.height < intersect.width)
 		{
 			newPos.y = -intersect.height;
-			player.setClimb(true);
+			if (player.getUserInput()==CLIMB) {
+				player.setClimb(true);
+				return;
+			}
 			sf::Vector2f currentPos = playerSprite.getPosition();
 			player.setObjectPosition(currentPos + newPos);
 		}

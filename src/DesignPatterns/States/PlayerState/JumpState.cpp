@@ -50,7 +50,8 @@ void JumpState::update(sf::Time elapsedTime, Player& player)
 	m_jumpSpeed = sec * 700.f;
 	player.activateGravity(0.2f);
     sf::Vector2f newPos;
-	
+	player.setClimb(false);
+
 	float gravity = player.getGravity();
     player.isBlockedFromSide() ? newPos.x = 0.f :newPos.x = sec*m_rightLeftSpeed;
     newPos.y = -m_jumpSpeed+gravity;

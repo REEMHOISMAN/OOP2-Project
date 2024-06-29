@@ -43,6 +43,7 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
 void StandState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;
+    player.setClimb(false);
     player.activateGravity(0.3);
     float gravity = player.getGravity();
     newPos.x = 0;
