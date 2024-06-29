@@ -8,9 +8,8 @@
 InGameState::InGameState(GameController& controller ,Button& button) : m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
-	m_background.setSize({float(WIDTH), float(HEIGHT)});
+	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
-	m_background.setPosition(WIDTH/2, HEIGHT/2);
 
 	m_playlist.open("playlist.txt");
 
@@ -60,12 +59,12 @@ void InGameState::render(sf::RenderWindow&window)
 void InGameState::setView(sf::RenderWindow& window)
 {
 	sf::Vector2f viewCenter = window.getView().getCenter();
-	int offset = static_cast<int>(viewCenter.x) % static_cast<int>(WIDTH);
+	int offset = static_cast<int>(viewCenter.x) % static_cast<int>(WIDTH*3);
 
-	m_background.setPosition(viewCenter.x - offset, HEIGHT / 2);
+	m_background.setPosition(viewCenter.x - offset, HEIGHT/5);
 	window.draw(m_background);
 
-	m_background.setPosition(viewCenter.x - offset + WIDTH, HEIGHT / 2);
+	m_background.setPosition(viewCenter.x - offset + 3*WIDTH, HEIGHT/5);
 	window.draw(m_background);
 }
 

@@ -34,7 +34,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 			auto color = image.getPixel(x, y);
 			if (color == sf::Color::Red)
 			{
-				player.setPlayer(factor_x, 300);
+				player.setPlayer(factor_x, factor_y);
 			}
 			else if (auto movingObject = MovingObjectFactory::createMovingObject(color, factor_x, factor_y, this))
 			{

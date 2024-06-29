@@ -113,11 +113,16 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		enemy.setBlockedOnSide(true);
 		enemy.setScale();
 	}
-	else if (intersect.height < intersect.width && !enemy.isOnGround())
+	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top > enemy.getObjectSprite().getGlobalBounds().top)
 	{
 		newPos.y = -intersect.height;
 		enemy.resetGravity();
 		enemy.setOnGround(true);
+	}
+	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top < enemy.getObjectSprite().getGlobalBounds().top)
+	{
+		newPos.y = intersect.height;  // Push enemy down by the height of the intersection
+		enemy.activateGravity(2.f);   // Optionally adjust the gravity factor to control fall speed
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();

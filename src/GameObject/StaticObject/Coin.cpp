@@ -7,7 +7,7 @@ bool Coin::m_register = StaticObjectFactory::registerStaticObject(sf::Color(255,
 	{
 		sf::Sprite sprite(ResourceManager::instance().getTexture("coin"));
 		sprite.setScale(3.f, 3.f);
-		sprite.setPosition(x, y + 30);
+		sprite.setPosition(x+20, y + 30);
 		return std::make_unique<Coin>(sprite);
 	});
 

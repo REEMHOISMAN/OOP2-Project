@@ -62,8 +62,8 @@ void Player::draw(sf::RenderWindow& window)const
 	auto sprite = getObjectSprite();
 	auto center = sf::Vector2f(sprite.getPosition().x, HEIGHT/2);
 	if (sprite.getPosition().y < HEIGHT/2) {
-		center.y = sprite.getPosition().y;
-		window.setView(sf::View(sprite.getPosition(), sf::Vector2f(WIDTH, HEIGHT)));
+		(!isOnGround() || window.getView().getCenter().y < sprite.getPosition().y )? center.y = sprite.getPosition().y: center.y = window.getView().getCenter().y;
+		window.setView(sf::View(center, sf::Vector2f(WIDTH, HEIGHT)));
 	}
 	else {
 		window.setView(sf::View(center, sf::Vector2f(WIDTH, HEIGHT)));
