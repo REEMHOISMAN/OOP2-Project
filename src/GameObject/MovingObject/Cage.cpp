@@ -16,9 +16,9 @@ void Cage::move(sf::Time delta)
 	if (m_liftCage && m_cageHeight < MAX_CAGE_HEIGHT)
 	{
 		auto sprite = getObjectSprite();
-		sprite.move({ 0,-1.8f });
+		sprite.move({ 0,-1.f });
 		setObjectSprite(sprite);
-		m_cageHeight += 1.8f;
+		m_cageHeight += 1.f;
 	}
 }
 
