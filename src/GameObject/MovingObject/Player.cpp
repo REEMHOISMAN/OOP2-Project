@@ -6,6 +6,7 @@
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "DesignPatterns/States/PlayerState/PlayerState.h"
+#include "DesignPatterns/States/PlayerState/ClimbingState.h"
 #include "GameObject/MovingObject/Cage.h"
 #include "Level.h"
 #include <iostream>
@@ -233,6 +234,8 @@ void Player::pickUpPizza(Pizza& pizza)
 void Player::setClimb(bool val) 
 {
 	m_climb = val;
+	if (m_climb)
+		m_state = std::make_unique<ClimbingState>(PLAYER_STAND);
 }
 
 //----------------------------------------------------

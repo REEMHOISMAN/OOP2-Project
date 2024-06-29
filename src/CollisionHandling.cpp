@@ -311,10 +311,10 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	playerSprite.getGlobalBounds().intersects(ladder.getObjectSprite().getGlobalBounds(), intersect);
 	if (intersect.width > ladder.getObjectSprite().getGlobalBounds().width/1.5)
 	{
-		if (intersect.height > intersect.width) {
+		/*if (intersect.height > intersect.width) {
 			player.setClimb(true);
-		}
-		else if (intersect.height < intersect.width)
+		}*/
+		/*else if (intersect.height < intersect.width)
 		{
 			newPos.y = -intersect.height;
 			if (player.getUserInput()==CLIMB) {
@@ -323,10 +323,8 @@ void playerLadder(GameObject& object1, GameObject& object2)
 			}
 			sf::Vector2f currentPos = playerSprite.getPosition();
 			player.setObjectPosition(currentPos + newPos);
-		}
-	}
-	else {
-		player.setClimb(false);
+		}*/
+		player.setClimb(true);
 	}
 }
 

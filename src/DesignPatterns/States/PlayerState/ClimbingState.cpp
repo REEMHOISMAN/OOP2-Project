@@ -11,7 +11,7 @@ ClimbingState::ClimbingState(const ObjectAnimation type)
 
 std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& player)
 {
-	if (!player.isOnGround())
+	if (!player.isClimb())
 	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 	}
@@ -28,7 +28,6 @@ std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& pla
 
 void ClimbingState::update(sf::Time elapsed, Player& player)
 {
-	player.activateGravity(0);
 	m_climbSpeed = elapsed.asSeconds() * 200.f;
 	sf::Vector2f newPos;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -37,4 +36,5 @@ void ClimbingState::update(sf::Time elapsed, Player& player)
 		newPos.y = m_climbSpeed;
 	auto prevPos = player.getObjectSprite().getPosition();
 	player.setObjectPosition(prevPos+newPos);
+	player.setClimb(false);
 }
