@@ -4,10 +4,12 @@
 #include "DesignPatterns/Strategies/MovingStrategy.h"
 #include "GameObject/MovingObject/Cage.h"
 
+class Level;
+
 class FatMan:public Enemy
 {
 public:
-	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation, int);
+	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation, Level&);
 	virtual void move(sf::Time)override;
 	void setIsHappy();
 	void setIsAngry();
@@ -25,4 +27,5 @@ private:
 	float m_startPosX;
 	bool m_isHappy;
 	bool m_isAngry;
+	Level& m_level;
 };

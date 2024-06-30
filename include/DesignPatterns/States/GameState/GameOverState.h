@@ -12,6 +12,8 @@ public:
 	virtual void handleEvent(sf::Event&, sf::RenderWindow& window)override;
 	virtual void update(sf::Time)override {}
 	virtual void render(sf::RenderWindow& window)override;
+
 private:
+	sf::RectangleShape m_background;
 	Button m_button;
 };

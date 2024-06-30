@@ -12,8 +12,6 @@ InGameState::InGameState(GameController& controller, GameOverState& gameOver,But
 	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
 
-	
-
 	m_playlist.open("playlist.txt");
 
 	m_pause.setTexture(&ResourceManager::instance().getTexture("pause"));
@@ -51,13 +49,17 @@ void InGameState::update(sf::Time time)
 {
 	if (m_isPause) return;
 	
+	if (!m_playlist.is_open()) {
+		m_playlist.open("playlist.txt");
+		readNewLevel();
+	}
 	m_player.move(time);
 	m_level.updateLevel(time, m_player);
 	
 	if (m_player.getHearts() == 0) {
-		m_controller.changeState(m_gameOver);
-	}
-		
+		m_level.resetLevel();
+		resetGame();
+	}	
 }
 
 //--------------------------------------------------
@@ -107,7 +109,14 @@ void InGameState::readNewLevel()
 	if (std::getline(m_playlist, levelName)) {
 		m_level.readLevelMap(levelName, m_player);
 	}
-	else {               
-		m_controller.changeState(m_gameOver);
+	else {
+		resetGame();
 	}
+}
+
+void InGameState::resetGame()
+{
+	m_player.resetPlayer();
+	m_controller.changeState(m_gameOver);
+	m_playlist.close();
 }

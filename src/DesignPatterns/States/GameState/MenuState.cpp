@@ -10,6 +10,7 @@ MenuState::MenuState(GameController& controller, GameState& InGameState, GameSta
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("menuBackground"));
 	m_background.setSize({ WIDTH, HEIGHT });
+	m_background.setOrigin({ WIDTH / 2, HEIGHT / 2 });
 	
 	m_buttons.emplace_back(std::make_pair(sf::IntRect(42, 35, 166, 34), sf::IntRect(42, 106, 166, 34)),
 						   std::make_unique<SwitchScreenCommand>(controller, InGameState),
@@ -46,6 +47,7 @@ void MenuState::handleEvent(sf::Event& event, sf::RenderWindow& window)
 
 void MenuState::render(sf::RenderWindow&window)
 {
+	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
 	m_soundButton.draw(window);
 	std::for_each(m_buttons.begin(), m_buttons.end(), [&window](auto& button) {button.draw(window); });

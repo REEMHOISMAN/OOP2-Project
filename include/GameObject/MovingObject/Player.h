@@ -38,6 +38,7 @@ public:
 	void setDropPizza(bool);
 	void resetPizzaAmount();
 	void setPlayer(float, float);
+	void resetPlayer();
 	void setCage(Cage*);
 	void rescueFriend();
 	void setClimb(bool);

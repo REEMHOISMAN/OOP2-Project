@@ -21,6 +21,7 @@ public:
 	void readNewLevel();
 	
 private:
+	void resetGame();
 	void setView(sf::RenderWindow& window);
 
 	std::ifstream m_playlist;

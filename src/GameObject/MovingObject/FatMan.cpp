@@ -12,18 +12,21 @@ bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3,
 		sprite.setScale(0.7f, 0.7f);
 		sprite.setPosition(x, y+30);
 		sprite.setOrigin(animation[0].width / 2, animation[0].height / 2);
-		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation, level->levelPizzaAmount());
+		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation, *level);
 	});
 
-FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation animation, int pizzas)
+FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation animation, Level& level)
 	:Enemy(sprite, std::move(strategy)), m_animation(animation), m_animationIndex(-1),
-	m_startPosX(sprite.getPosition().x), m_isHappy(false), m_isAngry(false), m_totalPizzas(pizzas)
+	m_startPosX(sprite.getPosition().x), m_isHappy(false), m_isAngry(false), m_level(level), m_totalPizzas(-1)
 {
 
 }
 
 void FatMan::move(sf::Time time)
 {
+	if (m_totalPizzas == -1)
+		m_totalPizzas = m_level.levelPizzaAmount();
+
 	if (m_isAngry || m_isHappy) {
 		m_isAngry = false;
 		return;

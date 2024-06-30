@@ -15,5 +15,4 @@ public:
 private:
 	sf::RectangleShape m_background;
 	Button m_goBackButton;
-
 };

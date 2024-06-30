@@ -26,6 +26,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 
 	sf::Sprite sprite;
 	float factor_y = 620.f;
+
 	for (int y = int(image.getSize().y) - 1; y >= 0; y--) // read from the end because print from the begin
 	{
 		float factor_x = 0.f;
@@ -79,6 +80,7 @@ void Level::updateLevel(sf::Time& time, Player& player)
 
 	else if (m_levelFinish) { //level is finish and also the loading is finished!
 		resetLevel();
+		m_game.readNewLevel();
 	}
 }
 
@@ -156,7 +158,6 @@ void Level::resetLevel()
 	m_pizzas = 0;
 	m_levelFinish = false;
 	m_levelFinishTimer = sf::seconds(1.5f);
-	m_game.readNewLevel();
 }
 
 //-----------------------------------------------------------------------------

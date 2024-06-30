@@ -212,6 +212,7 @@ void Player::setPlayer(float x, float y)
 	setObjectSprite(sprite);
 }
 
+
 //----------------------------------------------------
 void Player::setCage(Cage* cage)
 {
@@ -244,3 +245,21 @@ bool Player::isClimb()const
 	return m_climb;
 }
 
+
+void Player::resetPlayer()
+{
+	m_hearts = MAX_LIVES;
+	m_switchBlinkTime =0.2f;
+	m_saltBombsStack = 0;
+	m_coins = 0;
+	m_pizzas = 0;
+	m_frame = 0;
+	m_blinks = 0;
+	m_dropPizza = true;
+	m_isCheesed = false;
+	m_collideWithEnemy = false;
+	m_climb = false;
+	m_pickedPizzaTimer = 0.f;
+	m_blinkTimer = sf::seconds(0.f);
+	resetGravity();
+}

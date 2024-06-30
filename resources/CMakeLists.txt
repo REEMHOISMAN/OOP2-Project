@@ -34,6 +34,7 @@ configure_file ("takeSaltSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("papaLoueiSong.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("pause.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menuButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("GameOverBG.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 
