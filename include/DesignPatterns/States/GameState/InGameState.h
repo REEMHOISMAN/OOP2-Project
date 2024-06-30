@@ -24,10 +24,12 @@ private:
 
 	std::ifstream m_playlist;
 	sf::RectangleShape m_background;
+	sf::RectangleShape m_pause;
 	UserInterface m_ui;
 	Level m_level;
 	Player m_player;
 	Button& m_soundButton;
 	GameController& m_controller;
+	bool m_isPause;
 };
 

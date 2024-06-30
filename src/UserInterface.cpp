@@ -37,6 +37,7 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int m
 	score.setFont(ResourceManager::instance().getFont());
 	score.setFillColor(sf::Color::White);
 	window.draw(score);
+
 }
 
 void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor)

@@ -32,6 +32,8 @@ configure_file ("levelUpSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("playerEnemySound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("takeSaltSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("papaLoueiSong.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("pause.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 
 

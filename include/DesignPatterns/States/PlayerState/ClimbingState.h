@@ -10,4 +10,5 @@ public:
 	virtual void update(sf::Time, Player&)override;
 private:
 	float m_climbSpeed;
+	float m_xSpeed;
 };

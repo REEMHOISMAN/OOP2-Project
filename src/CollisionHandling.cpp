@@ -77,8 +77,8 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 		}
 		else if (playerSprite.getGlobalBounds().top > obstacleSprite.getGlobalBounds().top) //colide from above
 		{
-			player.setOnGround(true);
 			newPos.y = intersect.height;
+			player.activateGravity(1.f);
 		}
 	}
 
@@ -122,7 +122,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top < enemy.getObjectSprite().getGlobalBounds().top)
 	{
 		newPos.y = intersect.height;  // Push enemy down by the height of the intersection
-		enemy.activateGravity(2.f);   // Optionally adjust the gravity factor to control fall speed
+		//enemy.activateGravity(2.f);  
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
@@ -290,9 +290,9 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 			fatMan.setIsAngry();
 		}
 		else{
+			player.resetPizzaAmount();
 			fatMan.setIsHappy();
 			player.rescueFriend();
-			player.resetPizzaAmount();
 		}
 	}
 

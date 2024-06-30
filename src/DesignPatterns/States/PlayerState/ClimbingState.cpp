@@ -5,7 +5,7 @@
 #include "GameObject/MovingObject/Player.h"
 
 ClimbingState::ClimbingState(const ObjectAnimation type)
-	:PlayerState(type,sf::seconds(0.f)), m_climbSpeed(0.f)
+	:PlayerState(type,sf::seconds(0.f)), m_climbSpeed(0.f), m_xSpeed(0.f)
 {
 }
 
@@ -19,9 +19,9 @@ std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& pla
 	{
 		return player.getPizzasAmount() == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
 	}
-	if (input == LEFT || input == RIGHT) 
+	if ((input == LEFT || input == RIGHT)) 
 	{
-		return player.getPizzasAmount() == 0 ? std::make_unique<WalkState>(PLAYER_WALK) : std::make_unique<WalkState>(PLAYER_WALK_PIZZA);
+		input == LEFT ? m_xSpeed = -200.f : m_xSpeed = 200.f;
 	}	
 	return nullptr;
 }
@@ -35,7 +35,9 @@ void ClimbingState::update(sf::Time elapsed, Player& player)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		newPos.y = m_climbSpeed;
 	auto prevPos = player.getObjectSprite().getPosition();
+	newPos.x = m_xSpeed * elapsed.asSeconds();
 	setAnimationFrame(player, elapsed);
 	player.setObjectPosition(prevPos+newPos);
 	player.setClimb(false);
+	m_xSpeed = 0.f;
 }

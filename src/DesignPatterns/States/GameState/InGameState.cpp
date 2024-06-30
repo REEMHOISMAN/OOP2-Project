@@ -5,11 +5,16 @@
 #include "Button.h"
 
 //--------------------------------------------------
-InGameState::InGameState(GameController& controller ,Button& button) : m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller)
+InGameState::InGameState(GameController& controller ,Button& button) : 
+			m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller), m_isPause(false)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
 	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
+
+	m_pause.setTexture(&ResourceManager::instance().getTexture("pause"));
+	m_pause.setOrigin(m_pause.getSize().x / 2, m_pause.getPosition().y / 2);
+	m_pause.scale(4.f, 4.f);
 
 	m_playlist.open("playlist.txt");
 
@@ -30,12 +35,17 @@ void InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// chan
 		sf::Vector2f pos = window.mapPixelToCoords({ event.mouseButton.x,event.mouseButton.y });
 		m_soundButton.handleClick(pos);
 	}
+	else if (event.type == sf::Event::KeyReleased) {
+		
+		if(event.key.code == sf::Keyboard::Escape)
+			m_isPause = !m_isPause;
+	}
 }
 
 //--------------------------------------------------
 void InGameState::update(sf::Time time)
 {
-	if (pause) return;
+	if (m_isPause) return;
 	m_player.move(time);
 	m_level.updateLevel(time, m_player);
 	//if (m_player.getHearts() == 0 ||)      <-------- here we will switch state to "GameOverState" PLAYER IS DEAD
@@ -54,6 +64,11 @@ void InGameState::render(sf::RenderWindow&window)
 	m_ui.showGameInfo(window, m_player, m_level.levelPizzaAmount());
 	m_soundButton.setPosition(window.getView().getCenter());
 	m_soundButton.draw(window);
+
+	if (m_isPause) {
+		m_pause.setPosition(window.getView().getCenter());
+		window.draw(m_pause);
+	}
 }
 
 //--------------------------------------------------
@@ -73,6 +88,7 @@ void InGameState::setView(sf::RenderWindow& window)
 void InGameState::readNewLevel()
 {
 	m_player.resetPizzaAmount();
+	m_player.resetGravity();
 	auto levelName = std::string();
 	if (std::getline(m_playlist, levelName)) {
 		m_level.readLevelMap(levelName, m_player);
