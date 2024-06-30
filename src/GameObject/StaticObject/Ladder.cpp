@@ -10,7 +10,7 @@ bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,3
 		sprite.setTextureRect({ 109, 74, 29, 117 });
 		sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 		sprite.scale(2.5f, 2.5f);
-		sprite.setPosition(x+30, y-30);
+		sprite.setPosition(x+30, y-50);
 		return std::make_unique<Ladder>(sprite);
 	});
 

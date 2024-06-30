@@ -35,6 +35,7 @@ void InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// chan
 //--------------------------------------------------
 void InGameState::update(sf::Time time)
 {
+	if (pause) return;
 	m_player.move(time);
 	m_level.updateLevel(time, m_player);
 	//if (m_player.getHearts() == 0 ||)      <-------- here we will switch state to "GameOverState" PLAYER IS DEAD
