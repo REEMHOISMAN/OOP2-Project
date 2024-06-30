@@ -9,11 +9,12 @@
 
 class Button;
 class GameController;
+class GameOverState;
 
 class InGameState : public GameState
 {
 public:
-	InGameState(GameController&, Button&);
+	InGameState(GameController&, GameOverState&, Button&);
 	virtual void handleEvent(sf::Event&, sf::RenderWindow& window) override;
 	virtual void update(sf::Time) override;
 	virtual void render(sf::RenderWindow&) override;
@@ -30,6 +31,7 @@ private:
 	Player m_player;
 	Button& m_soundButton;
 	GameController& m_controller;
+	GameOverState& m_gameOver;
 	bool m_isPause;
 };
 

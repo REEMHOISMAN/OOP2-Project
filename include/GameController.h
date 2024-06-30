@@ -4,6 +4,8 @@
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include "DesignPatterns/States/GameState/MenuState.h"
 #include "DesignPatterns/States/GameState/HelpState.h"
+#include "DesignPatterns/States/GameState/GameOverState.h"
+
 
 class GameState;
 
@@ -24,6 +26,6 @@ private:
 	InGameState m_inGameState;
 	MenuState m_menuState;
 	HelpState m_helpState;
-	
+	GameOverState m_gameOver;
 	Button m_soundButton;
 };

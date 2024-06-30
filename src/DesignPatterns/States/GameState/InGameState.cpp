@@ -5,8 +5,8 @@
 #include "Button.h"
 
 //--------------------------------------------------
-InGameState::InGameState(GameController& controller ,Button& button) : 
-			m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller), m_isPause(false)
+InGameState::InGameState(GameController& controller, GameOverState& gameOver,Button& button) :
+			m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller), m_isPause(false), m_gameOver(gameOver)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
 	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
@@ -50,9 +50,13 @@ void InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// chan
 void InGameState::update(sf::Time time)
 {
 	if (m_isPause) return;
+	
 	m_player.move(time);
 	m_level.updateLevel(time, m_player);
-	//if (m_player.getHearts() == 0 ||)      <-------- here we will switch state to "GameOverState" PLAYER IS DEAD
+	
+	if (m_player.getHearts() == 0) {
+		m_controller.changeState(m_gameOver);
+	}
 		
 }
 
@@ -103,7 +107,7 @@ void InGameState::readNewLevel()
 	if (std::getline(m_playlist, levelName)) {
 		m_level.readLevelMap(levelName, m_player);
 	}
-	else {                // <--------just for now, here we will ALSO switch state to "GameOverState" NO MORE LEVEL TO READ
-		m_controller.close();
+	else {               
+		m_controller.changeState(m_gameOver);
 	}
 }
