@@ -12,11 +12,15 @@ InGameState::InGameState(GameController& controller ,Button& button) :
 	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
 	m_background.setOrigin(m_background.getSize().x / 2, m_background.getSize().y / 2);
 
-	m_pause.setTexture(&ResourceManager::instance().getTexture("pause"));
-	m_pause.setOrigin(m_pause.getSize().x / 2, m_pause.getPosition().y / 2);
-	m_pause.scale(4.f, 4.f);
+	
 
 	m_playlist.open("playlist.txt");
+
+	m_pause.setTexture(&ResourceManager::instance().getTexture("pause"));
+	
+	m_pause.setSize({ 360.f, 360.f });
+	m_pause.setOrigin(m_pause.getSize().x / 2, m_pause.getSize().y / 2);
+	m_pause.setPosition(m_player.getObjectSprite().getPosition());
 
 	sf::Sprite sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
 	sprite.scale({ 0.4f, 0.4f });
@@ -56,16 +60,22 @@ void InGameState::update(sf::Time time)
 void InGameState::render(sf::RenderWindow&window)
 {
 	setView(window);
-
 	m_level.draw(window);
 	if (m_level.isLevelFinished()) return;
 
 	m_player.draw(window);
+	
 	m_ui.showGameInfo(window, m_player, m_level.levelPizzaAmount());
 	m_soundButton.setPosition(window.getView().getCenter());
 	m_soundButton.draw(window);
 
 	if (m_isPause) {
+		sf::RectangleShape blurBG;
+		blurBG.setFillColor({ 0,0,0,200 });
+		blurBG.setSize({WIDTH, HEIGHT});
+		blurBG.setOrigin({ WIDTH / 2, HEIGHT / 2 });
+		blurBG.setPosition(window.getView().getCenter());
+		window.draw(blurBG);
 		m_pause.setPosition(window.getView().getCenter());
 		window.draw(m_pause);
 	}
