@@ -57,7 +57,7 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 
 		
 	if (intersect.height > intersect.width) //collide with wall
-	{	
+	{
 		if (player.isHeadDirectionRight()) {
 			newPos.x = -intersect.width;
 		}
@@ -309,21 +309,9 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	auto playerSprite = player.getObjectSprite();
 	auto newPos = sf::Vector2f();
 	playerSprite.getGlobalBounds().intersects(ladder.getObjectSprite().getGlobalBounds(), intersect);
-	if (intersect.width > ladder.getObjectSprite().getGlobalBounds().width/1.5)
+	if (intersect.width > ladder.getObjectSprite().getGlobalBounds().width/1.5 && 
+		playerSprite.getGlobalBounds().top > ladder.getObjectSprite().getGlobalBounds().top - playerSprite.getGlobalBounds().height/2)
 	{
-		/*if (intersect.height > intersect.width) {
-			player.setClimb(true);
-		}*/
-		/*else if (intersect.height < intersect.width)
-		{
-			newPos.y = -intersect.height;
-			if (player.getUserInput()==CLIMB) {
-				player.setClimb(true);
-				return;
-			}
-			sf::Vector2f currentPos = playerSprite.getPosition();
-			player.setObjectPosition(currentPos + newPos);
-		}*/
 		player.setClimb(true);
 	}
 }

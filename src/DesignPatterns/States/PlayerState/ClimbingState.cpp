@@ -5,7 +5,7 @@
 #include "GameObject/MovingObject/Player.h"
 
 ClimbingState::ClimbingState(const ObjectAnimation type)
-	:PlayerState(type,sf::seconds(0.1)), m_climbSpeed(0.f)
+	:PlayerState(type,sf::seconds(0.f)), m_climbSpeed(0.f)
 {
 }
 
@@ -35,6 +35,7 @@ void ClimbingState::update(sf::Time elapsed, Player& player)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		newPos.y = m_climbSpeed;
 	auto prevPos = player.getObjectSprite().getPosition();
+	setAnimationFrame(player, elapsed);
 	player.setObjectPosition(prevPos+newPos);
 	player.setClimb(false);
 }
