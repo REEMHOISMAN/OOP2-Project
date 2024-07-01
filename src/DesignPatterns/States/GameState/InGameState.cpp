@@ -21,7 +21,7 @@ InGameState::InGameState(GameController& controller, GameOverState& gameOver,But
 	m_pause.setPosition(m_player.getObjectSprite().getPosition());
 
 	sf::Sprite sprite(ResourceManager::instance().getTexture("playerSpriteSheet"));
-	sprite.scale({ 0.4f, 0.4f });
+	sprite.scale({ 0.35f, 0.35f });
 	m_player.setObjectSprite(sprite);
 	
 	initCollisionFunctions();
