@@ -10,4 +10,5 @@ public:
 private:
 	sf::Sprite m_saltBomb;
 	bool m_XisPressed;
+	bool m_XwasPressed;
 };
