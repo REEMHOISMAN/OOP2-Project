@@ -167,6 +167,8 @@ void ResourceManager::failedLoad(const std::string msg) const
     std::cerr << "failed load " << msg << " in ResourceManager\n";
     exit(1);
 }
+
+/*================== playSound =================*/
 void ResourceManager::playSound(const std::string& soundName)
 {
     if (m_muteSound) return;
@@ -178,6 +180,7 @@ void ResourceManager::playSound(const std::string& soundName)
  
 }
 
+/*================== setSoundStatus =================*/
 void ResourceManager::setSoundStatus()
 {
     m_muteSound = !m_muteSound;

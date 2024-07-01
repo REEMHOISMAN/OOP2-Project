@@ -1,5 +1,6 @@
 #include "DesignPatterns/Factories/StaticObjectFactory.h"
 
+/*================== createStaticObject =================*/
 std::unique_ptr<StaticObject> StaticObjectFactory::createStaticObject(const sf::Color objectColor, float x, float y)
 {
 	auto it = getStaicObjectMap().find(objectColor);
@@ -9,12 +10,14 @@ std::unique_ptr<StaticObject> StaticObjectFactory::createStaticObject(const sf::
 	return nullptr;
 }
 
+/*================== registerStaticObject =================*/
 bool StaticObjectFactory::registerStaticObject(const sf::Color color, StaticObjectFunc createStaticObject)
 {
 	getStaicObjectMap().emplace(color, std::move(createStaticObject));
 	return true;
 }
 
+/*================== getStaicObjectMap =================*/
 StaticObjectMap& StaticObjectFactory::getStaicObjectMap()
 {
 	static StaticObjectMap map;

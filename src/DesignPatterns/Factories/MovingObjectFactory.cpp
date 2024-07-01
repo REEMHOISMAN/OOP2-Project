@@ -5,7 +5,7 @@
 #include "Level.h"
 #include <vector>
 
-//--------------------------------------------------
+/*================== createMovingObject =================*/
 std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::Color enemyColor, float x, float y, Level* level)
 {
 	auto it = getMovingObjectMap().find(enemyColor);
@@ -15,13 +15,17 @@ std::unique_ptr<MovingObject> MovingObjectFactory::createMovingObject(const sf::
 	return nullptr;
 }
 
-//--------------------------------------------------
+/*================== registerMovingObject =================*/
+/**----------------------------------------------
+ * each game object have unique color as key, and it create function as value
+ *---------------------------------------------**/
 bool MovingObjectFactory::registerMovingObject(const sf::Color color, MovingObjectFunc createMovingObject)
 {
 	getMovingObjectMap().emplace(color, std::move(createMovingObject));
 	return true;
 }
 
+/*================== getMovingObjectMap =================*/
 movingObjectMap& MovingObjectFactory::getMovingObjectMap()
 {
 	static movingObjectMap map;

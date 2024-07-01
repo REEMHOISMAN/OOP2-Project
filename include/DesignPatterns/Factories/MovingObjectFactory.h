@@ -8,8 +8,6 @@
 class Level;
 using MovingObjectFunc = std::function<std::unique_ptr<MovingObject>(float, float,  Level*)>;
 
-
-
 using movingObjectMap = std::map<sf::Color, MovingObjectFunc, CompareColor>;
 
 class MovingObjectFactory
