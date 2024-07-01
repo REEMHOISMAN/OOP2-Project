@@ -25,7 +25,6 @@ bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,3
 		return std::make_unique<Ladder>(sprite);
 		});
 
-
 Ladder::Ladder(sf::Sprite& sprite)
 	:StaticObject(sprite)
 {

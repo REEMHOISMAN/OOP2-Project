@@ -2,6 +2,7 @@
 #include"DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Factories/StaticObjectFactory.h"
 
+/*================== Heart Register =================*/
 bool Heart::m_register = StaticObjectFactory::registerStaticObject(sf::Color(136, 0, 21),
 	[](float x, float y)->std::unique_ptr<StaticObject>
 	{
@@ -12,6 +13,8 @@ bool Heart::m_register = StaticObjectFactory::registerStaticObject(sf::Color(136
 		return std::make_unique<Heart>(sprite);
 	}
 );
+
+/*================== Heart Constructor =================*/
 Heart::Heart(sf::Sprite& sprite)
 	:StaticObject(sprite)
 {

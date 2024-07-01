@@ -2,7 +2,7 @@
 #include "DesignPatterns/Factories/StaticObjectFactory.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 
-
+/*================== StaticSaltBomb Register =================*/
 bool StaticSaltBomb::m_register = StaticObjectFactory::registerStaticObject(sf::Color(195, 195, 195),
 	[](float x, float y)->std::unique_ptr<StaticObject>
 	{
@@ -12,6 +12,7 @@ bool StaticSaltBomb::m_register = StaticObjectFactory::registerStaticObject(sf::
 		return std::make_unique<StaticSaltBomb>(sprite);
 	});
 
+/*================== StaticSaltBomb Constructor =================*/
 StaticSaltBomb::StaticSaltBomb(sf::Sprite& sprite)
 	:StaticObject(sprite)
 {
