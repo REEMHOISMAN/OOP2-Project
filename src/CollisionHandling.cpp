@@ -185,7 +185,7 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 	if (salt.getJumps()<1) {
 		salt.setObjectPosition(prevPos + newPos);
 		salt.resetGravity();
-		salt.setStrategy(std::make_unique< UpDownStrategy>(5));
+		salt.setStrategy(std::make_unique< UpDownStrategy>(6.5f));
 		salt.setJumps();
 	}
 	else if (!salt.isExplode()){

@@ -29,7 +29,7 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player
 	if ((player.isOnGround() || player.isBlockedFromSide()))
 		return player.getPizzasAmount() == 0 ? std::make_unique<StandState>(PLAYER_STAND) : std::make_unique<StandState>(PLAYER_STAND_PIZZA);
 
-	if (m_jumpTimer >= 1.1f && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player.isBlockedFromSide())
+	if (m_jumpTimer >= 1.1f && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player.isBlockedFromSide()&&player.getPizzasAmount()==0)
 		return std::make_unique<DivingState>(PLAYER_DIVE);
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !player.isBlockedFromSide())
