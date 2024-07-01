@@ -6,9 +6,9 @@
 #include <memory>
 #include <iostream>
 
-/*================== move =================*/
+/*================== BasicEnemy Register =================*/
 bool BasicEnemy::m_register =
-MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
+	MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 	[](float x, float y, Level* inGameState)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ORANGE_ENEMY);
@@ -43,16 +43,14 @@ MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
 			animation);
 	});
-	
 
-
-//---------------------------------------------------------
+/*================== BasicEnemy Constructor =================*/
 BasicEnemy::BasicEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation& animation)
-	:Enemy(sprite, std::move(strategy)), m_animationIndex(0), m_animation(animation)
+:Enemy(sprite, std::move(strategy)), m_animationIndex(0), m_animation(animation)
 {
 }
 
-//---------------------------------------------------------
+/*================== move =================*/
 void BasicEnemy::move(const sf::Time& time)
 {
 	
@@ -63,6 +61,7 @@ void BasicEnemy::move(const sf::Time& time)
 	setBlockedOnSide(false);
 }
 
+/*================== loadAnimationFrame =================*/
 void BasicEnemy::loadAnimationFrame(sf::Time deltaTime)
 {
 	m_elapsed += deltaTime;
