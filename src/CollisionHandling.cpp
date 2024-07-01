@@ -124,7 +124,6 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top < enemy.getObjectSprite().getGlobalBounds().top)
 	{
 		newPos.y = intersect.height;  // Push enemy down by the height of the intersection
-		//enemy.activateGravity(2.f);  
 	}
 
 	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
