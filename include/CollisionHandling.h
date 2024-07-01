@@ -4,7 +4,7 @@
 void initCollisionFunctions();
 void playerObstacle(GameObject&, GameObject&);
 void enemyObstacle(GameObject&, GameObject&);
-void pizzaEnemyFloor(GameObject&, GameObject&);
+void pizzaEnemyObstacle(GameObject&, GameObject&);
 void PlayerStaticBomb(GameObject&, GameObject&);
 void PlayerHeart(GameObject&, GameObject&);
 void PlayerCoins(GameObject&, GameObject&);

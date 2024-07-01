@@ -24,7 +24,7 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(BasicEnemy), typeid(Obstacle), &enemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(FatMan), typeid(Obstacle), &enemyObstacle);
-	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyFloor);
+	GameCollisions::instance().addCollusionFunc(typeid(PizzaEnemy), typeid(Obstacle), &pizzaEnemyObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(StaticSaltBomb), &PlayerStaticBomb);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Heart), &PlayerHeart);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Coin), &PlayerCoins);
@@ -34,6 +34,8 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(CheeseBullet), typeid(Obstacle), &cheeseBulletObstacle);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(CheeseBullet), &playerCheeseBullet);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(PizzaEnemy), &playerEnemy);
+	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Pizza), typeid(Player), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(FatMan), &playerFatMan);
@@ -131,7 +133,7 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 }
 
 //---------------------------------
-void pizzaEnemyFloor(GameObject& object1, GameObject& object2) 
+void pizzaEnemyObstacle(GameObject& object1, GameObject& object2) 
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	enemyObstacle(object1, object2);
