@@ -1,13 +1,13 @@
 #pragma once 
-
 #include "GameObject/MovingObject/Enemy.h"
+
+class MovingStrategy;
 
 class BasicEnemy :public Enemy 
 {
 public:
 	BasicEnemy(sf::Sprite&,std::unique_ptr<MovingStrategy>,Animation&);
 	virtual void move(const sf::Time&)override;
-	
 	
 private:
 	void loadAnimationFrame(sf::Time);
