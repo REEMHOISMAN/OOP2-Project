@@ -2,12 +2,13 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "GameObject/MovingObject/Player.h"
 
+/*================== CheesedState Constructor =================*/
 CheesedState::CheesedState(const ObjectAnimation animation): 
 	PlayerState(animation, sf::seconds(0.f)), m_spaceCounter(3), m_pressingOnSpace(false), m_wasPressedOnSpace(true)
 {
 }
 
-//-----------------------------------------
+/*================== CheesedState handleEvent =================*/
 std::unique_ptr<PlayerState> CheesedState::handleEvent(Input input, Player& player)
 {
 	if (m_spaceCounter == 0)
@@ -25,7 +26,11 @@ std::unique_ptr<PlayerState> CheesedState::handleEvent(Input input, Player& play
 	return nullptr;
 }
 
-//-----------------------------------------
+/*================== update =================*/
+/*---------------------------------------------------------
+* this state is is when the pizza enemy spit on the player and
+player need to get out of the state by pressing 3 times space
+-----------------------------------------------------------*/
 void CheesedState::update(sf::Time time, Player& player)
 {
 	if (!m_pressingOnSpace && m_wasPressedOnSpace)
@@ -34,11 +39,11 @@ void CheesedState::update(sf::Time time, Player& player)
 		setAnimationFrame(player, time);
 	}
 	
-	m_wasPressedOnSpace = m_pressingOnSpace;
+	m_wasPressedOnSpace = m_pressingOnSpace;//manageing key realease with booleans
 	
 	player.activateGravity(0.3f); // if you were jumping -> fall
 	
-	auto prevPos = player.getObjectSprite().getPosition();
+	auto prevPos = player.getPosition();
 	prevPos.y += player.getGravity();
 	player.setObjectPosition(prevPos);
 }

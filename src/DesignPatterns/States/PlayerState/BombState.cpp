@@ -8,11 +8,13 @@
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/Player.h"
 
+/*================== BombState Constructor =================*/
 BombState::BombState(const ObjectAnimation animation)
 	:PlayerState(animation,sf::seconds(0.1f)),m_XisPressed(true),m_XwasPressed(false)
 {
 }
 
+/*================== BombState handleEvent =================*/
 std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 {
 	if (!m_XisPressed&& !m_XwasPressed) {
@@ -27,9 +29,14 @@ std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 	return nullptr;
 }
 
+/*================== update =================*/
+/*----------------------------------------------------------
+player throwing salt bomb, he insert to the list moving salt 
+bomb wuth sude to side strategy and manageing key realease with booleans
+------------------------------------------------------------*/
 void BombState::update(sf::Time elapsed, Player& player)
 {
-    auto pos = player.getObjectSprite().getPosition();
+    auto pos = player.getPosition();
     player.activateGravity(0.1f);
     m_saltBomb.setTexture(ResourceManager::instance().getTexture("salt"));
     m_saltBomb.setScale(2.f, 2.f);

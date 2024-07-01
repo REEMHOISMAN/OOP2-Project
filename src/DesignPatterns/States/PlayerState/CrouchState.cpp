@@ -5,12 +5,13 @@
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Pizza.h"
 
-
+/*================== CrouchState Constructor =================*/
 CrouchState::CrouchState(const ObjectAnimation animation)
 	:PlayerState(animation, sf::seconds(0.f)),m_pizzaHeight(0.f),m_wasPicked(false),m_stand(false), m_DownWasPressed(false)
 {
 }
 
+/*================== CrouchState handleEvent =================*/
 std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& player)
 {
 	if (input != DOWN) {
@@ -19,7 +20,12 @@ std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& playe
 	}
 	return nullptr;
 }
-
+/*================== CrouchState update =================*/
+/*---------------------------------------------------------
+* this state is to take pizzas after killing enemy pizza 
+Opening a timer until the next pizza can be taken->Prevents detection 
+of a collision with the pizza straight away when taking down a pizza
+-----------------------------------------------------------*/
 void CrouchState::update(sf::Time time, Player& player)
 {
 	if (!player.dropPizza()) {
@@ -38,6 +44,7 @@ void CrouchState::update(sf::Time time, Player& player)
 			player.insertNewPizza(std::make_unique<Pizza>(sprite));
 		}
 		player.resetPizzaAmount();
+		
 		player.HoldingPizzaTimer(time);
 		if (player.GetPizzaTimer() >= 1.f)
 			player.resetPizzTimer();

@@ -4,11 +4,13 @@
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "GameObject/MovingObject/Player.h"
 
+/*================== ClimbingState Constructor =================*/
 ClimbingState::ClimbingState(const ObjectAnimation type)
 	:PlayerState(type,sf::seconds(0.f)), m_climbSpeed(0.f), m_xSpeed(0.f)
 {
 }
 
+/*================== ClimbingState handleEvent =================*/
 std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& player)
 {
 	if (!player.isClimb())
@@ -26,6 +28,7 @@ std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& pla
 	return nullptr;
 }
 
+/*================== update =================*/
 void ClimbingState::update(sf::Time elapsed, Player& player)
 {
 	m_climbSpeed = elapsed.asSeconds() * 200.f;
