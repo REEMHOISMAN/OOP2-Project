@@ -58,10 +58,10 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 		
 	if (intersect.height > intersect.width) //collide with wall
 	{
-		if (player.isHeadDirectionRight()) {
+		if (player.isHeadDirectionRight() && playerSprite.getGlobalBounds().left < obstacleSprite.getGlobalBounds().left) {
 			newPos.x = -intersect.width;
 		}
-		else {
+		else if (!player.isHeadDirectionRight() && playerSprite.getGlobalBounds().left > obstacleSprite.getGlobalBounds().left){
 			newPos.x = intersect.width;
 		}
 		player.setBlockedOnSide(true);
