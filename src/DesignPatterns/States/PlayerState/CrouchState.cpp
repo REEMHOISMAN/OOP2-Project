@@ -35,7 +35,7 @@ void CrouchState::update(sf::Time time, Player& player)
 			sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
 			sprite.setPosition(prevPos.x, prevPos.y + player.getObjectSprite().getGlobalBounds().height / 2 - 20-(i*10));
 			sprite.scale(1.7f, 1.7f);
-			player.dropPizza(std::make_unique<Pizza>(sprite));
+			player.insertNewPizza(std::make_unique<Pizza>(sprite));
 		}
 		player.resetPizzaAmount();
 		player.HoldingPizzaTimer(time);

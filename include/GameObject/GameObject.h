@@ -10,6 +10,9 @@ public:
 	virtual ~GameObject() = default;
 	virtual void draw(sf::RenderWindow& window)const;
 	sf::Sprite getObjectSprite()const;
+	const sf::IntRect getTextureRect() const;
+	const sf::FloatRect getGlobalBounds() const;
+	const sf::Vector2f getPosition() const;
 	void setScale();
 	void setObjectSprite(sf::Sprite&);
 	void setTextureRect(const sf::IntRect&);

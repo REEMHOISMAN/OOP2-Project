@@ -6,7 +6,7 @@ class BasicEnemy :public Enemy
 {
 public:
 	BasicEnemy(sf::Sprite&,std::unique_ptr<MovingStrategy>,Animation&);
-	virtual void move(sf::Time)override;
+	virtual void move(const sf::Time&)override;
 	
 	
 private:

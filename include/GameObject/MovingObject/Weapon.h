@@ -1,14 +1,15 @@
 #pragma once
 #include "GameObject/MovingObject/MovingObject.h"
-#include "DesignPatterns/Strategies/MovingStrategy.h"
 #include <memory>
+
+class MovingStrategy;
 
 class Weapon : public MovingObject
 {
 public:
 	Weapon(sf::Sprite&, std::unique_ptr<MovingStrategy>, bool);
 	void setStrategy(std::unique_ptr<MovingStrategy> strategy);
-	void move(sf::Time)override;
+	void move(const sf::Time&)override;
 
 private:
 	std::unique_ptr<MovingStrategy> m_moveStrategy;

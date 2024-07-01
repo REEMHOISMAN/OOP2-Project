@@ -1,6 +1,7 @@
 #pragma region Includes
 #include "CollisionHandling.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Strategies/UpDownStrategy.h"
 #include "GameObject/MovingObject/Player.h"
@@ -18,9 +19,9 @@
 #include "GameObject/MovingObject/Cage.h"
 #include "GameObject/MovingObject/Friend.h"
 #include "Macros.h"
-
 #pragma endregion
-//---------------------------------------------------------------------
+
+/*================== initCollisionFunctions =================*/
 void initCollisionFunctions()
 {
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Obstacle), &playerObstacle);
@@ -48,24 +49,24 @@ void initCollisionFunctions()
 
 }
 
-//-----------------------------------------------------------------------
+/*================== playerObstacle =================*/
 void playerObstacle(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	sf::FloatRect intersect;
-	auto obstacleSprite = object2.getObjectSprite();
-	auto playerSprite = player.getObjectSprite();
+	auto obstacleBounds = object2.getGlobalBounds();
+	auto playerBounds = player.getGlobalBounds();
 	auto newPos = sf::Vector2f();
 
-	playerSprite.getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+	playerBounds.intersects(obstacleBounds, intersect);
 
 		
 	if (intersect.height > intersect.width) //collide with wall
 	{
-		if (player.isHeadDirectionRight() && playerSprite.getGlobalBounds().left < obstacleSprite.getGlobalBounds().left) {
+		if (player.isHeadDirectionRight() && playerBounds.left < obstacleBounds.left) {
 			newPos.x = -intersect.width;
 		}
-		else if (!player.isHeadDirectionRight() && playerSprite.getGlobalBounds().left > obstacleSprite.getGlobalBounds().left){
+		else if (!player.isHeadDirectionRight() && playerBounds.left > obstacleBounds.left) {
 			newPos.x = intersect.width;
 		}
 		player.setBlockedOnSide(true);
@@ -73,36 +74,38 @@ void playerObstacle(GameObject& object1, GameObject& object2)
 	else // collide from above or bottom
 	{
 
-		if (playerSprite.getGlobalBounds().top < obstacleSprite.getGlobalBounds().top) //collide with ground
-		{  
+		if (playerBounds.top < obstacleBounds.top) //collide with ground
+		{
 			newPos.y = -intersect.height;
 			player.setOnGround(true);
-			player.resetGravity(); //ONLY HERE WE RESET GRAVITY
+			player.resetGravity();
 		}
-		else if (playerSprite.getGlobalBounds().top > obstacleSprite.getGlobalBounds().top) //colide from above
+		else if (playerBounds.top > obstacleBounds.top) //colide from above
 		{
 			newPos.y = intersect.height;
 			player.activateGravity(1.f);
 		}
 	}
 
-	sf::Vector2f currentPos = playerSprite.getPosition();
+	sf::Vector2f currentPos = player.getPosition();
 	player.setObjectPosition(currentPos + newPos);
 }
 
-//-----------------------------------------------------------------------
+/*================== enemyObstacle =================*/
 void enemyObstacle(GameObject& object1, GameObject& object2)
 {
 
 	Enemy& enemy = dynamic_cast<Enemy&>(object1);
 	sf::FloatRect intersect;
-	auto obstacleSprite = object2.getObjectSprite();
+	auto obstacleBounds = object2.getGlobalBounds();
+	auto enemyBounds = enemy.getGlobalBounds();
 	auto newPos = sf::Vector2f();
 
-	enemy.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+	enemyBounds.intersects(obstacleBounds, intersect);
 
 
-	if (intersect.height > intersect.width && !enemy.isBlockedFromSide() && enemy.isOnGround()) // collide with wall
+	if (intersect.height > intersect.width && 
+		!enemy.isBlockedFromSide() && enemy.isOnGround()) 
 	{
 		if (enemy.isHeadDirectionRight()) // move from left to right
 		{
@@ -117,32 +120,33 @@ void enemyObstacle(GameObject& object1, GameObject& object2)
 		enemy.setBlockedOnSide(true);
 		enemy.setScale();
 	}
-	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top > enemy.getObjectSprite().getGlobalBounds().top)
+	else if (intersect.height < intersect.width && 
+			!enemy.isOnGround() && intersect.top > enemyBounds.top)
 	{
 		newPos.y = -intersect.height;
 		enemy.resetGravity();
 		enemy.setOnGround(true);
 	}
-	else if (intersect.height < intersect.width && !enemy.isOnGround() && intersect.top < enemy.getObjectSprite().getGlobalBounds().top)
+	else if (intersect.height < intersect.width && 
+			!enemy.isOnGround() && intersect.top < enemyBounds.top)
 	{
 		newPos.y = intersect.height;  // Push enemy down by the height of the intersection
 	}
 
-	sf::Vector2f currentPosition = enemy.getObjectSprite().getPosition();
+	sf::Vector2f currentPosition = enemy.getPosition();
 	enemy.setObjectPosition(currentPosition + newPos);
-	
+
 }
 
-//---------------------------------
-void pizzaEnemyObstacle(GameObject& object1, GameObject& object2) 
+/*================== pizzaEnemyObstacle =================*/
+void pizzaEnemyObstacle(GameObject& object1, GameObject& object2)
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	enemyObstacle(object1, object2);
 	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>(220.f));
 }
 
-//----------------------------------------------
-//colisiion with al the static objects in game- hearts coins salts ...
+/*================== PlayerStaticBomb =================*/
 void PlayerStaticBomb(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
@@ -150,9 +154,9 @@ void PlayerStaticBomb(GameObject& object1, GameObject& object2)
 
 	object2.setToErase();
 	player.increaseSaltBombs();
-	
 }
-//---------------------------------------------------------
+
+/*================== PlayerHeart =================*/
 void PlayerHeart(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
@@ -160,6 +164,8 @@ void PlayerHeart(GameObject& object1, GameObject& object2)
 	player.increaseHearts();
 
 }
+
+/*================== PlayerCoins =================*/
 void PlayerCoins(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
@@ -170,116 +176,112 @@ void PlayerCoins(GameObject& object1, GameObject& object2)
 
 }
 
-//----------------------------------------------
-//colisiion of salt with the ground
-void saltBombObstacle(GameObject& object1, GameObject&object2) 
+/*================== saltBombObstacle =================*/
+void saltBombObstacle(GameObject& object1, GameObject& object2)
 {
 	MovingSaltBomb& salt = dynamic_cast<MovingSaltBomb&>(object1);
 	sf::FloatRect intersect;
-	auto obstacleSprite = object2.getObjectSprite();
+	auto obstacleBounds = object2.getGlobalBounds();
+	auto saltBounds = salt.getGlobalBounds();
 	auto newPos = sf::Vector2f();
-	salt.getObjectSprite().getGlobalBounds().intersects(obstacleSprite.getGlobalBounds(), intersect);
+
+	saltBounds.intersects(obstacleBounds, intersect);
 	if (intersect.height < intersect.width)
 	{
 		newPos.y = -intersect.height;
 	}
 
-	//from here logic of second jump when we exit from here we return to side to side strategy
-	sf::Vector2f prevPos= salt.getObjectSprite().getPosition();
-	if (salt.getJumps()<1) {
+	sf::Vector2f prevPos = salt.getPosition();
+	if (salt.getJumps() < 1) {
 		salt.setObjectPosition(prevPos + newPos);
 		salt.resetGravity();
-		salt.setStrategy(std::make_unique< UpDownStrategy>(6.5f));
+		salt.setStrategy(std::make_unique< UpDownStrategy>(5.f));
 		salt.setJumps();
 	}
 	else if (!salt.isExplode())
 	{
-		sf::Vector2f pos = { object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y - 35 };
-		auto sprite=proccessExplotion(pos);
+		sf::Vector2f pos = { object2.getPosition().x, object2.getPosition().y - 35 };
+		auto sprite = proccessExplotion(pos);
 		salt.setObjectSprite(sprite);
 		salt.setExplode();
 		ResourceManager::instance().playSound("explodeSound");
 	}
 }
 
-
-//----------------------------------------------
+/*================== cheeseBulletObstacle =================*/
 void cheeseBulletObstacle(GameObject& object1, GameObject& object2)
 {
 	CheeseBullet& cheese = dynamic_cast<CheeseBullet&>(object1);
 	cheese.setToErase();
 }
 
-//----------------------------------------------
+/*================== playerCheeseBullet =================*/
 void playerCheeseBullet(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 
 	player.setCheesed(true);
-	cheeseBulletObstacle(object2, player); // the cheese will be remove...
+	cheeseBulletObstacle(object2, player);
 }
-//-----------------------------------------------
+
+/*================== enemySaltBomb =================*/
 void enemySaltBomb(GameObject& object1, GameObject& object2)
 {
 	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
 	if (saltBomb.isExplode())return;
-	auto pos=object2.getObjectSprite().getPosition();
+	auto pos = object2.getPosition();
 	auto sprite = proccessExplotion(pos);
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
 	object1.setToErase();
 }
 
-//------------------------------------------------
+/*================== pizzaEnemySaltBomb =================*/
 void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
 	if (saltBomb.isExplode())return;
-	auto pos = pizzaEnemy.getObjectSprite().getPosition();
-	auto sprite=proccessExplotion(pos);
+	auto pos = pizzaEnemy.getPosition();
+	auto sprite = proccessExplotion(pos);
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
 	pizzaEnemy.loadDieState();
-	
+
 }
 
-//------------------------------------------------
+/*================== playerEnemy =================*/
 void playerEnemy(GameObject& object1, GameObject& object2)
 {
-	
 	Player& player = dynamic_cast<Player&>(object1);
 	player.setCollideWithEnemy();
-
 }
-//------------------------------------------------
+
+/*================== playerPizza =================*/
 void playerPizza(GameObject& object1, GameObject& object2)
 {
-	
 	Player& player = dynamic_cast<Player&>(object1);
 	Pizza& pizza = dynamic_cast<Pizza&>(object2);
 	player.setDropPizza(false);
-	if (player.GetPizzaTimer()==0.f) {
+	if (player.GetPizzaTimer() == 0.f) {
 		player.pickUpPizza(pizza);
 	}
 }
 
-
-
-//-----------------------------------------------------------------------
+/*================== playerFatMan =================*/
 void playerFatMan(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	FatMan& fatMan = dynamic_cast<FatMan&>(object2);
 	sf::FloatRect intersect;
-	auto fatManSprite = fatMan.getObjectSprite();
-	auto playerSprite = player.getObjectSprite();
+	auto fatManBounds = fatMan.getGlobalBounds();
+	auto playerBounds = player.getGlobalBounds();
 	auto newPos = sf::Vector2f();
 
-	playerSprite.getGlobalBounds().intersects(fatManSprite.getGlobalBounds(), intersect);
+	playerBounds.intersects(fatManBounds, intersect);
 
 
-	if (intersect.height > intersect.width && !fatMan.isHappy()) 
+	if (intersect.height > intersect.width && !fatMan.isHappy())
 	{
 		if (fatMan.isHeadDirectionRight()) {
 			fatMan.setHeadDirection(false);
@@ -288,68 +290,75 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 		if (player.getPizzasAmount() != fatMan.getTotalPizzas()) {
 			fatMan.setIsAngry();
 		}
-		else{
+		else {
 			player.resetPizzaAmount();
 			fatMan.setIsHappy();
 			player.rescueFriend();
 		}
 	}
 
-	sf::Vector2f currentPos = playerSprite.getPosition();
+	sf::Vector2f currentPos = player.getPosition();
 	player.setObjectPosition(currentPos + newPos);
 }
 
-//-----------------------------------------------------------------
-void playerLadder(GameObject& object1, GameObject& object2) 
+/*================== playerLadder =================*/
+void playerLadder(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
 	Ladder& ladder = dynamic_cast<Ladder&>(object2);
 	sf::FloatRect intersect;
-	auto playerSprite = player.getObjectSprite();
+
+	auto playerBounds = player.getGlobalBounds();
+	auto ladderBounds = ladder.getGlobalBounds();
 	auto newPos = sf::Vector2f();
-	playerSprite.getGlobalBounds().intersects(ladder.getObjectSprite().getGlobalBounds(), intersect);
-	if (intersect.width > ladder.getObjectSprite().getGlobalBounds().width/1.5 && 
-		playerSprite.getGlobalBounds().top > ladder.getObjectSprite().getGlobalBounds().top - playerSprite.getGlobalBounds().height/2)
+	
+	playerBounds.intersects(ladderBounds, intersect);
+
+	if (intersect.width > ladderBounds.width / 1.5 &&
+		playerBounds.top > ladderBounds.top - playerBounds.height/2)
 	{
 		player.setClimb(true);
 	}
 }
 
-//-----------------------------------------------------------------
+/*================== friendCage =================*/
 void friendCage(GameObject& object1, GameObject& object2)
 {
 	Friend& pal = dynamic_cast<Friend&>(object2);
 
 	sf::FloatRect intersect;
-	auto palSprite = pal.getObjectSprite();
+	auto palBounds = pal.getGlobalBounds();
+	auto cageBounds = object1.getGlobalBounds();
 	auto newPos = sf::Vector2f();
 
-	palSprite.getGlobalBounds().intersects(object1.getObjectSprite().getGlobalBounds(), intersect);
+	palBounds.intersects(cageBounds, intersect);
 
-	if (intersect.height+10 < palSprite.getTextureRect().height * 0.3f-10 && !pal.isHappy() && pal.isOnGround()) {
+	if (intersect.height+10 < pal.getTextureRect().height * 0.3f-10 
+		&& !pal.isHappy() && pal.isOnGround()) {
 		pal.setHappy();
 	}
 }
 
-//-----------------------------------------------------------------
+/*================== friendObstacle =================*/
 void friendObstacle(GameObject& object1, GameObject& object2)
 {
 	Friend& pal = dynamic_cast<Friend&>(object1);
 
 	sf::FloatRect intersect;
-	auto palSprite = pal.getObjectSprite();
+	auto palBounds = pal.getGlobalBounds();
+	auto obstacleBounds = object2.getGlobalBounds();
 	auto newPos = sf::Vector2f();
 
-	palSprite.getGlobalBounds().intersects(object2.getObjectSprite().getGlobalBounds(), intersect);
+	palBounds.intersects(obstacleBounds, intersect);
 
 	newPos.y = -intersect.height;
 	pal.resetGravity();
 	pal.setOnGround(true);
 }
-//---------------------------------------------------------
+
+/*================== proccessExplotion =================*/
 sf::Sprite& proccessExplotion(const sf::Vector2f& pos)
 {
-	
 	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
 	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
 	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);

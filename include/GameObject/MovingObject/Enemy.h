@@ -1,12 +1,9 @@
 #pragma once
 #include "GameObject/MovingObject/Entity.h"
-#include "vector"
-#include "DesignPatterns/Strategies/MovingStrategy.h"
-#include "DesignPatterns/Singletons/ResourceManager.h"
 #include <memory>
 #include "Macros.h"
 
-
+class MovingStrategy;
 
 class Enemy : public Entity
 {

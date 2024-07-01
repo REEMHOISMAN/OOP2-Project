@@ -14,8 +14,8 @@ class Player :public Entity
 public:
 	Player(Level&, Cage* = nullptr);
 	void pickUpPizza(Pizza&);
-	void move(sf::Time);
-	Input getUserInput();
+	void move(const sf::Time&);
+	Input getUserInput()const;
 	void draw(sf::RenderWindow&)const override ;
 	void increaseSaltBombs();
 	void decreaseSaltBombs();
@@ -23,7 +23,7 @@ public:
 	void setCheesed(bool);
 	bool isCheesed()const;
 	void createBomb(std::unique_ptr< MovingSaltBomb>);
-	void dropPizza(std::unique_ptr<Pizza>);
+	void insertNewPizza(std::unique_ptr<Pizza>);
 	void increaseHearts();
 	void setCollideWithEnemy();
 	int getHearts()const;

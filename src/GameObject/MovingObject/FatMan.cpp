@@ -2,8 +2,10 @@
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
 #include "DesignPatterns/Factories/MovingObjectFactory.h"
+#include "DesignPatterns/Singletons/ResourceManager.h"
 
-bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3, 38, 196),
+/*================== FatMan Register =================*/
+bool FatMan::m_register = MovingObjectFactory::registerMovingObject (sf::Color(3, 38, 196),
 	[](float x, float y, Level* level)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(FAT_MAN_MOVE);
@@ -15,6 +17,7 @@ bool FatMan::m_register =MovingObjectFactory::registerMovingObject (sf::Color(3,
 		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation, *level);
 	});
 
+/*================== FatMan Constructor =================*/
 FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Animation animation, Level& level)
 	:Enemy(sprite, std::move(strategy)), m_animation(animation), m_animationIndex(-1),
 	m_startPosX(sprite.getPosition().x), m_isHappy(false), m_isAngry(false), m_level(level)
@@ -22,7 +25,8 @@ FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Ani
 
 }
 
-void FatMan::move(sf::Time time)
+/*================== move =================*/
+void FatMan::move(const sf::Time& time)
 {
 	if (m_isAngry || m_isHappy) {
 		m_isAngry = false;
@@ -36,12 +40,12 @@ void FatMan::move(sf::Time time)
 		setOnGround(false);
 		setBlockedOnSide(false);
 	}
-	if (getObjectSprite().getPosition().x > m_startPosX && isHeadDirectionRight())
+	if (getPosition().x > m_startPosX && isHeadDirectionRight())
 	{
 		setHeadDirection(false);
 		setScale();
 	}
-	else if (getObjectSprite().getPosition().x < m_startPosX - 200 && !isHeadDirectionRight())
+	else if (getPosition().x < m_startPosX - 200 && !isHeadDirectionRight())
 	{
 		setHeadDirection(true);
 		setScale();
@@ -49,7 +53,7 @@ void FatMan::move(sf::Time time)
 
 }
 
-//------------------------------------
+/*================== move =================*/
 void FatMan::setIsHappy()
 {
 	m_animationIndex = -1;
@@ -57,7 +61,8 @@ void FatMan::setIsHappy()
 	m_elapsed = sf::seconds(0.17f);
 	m_isHappy = true;
 }
-//------------------------------------
+
+/*================== move =================*/
 void FatMan::setIsAngry()
 {
 	m_animationIndex = -1;
@@ -66,17 +71,19 @@ void FatMan::setIsAngry()
 	m_isAngry = true;
 }
 
+/*================== move =================*/
 bool FatMan::isHappy() const
 {
 	return m_isHappy;
 }
 
+/*================== move =================*/
 int FatMan::getTotalPizzas() const
 {
 	return m_level.levelPizzaAmount();
 }
 
-//------------------------------------
+/*================== move =================*/
 void FatMan::loadAnimationFrame(sf::Time deltaTime)
 {
 	m_elapsed += deltaTime;

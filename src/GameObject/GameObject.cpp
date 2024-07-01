@@ -21,6 +21,21 @@ sf::Sprite GameObject::getObjectSprite()const
 	return m_sprite;
 }
 //---------------------------------------------------------
+const sf::IntRect GameObject::getTextureRect()const
+{
+	return m_sprite.getTextureRect();
+}
+//---------------------------------------------------------
+const sf::FloatRect GameObject::getGlobalBounds()const
+{
+	return m_sprite.getGlobalBounds();
+}
+//---------------------------------------------------------
+const sf::Vector2f GameObject::getPosition()const
+{
+	return m_sprite.getPosition();
+}
+//---------------------------------------------------------
 void GameObject::setScale()
 {
  	m_sprite.scale(-1.f,1.f);

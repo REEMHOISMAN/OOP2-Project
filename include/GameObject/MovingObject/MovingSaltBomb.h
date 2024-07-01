@@ -1,17 +1,18 @@
 #pragma once
 #include "GameObject/MovingObject/Weapon.h"
-#include "DesignPatterns/Strategies/MovingStrategy.h"
 #include "Macros.h"
+
+class MovingStrategy;
 
 class MovingSaltBomb :public Weapon 
 {
 public:
 	MovingSaltBomb(sf::Sprite&, std::unique_ptr<MovingStrategy> ,bool);
+	virtual void move(const sf::Time&)override;
 	void setExplode();
-	bool isExplode();
+	bool isExplode()const;
 	void setJumps();
 	int getJumps()const;
-	virtual void move(sf::Time)override;
 	
 private:
 	void updateExplodeAnimation(sf::Time);

@@ -10,7 +10,7 @@ class FatMan:public Enemy
 {
 public:
 	FatMan(sf::Sprite&, std::unique_ptr<MovingStrategy>, Animation, Level&);
-	virtual void move(sf::Time)override;
+	virtual void move(const sf::Time&)override;
 	void setIsHappy();
 	void setIsAngry();
 	bool isHappy() const;

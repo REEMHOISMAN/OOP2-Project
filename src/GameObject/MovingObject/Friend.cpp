@@ -4,6 +4,7 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "Level.h"
 
+/*================== Friend Register =================*/
 bool Friend::m_register = MovingObjectFactory::registerMovingObject(sf::Color(47, 225, 17),
 	[](float x, float y, Level* level)->std::unique_ptr<MovingObject>
 	{
@@ -17,14 +18,20 @@ bool Friend::m_register = MovingObjectFactory::registerMovingObject(sf::Color(47
 	});
 
 
-
+/*================== Friend Constructor =================*/
 Friend::Friend(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy, std::pair<sf::IntRect, sf::IntRect>& rect, Level& level) :
 	m_strategy(std::move(strategy)), MovingObject(sprite),
 	m_collideWithCageHeight(rect.first.height), m_friendStatusRect(rect),
 	m_isHappy(false), m_level(level), m_happyTimer(sf::seconds(3.f))
 {}
 
-void Friend::move(sf::Time time)
+/*================== move =================*/
+/**----------------------------------------------
+ * the "FatMan" is not moving consistently
+ * it moves only when he doesnt have ineraction with the player
+   (what make him happy if he has all pizzas / else angry)
+ *---------------------------------------------**/
+void Friend::move(const sf::Time& time)
 {
 	if (m_isHappy && m_happyTimer.asSeconds() > 0.f) {
 		m_happyTimer -= time;
@@ -35,17 +42,19 @@ void Friend::move(sf::Time time)
 	if (m_isHappy || (!m_isHappy && !isOnGround())) {
 		activateGravity(0.3f);
 		auto pos = m_strategy->move(time, false, getGravity());
-		setObjectPosition(getObjectSprite().getPosition() + pos);
+		setObjectPosition(getPosition() + pos);
 		setOnGround(false);
 	}
 }
 
+/*================== setHappy =================*/
 void Friend::setHappy()
 {
 	setTextureRect(m_friendStatusRect.second);
 	m_isHappy = true;
 }
 
+/*================== isHappy =================*/
 bool Friend::isHappy() const
 {
 	return m_isHappy;

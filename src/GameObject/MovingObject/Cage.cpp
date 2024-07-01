@@ -1,6 +1,7 @@
 #include "GameObject/MovingObject/Cage.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 
+/*================== Cage Constructor =================*/
 Cage::Cage(float x, float y): m_liftCage(false), m_cageHeight(0.f)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture("cage"));
@@ -11,7 +12,8 @@ Cage::Cage(float x, float y): m_liftCage(false), m_cageHeight(0.f)
 	setTextureRect(m_cageStatusRect.first);
 }
 
-void Cage::move(sf::Time delta)
+/*================== move =================*/
+void Cage::move(const sf::Time& delta)
 {
 	if (m_liftCage && m_cageHeight < MAX_CAGE_HEIGHT)
 	{
@@ -22,6 +24,7 @@ void Cage::move(sf::Time delta)
 	}
 }
 
+/*================== setLiftCage =================*/
 void Cage::setLiftCage()
 {
 	m_liftCage = true;

@@ -4,10 +4,10 @@
 class MovingObject:public GameObject 
 {
 public:
-	MovingObject() = default;
+	MovingObject();
 	virtual ~MovingObject() = default;
 	MovingObject(sf::Sprite&);
-	virtual void move(sf::Time)=0;
+	virtual void move(const sf::Time&)=0;
 	void setOnGround(bool val);
 	bool isOnGround() const;
 	void activateGravity(float);

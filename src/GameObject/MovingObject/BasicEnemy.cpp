@@ -6,6 +6,7 @@
 #include <memory>
 #include <iostream>
 
+/*================== move =================*/
 bool BasicEnemy::m_register =
 MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
 	[](float x, float y, Level* inGameState)->std::unique_ptr<Enemy>
@@ -52,7 +53,7 @@ BasicEnemy::BasicEnemy(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strat
 }
 
 //---------------------------------------------------------
-void BasicEnemy::move(sf::Time time)
+void BasicEnemy::move(const sf::Time& time)
 {
 	
 	activateGravity(0.3f);

@@ -8,7 +8,7 @@ class Friend : public MovingObject
 {
 public :
 	Friend(sf::Sprite&, std::unique_ptr<UpDownStrategy>, std::pair<sf::IntRect, sf::IntRect>&, Level&);
-	virtual void move(sf::Time)override;
+	virtual void move(const sf::Time&)override;
 	void setHappy();
 	bool isHappy()const;
 
