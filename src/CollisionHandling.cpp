@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "CollisionHandling.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
 #include "DesignPatterns/Strategies/SideToSideStrategy.h"
@@ -18,6 +19,7 @@
 #include "GameObject/MovingObject/Friend.h"
 #include "Macros.h"
 
+#pragma endregion
 //---------------------------------------------------------------------
 void initCollisionFunctions()
 {
@@ -150,6 +152,7 @@ void PlayerStaticBomb(GameObject& object1, GameObject& object2)
 	player.increaseSaltBombs();
 	
 }
+//---------------------------------------------------------
 void PlayerHeart(GameObject& object1, GameObject& object2)
 {
 	Player& player = dynamic_cast<Player&>(object1);
@@ -189,15 +192,13 @@ void saltBombObstacle(GameObject& object1, GameObject&object2)
 		salt.setStrategy(std::make_unique< UpDownStrategy>(6.5f));
 		salt.setJumps();
 	}
-	else if (!salt.isExplode()){
-		sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
-		ResourceManager::instance().playSound("explodeSound",true);
-
-		sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
-		sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
-		sprite.setPosition(object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y-35);
+	else if (!salt.isExplode())
+	{
+		sf::Vector2f pos = { object2.getObjectSprite().getPosition().x, object2.getObjectSprite().getPosition().y - 35 };
+		auto sprite=proccessExplotion(pos);
 		salt.setObjectSprite(sprite);
 		salt.setExplode();
+		ResourceManager::instance().playSound("explodeSound");
 	}
 }
 
@@ -222,13 +223,10 @@ void enemySaltBomb(GameObject& object1, GameObject& object2)
 {
 	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
 	if (saltBomb.isExplode())return;
-	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
-	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
-	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
-	sprite.setPosition(object2.getObjectSprite().getPosition());
+	auto pos=object2.getObjectSprite().getPosition();
+	auto sprite = proccessExplotion(pos);
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
-	ResourceManager::instance().playSound("explodeSound",true);
 	object1.setToErase();
 }
 
@@ -238,14 +236,12 @@ void pizzaEnemySaltBomb(GameObject& object1, GameObject& object2)
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	MovingSaltBomb& saltBomb = dynamic_cast<MovingSaltBomb&>(object2);
 	if (saltBomb.isExplode())return;
-	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
-	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
-	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
-	sprite.setPosition(object1.getObjectSprite().getPosition());
+	auto pos = pizzaEnemy.getObjectSprite().getPosition();
+	auto sprite=proccessExplotion(pos);
 	saltBomb.setObjectSprite(sprite);
 	saltBomb.setExplode();
 	pizzaEnemy.loadDieState();
-	ResourceManager::instance().playSound("explodeSound",true);
+	
 }
 
 //------------------------------------------------
@@ -349,4 +345,14 @@ void friendObstacle(GameObject& object1, GameObject& object2)
 	newPos.y = -intersect.height;
 	pal.resetGravity();
 	pal.setOnGround(true);
+}
+//---------------------------------------------------------
+sf::Sprite& proccessExplotion(const sf::Vector2f& pos)
+{
+	
+	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
+	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
+	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
+	sprite.setPosition(pos);
+	return sprite;
 }

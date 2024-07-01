@@ -14,7 +14,7 @@ public:
 	sf::Texture& getTexture(const std::string);
 	sf::Font& getFont();
 	std::vector<sf::IntRect>& getAnimation(const ObjectAnimation);
-	void playSound(const std::string&,bool val=false);
+	void playSound(const std::string&);
 	void setSoundStatus();
 
 private:
