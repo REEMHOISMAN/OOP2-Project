@@ -36,6 +36,8 @@ configure_file ("pause.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menuButton.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("GameOverBG.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("DOKYO.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 
 

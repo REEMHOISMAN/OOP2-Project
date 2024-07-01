@@ -12,7 +12,7 @@ class ResourceManager
 public:
 	static ResourceManager& instance();
 	sf::Texture& getTexture(const std::string);
-	sf::Font& getFont();
+	sf::Font& getFont(bool first = true);
 	std::vector<sf::IntRect>& getAnimation(const ObjectAnimation);
 	void playSound(const std::string&);
 	void setSoundStatus();
@@ -30,7 +30,7 @@ private:
 	std::unordered_map<std::string, sf::Texture>m_textures;
 	std::unordered_map<ObjectAnimation, std::vector<sf::IntRect>> m_animations;
 	std::unordered_map<std::string, sf::SoundBuffer> m_sounds;
-	sf::Font m_font;
+	std::pair<sf::Font, sf::Font> m_font;
 	sf::Sound m_currentSound;
 	bool m_muteSound;
 };

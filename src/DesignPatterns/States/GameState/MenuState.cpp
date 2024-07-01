@@ -49,6 +49,7 @@ void MenuState::render(sf::RenderWindow&window)
 {
 	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
+	m_soundButton.setPosition(window.getView().getCenter());
 	m_soundButton.draw(window);
 	std::for_each(m_buttons.begin(), m_buttons.end(), [&window](auto& button) {button.draw(window); });
 }

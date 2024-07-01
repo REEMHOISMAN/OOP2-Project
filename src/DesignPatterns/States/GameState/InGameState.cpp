@@ -57,8 +57,7 @@ void InGameState::update(sf::Time time)
 	m_level.updateLevel(time, m_player);
 	
 	if (m_player.getHearts() == 0) {
-		m_level.resetLevel();
-		resetGame();
+		m_controller.changeState(m_gameOver);
 	}	
 }
 
@@ -110,13 +109,20 @@ void InGameState::readNewLevel()
 		m_level.readLevelMap(levelName, m_player);
 	}
 	else {
-		resetGame();
+		m_controller.changeState(m_gameOver);
 	}
+}
+
+void InGameState::endGame(sf::RenderWindow& window)
+{
+	std::string outputMessege = m_player.getHearts() == 0 ? "Better Luck Next Time !!" : "Good Job, you Finished all Levels !!!";
+	m_ui.showFinelScore(window, outputMessege, m_player.getCoins(), {-200, 500});
 }
 
 void InGameState::resetGame()
 {
 	m_player.resetPlayer();
+	m_level.resetLevel();
 	m_controller.changeState(m_gameOver);
 	m_playlist.close();
 }

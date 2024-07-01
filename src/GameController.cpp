@@ -11,7 +11,7 @@ GameController::GameController(): m_soundButton(std::make_pair(sf::IntRect(79, 5
 								  m_window(sf::VideoMode{WIDTH,HEIGHT}, "PAPA LOUIE: WHEN PIZZAS ATTACK"),
 								  m_inGameState(*this, m_gameOver, m_soundButton),
 								  m_helpState(*this, m_menuState),
-								  m_gameOver(*this, m_menuState)
+								  m_gameOver(*this, m_menuState, m_inGameState)
 								
 {
 	m_state = &m_menuState;

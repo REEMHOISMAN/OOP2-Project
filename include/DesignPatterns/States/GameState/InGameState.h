@@ -19,9 +19,10 @@ public:
 	virtual void update(sf::Time) override;
 	virtual void render(sf::RenderWindow&) override;
 	void readNewLevel();
+	void endGame(sf::RenderWindow&);
+	void resetGame();
 	
 private:
-	void resetGame();
 	void setView(sf::RenderWindow& window);
 
 	std::ifstream m_playlist;

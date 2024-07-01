@@ -20,8 +20,10 @@ ResourceManager::ResourceManager() : m_muteSound(false)
     initTextures();
     initAnimations();
     initSounds();
-    m_font.loadFromFile("papaLoueiFont.ttf");
-    m_font.setSmooth(true);
+    m_font.first.loadFromFile("papaLoueiFont.ttf");
+    m_font.first.setSmooth(true);
+    m_font.second.loadFromFile("DOKYO.ttf");
+    m_font.second.setSmooth(true);
 }
 
 
@@ -31,11 +33,13 @@ sf::Texture& ResourceManager::getTexture(const std::string type)
     return m_textures[type];
 }
 
-
-sf::Font& ResourceManager::getFont()
+/*================== getTexture =================*/
+sf::Font& ResourceManager::getFont(bool first)
 {
-    return m_font;
+    if (first) return m_font.first;
+    return m_font.second;
 }
+
 
 /*================== initAnimations =================*/
 /**----------------------------------------------

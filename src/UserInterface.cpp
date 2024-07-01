@@ -40,6 +40,35 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int m
 
 }
 
+void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string string, int coins, const sf::Vector2f& offset)
+{
+	sf::Text text;
+	text.setString(string);
+	text.setPosition(window.getView().getCenter().x -600, /*offset.x*/ window.getView().getCenter().y -200/* + offset.y*/);
+	text.setCharacterSize(65);
+	text.setLetterSpacing(1.2f);
+	text.setOutlineThickness(2.5);
+	text.setOutlineColor(sf::Color::Black);
+	text.setFont(ResourceManager::instance().getFont(false));
+	text.setFillColor(sf::Color::White);
+	window.draw(text);
+
+	text.setString("YOUR SCORE:  " + std::to_string(coins) + " x");
+	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y-55.f/* + offset.y*/);
+	auto sprite = sf::Sprite(ResourceManager::instance().getTexture("coin"));
+	sprite.setScale(4.f, 4.f);
+	sprite.setPosition(text.getPosition().x + 550.f, text.getPosition().y+12);
+	window.draw(text);
+	window.draw(sprite);
+
+	text.setString("GAME OVER");
+	text.setCharacterSize(85);
+	text.setLetterSpacing(2.1f);
+	text.setOutlineThickness(3.5f);
+	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y + 45.f/* + offset.y*/);
+	window.draw(text);
+}
+
 void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));

@@ -3,12 +3,12 @@
 #include "Button.h"
 
 class GameController;
-class MenuState;
+class InGameState;
 
 class GameOverState :public GameState 
 {
 public:
-	GameOverState(GameController& controller, GameState& state);
+	GameOverState(GameController& controller, GameState& menu , InGameState& inGame);
 	virtual void handleEvent(sf::Event&, sf::RenderWindow& window)override;
 	virtual void update(sf::Time)override {}
 	virtual void render(sf::RenderWindow& window)override;
@@ -16,4 +16,5 @@ public:
 private:
 	sf::RectangleShape m_background;
 	Button m_button;
+	InGameState& m_inGame;
 };
