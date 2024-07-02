@@ -10,7 +10,7 @@ bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,3
 		sprite.setTextureRect({ 109, 74, 29, 117 });
 		sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 		sprite.scale(2.5f, 2.5f);
-		sprite.setPosition(x+30, y-50);
+		sprite.setPosition(x+45.f, y-50);
 		return std::make_unique<Ladder>(sprite);
 	})
 	&&
@@ -20,10 +20,10 @@ bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,3
 		sf::Sprite sprite(ResourceManager::instance().getTexture("ladder"));
 		sprite.setTextureRect({ 153, 43, 28, 147 });
 		sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-		sprite.scale(2.5f, 2.5f);
-		sprite.setPosition(x + 30, y -95);
+		sprite.scale(3.f, 4.5f);
+		sprite.setPosition(x + 50, y -230);
 		return std::make_unique<Ladder>(sprite);
-		});
+	});
 
 Ladder::Ladder(sf::Sprite& sprite)
 	:StaticObject(sprite)

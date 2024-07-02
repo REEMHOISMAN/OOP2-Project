@@ -31,3 +31,8 @@ void HelpState::render(sf::RenderWindow& window)
 	window.draw(m_background);
 	m_goBackButton.draw(window);
 }
+
+void HelpState::setBackground(const std::string string)
+{
+	m_background.setTexture(&ResourceManager::instance().getTexture(string));
+}

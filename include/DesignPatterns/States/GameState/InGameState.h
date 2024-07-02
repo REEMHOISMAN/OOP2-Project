@@ -35,5 +35,6 @@ private:
 	GameController& m_controller;
 	GameOverState& m_gameOver;
 	bool m_isPause;
+	int m_levelNum;
 };
 

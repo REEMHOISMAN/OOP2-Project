@@ -15,7 +15,7 @@ bool BasicEnemy::m_register =
 		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
 		sprite.setTextureRect(animation[0]);
 		sprite.setScale(1.9f, 1.9f);
-		sprite.setPosition(x, y);
+		sprite.setPosition(x+45.f, y);
 		return std::make_unique<BasicEnemy>(sprite, std::make_unique<UpDownStrategy>(0.f),
 			animation);
 	})

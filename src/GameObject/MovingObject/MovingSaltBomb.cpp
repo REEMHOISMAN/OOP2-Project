@@ -25,6 +25,7 @@ void MovingSaltBomb::move(const sf::Time& time)
 /*================== setExplode =================*/
 void MovingSaltBomb::setExplode()
 {
+	ResourceManager::instance().playSound("explodeSound");
 	m_toExplode = true;
 }
 

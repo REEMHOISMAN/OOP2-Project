@@ -9,8 +9,7 @@ class UserInterface
 public:
 	UserInterface();
 	void showGameInfo(sf::RenderWindow& window, Player&, int);
-	void showFinelScore(sf::RenderWindow& window, const std::string string, int coins, const sf::Vector2f& offset);
-	void showFinelScore(sf::RenderWindow& window, const std::string, int);
+	void showFinelScore(sf::RenderWindow& window, const std::string string, int coins, int level);
 
 private:
 	void drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scale);

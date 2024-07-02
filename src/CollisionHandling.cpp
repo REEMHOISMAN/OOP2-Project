@@ -204,7 +204,6 @@ void saltBombObstacle(GameObject& object1, GameObject& object2)
 		auto sprite = proccessExplotion(pos);
 		salt.setObjectSprite(sprite);
 		salt.setExplode();
-		ResourceManager::instance().playSound("explodeSound");
 	}
 }
 
@@ -307,6 +306,8 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	Player& player = dynamic_cast<Player&>(object1);
 	Ladder& ladder = dynamic_cast<Ladder&>(object2);
 	sf::FloatRect intersect;
+	
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !player.isClimb()) return;
 
 	auto playerBounds = player.getGlobalBounds();
 	auto ladderBounds = ladder.getGlobalBounds();

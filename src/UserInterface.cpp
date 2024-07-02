@@ -14,7 +14,6 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int m
 {
 	m_userInterface.setPosition(window.getView().getCenter());
 	window.draw(m_userInterface);
-	sf::Sprite sprite;
 	sf::Text score;
 
 	drawSpriteInfo(window, { window.getView().getCenter().x - 660, window.getView().getCenter().y + 290 }, "papaLoueiHead", 1.8f);
@@ -40,11 +39,12 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int m
 
 }
 
-void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string string, int coins, const sf::Vector2f& offset)
+
+void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string string, int coins, int level)
 {
 	sf::Text text;
 	text.setString(string);
-	text.setPosition(window.getView().getCenter().x -600, /*offset.x*/ window.getView().getCenter().y -200/* + offset.y*/);
+	text.setPosition(window.getView().getCenter().x -600, /*offset.x*/ window.getView().getCenter().y -205/* + offset.y*/);
 	text.setCharacterSize(65);
 	text.setLetterSpacing(1.2f);
 	text.setOutlineThickness(2.5);
@@ -53,7 +53,11 @@ void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string s
 	text.setFillColor(sf::Color::White);
 	window.draw(text);
 
-	text.setString("YOUR SCORE:  " + std::to_string(coins) + " x");
+	text.setString("Reached level:  " + std::to_string(level));
+	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y - 135.f/* + offset.y*/);
+	window.draw(text);
+
+	text.setString("Total Coins:  " + std::to_string(coins) + " x");
 	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y-55.f/* + offset.y*/);
 	auto sprite = sf::Sprite(ResourceManager::instance().getTexture("coin"));
 	sprite.setScale(4.f, 4.f);
