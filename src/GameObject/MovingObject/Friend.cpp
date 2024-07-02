@@ -26,11 +26,6 @@ Friend::Friend(sf::Sprite& sprite, std::unique_ptr<UpDownStrategy> strategy, std
 {}
 
 /*================== move =================*/
-/**----------------------------------------------
- * the "FatMan" is not moving consistently
- * it moves only when he doesnt have ineraction with the player
-   (what make him happy if he has all pizzas / else angry)
- *---------------------------------------------**/
 void Friend::move(const sf::Time& time)
 {
 	if (m_isHappy && m_happyTimer.asSeconds() > 0.f) {
@@ -40,7 +35,7 @@ void Friend::move(const sf::Time& time)
 		m_level.setLevelFinished();
 	}
 	if (m_isHappy || (!m_isHappy && !isOnGround())) {
-		activateGravity(0.3f);
+		activateGravity(GRAVITY);
 		auto pos = m_strategy->move(time, false, getGravity());
 		setObjectPosition(getPosition() + pos);
 		setOnGround(false);

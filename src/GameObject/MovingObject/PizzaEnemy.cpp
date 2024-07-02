@@ -23,7 +23,7 @@ bool PizzaEnemy::m_register = MovingObjectFactory::registerMovingObject(sf::Colo
 		sprite.setPosition(x, y);
 		sprite.setScale(0.85f, 0.85f);
 		level->inceasePizzaAmount();
-		return std::make_unique<PizzaEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f), *level);
+		return std::make_unique<PizzaEnemy>(sprite, std::make_unique<SideToSideStrategy>(OBJECT_SPEED), *level);
 	});
 
 /*================== PizzaEnemy Constructor =================*/

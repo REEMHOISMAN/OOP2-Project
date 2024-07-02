@@ -28,7 +28,7 @@ bool BasicEnemy::m_register =
 		sprite.setTextureRect(animation[0]);
 		sprite.setPosition(x, y);
 		sprite.setScale(1.9f, 1.9f);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(OBJECT_SPEED),
 			animation);
 	})
 	&&
@@ -40,7 +40,7 @@ bool BasicEnemy::m_register =
 		sprite.setTextureRect(animation[0]);
 		sprite.setPosition(x, y);
 		sprite.setScale(1.9f, 1.9f);
-		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(220.f),
+		return std::make_unique<BasicEnemy>(sprite, std::make_unique<SideToSideStrategy>(OBJECT_SPEED),
 			animation);
 	});
 

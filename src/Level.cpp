@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "Level.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Singletons/GameCollisions.h"
@@ -8,8 +9,9 @@
 #include "GameObject/StaticObject/StaticObject.h"
 #include "GameController.h"
 #include "GameObject/MovingObject/Cage.h"
+#pragma endregion
 
-//-----------------------------------------------------------------------------
+/*================== Level =================*/
 Level::Level(InGameState& game) :m_game(game), m_pizzas(0), m_levelFinishTimer(sf::seconds(1.5f)), m_levelFinish(false)
 {
 	m_loadLevel.setTexture(&ResourceManager::instance().getTexture("loading"));
@@ -18,7 +20,7 @@ Level::Level(InGameState& game) :m_game(game), m_pizzas(0), m_levelFinishTimer(s
 }
 
 
-//-----------------------------------------------------------------------------
+/*================== readLevelMap =================*/
 void Level::readLevelMap(const std::string levelImgName, Player& player)
 {
 	auto image = sf::Image();
@@ -58,7 +60,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 
 }
 
-//-----------------------------------------------------------------------------
+/*================== updateLevel =================*/
 void Level::updateLevel(sf::Time& time, Player& player)
 {
 	if (!m_levelFinish) { //level is NOT finish!
@@ -85,7 +87,7 @@ void Level::updateLevel(sf::Time& time, Player& player)
 }
 
 
-//-----------------------------------------------------------------------------
+/*================== proccessCollusionWithPlayer =================*/
 template<typename T>
 void Level::proccessCollusionWithPlayer(Player& player, T begin, T end)
 {
@@ -100,7 +102,7 @@ void Level::proccessCollusionWithPlayer(Player& player, T begin, T end)
 	}
 }
 
-//-----------------------------------------------------------------------------
+/*================== processCollisions =================*/
 template<typename T1, typename T2>
 void Level::processCollisions(T1 begin1, T1 end1, T2 begin2, T2 end2)
 {
@@ -118,19 +120,27 @@ void Level::processCollisions(T1 begin1, T1 end1, T2 begin2, T2 end2)
 	}
 }
 
-//-----------------------------------------------------------------------------
+/*================== insertMovingObject =================*/
+/*---------------------------------------------------------
+when enemy pizza or player wants to attck they inserting new moving object(cheese,salt bomb)
+---------------------------------------------------------*/
+
 void Level::insertMovingObject(std::unique_ptr<MovingObject> object)
 {
 	m_movingObjects.emplace_back(std::move(object));
 }
 
-//-----------------------------------------------------------------------------
+/*================== insertStaticObject =================*/
+/*---------------------------------------------------------
+when enemy pizza die new static object inserted (pizza)
+---------------------------------------------------------*/
+
 void Level::insertStaticObject(std::unique_ptr<StaticObject> object)
 {
 	m_staticObjects.emplace_back(std::move(object));
 }
 
-//-----------------------------------------------------------------------------
+/*================== draw =================*/
 void Level::draw(sf::RenderWindow& window)
 {
 	if (m_levelFinish){
@@ -143,14 +153,17 @@ void Level::draw(sf::RenderWindow& window)
 	std::for_each(m_staticObjects.cbegin(), m_staticObjects.cend(), [&window](const auto& stati) {stati->draw(window); });
 }
 
-//-----------------------------------------------------------------------------
+/*================== setLevelFinished =================*/
 void Level::setLevelFinished()
 {
 	m_levelFinish = true;
 }
 
-//-----------------------------------------------------------------------------
-// the player saved his friend. new level is about to be loading -> reset everything
+/*================== StaticSaltBomb Register =================*/
+/*---------------------------------------------------------
+the player saved his friend. new level is about to be loading->reset everything
+---------------------------------------------------------*/
+
 void Level::resetLevel()
 {
 	m_movingObjects.clear();
@@ -160,19 +173,19 @@ void Level::resetLevel()
 	m_levelFinishTimer = sf::seconds(1.5f);
 }
 
-//-----------------------------------------------------------------------------
+/*================== inceasePizzaAmount =================*/
 void Level::inceasePizzaAmount()
 {
 	++m_pizzas;
 }
 
-//-----------------------------------------------------------------------------
+/*================== levelPizzaAmount =================*/
 int Level::levelPizzaAmount() const
 {
 	return m_pizzas;
 }
 
-//-----------------------------------------------------------------------------
+/*================== isLevelFinished =================*/
 bool Level::isLevelFinished() const
 {
 	return m_levelFinish;
