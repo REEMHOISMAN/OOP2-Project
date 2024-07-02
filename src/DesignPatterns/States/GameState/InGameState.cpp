@@ -1,12 +1,15 @@
 #include "DesignPatterns/States/GameState/InGameState.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
+#include "DesignPatterns/Command/SwitchScreenCommand.h"
 #include "CollisionHandling.h"
 #include "GameController.h"
-#include "Button.h"
 
 //--------------------------------------------------
-InGameState::InGameState(GameController& controller, GameOverState& gameOver,Button& button) :
-			m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller), m_isPause(false), m_gameOver(gameOver),m_levelNum(0)
+InGameState::InGameState(GameController& controller, GameOverState& gameOver, HelpState& helpState, Button& button) :
+			m_level(*this), m_player(m_level), m_soundButton(button), m_controller(controller), m_isPause(false), m_gameOver(gameOver),m_levelNum(0),
+			m_helpButton(std::make_pair(sf::IntRect(36, 176, 171, 26), sf::IntRect(36, 240, 171, 26)),
+				std::make_unique<SwitchScreenCommand>(controller, helpState),
+				sf::Vector2f{ 200.f, 70.f }, 0.35f)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("background"));
 	m_background.setSize({float(WIDTH*3), float(HEIGHT*3)});
@@ -32,15 +35,23 @@ InGameState::InGameState(GameController& controller, GameOverState& gameOver,But
 // for switch to switch to pause/ control sound
 void InGameState::handleEvent(sf::Event& event, sf::RenderWindow& window)// change to handle event
 {
+
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
 		sf::Vector2f pos = window.mapPixelToCoords({ event.mouseButton.x,event.mouseButton.y });
 		m_soundButton.handleClick(pos);
+		m_helpButton.handleClick(pos);
 	}
 	else if (event.type == sf::Event::KeyReleased) {
 		
-		if(event.key.code == sf::Keyboard::Escape)
+		if (event.key.code == sf::Keyboard::Escape) {
 			m_isPause = !m_isPause;
+		}
+	}
+	else if (event.type == sf::Event::MouseMoved)
+	{
+		sf::Vector2f pos = window.mapPixelToCoords({ event.mouseMove.x,event.mouseMove.y });
+		m_helpButton.markButton(pos);
 	}
 }
 
@@ -72,8 +83,10 @@ void InGameState::render(sf::RenderWindow&window)
 	m_player.draw(window);
 	
 	m_ui.showGameInfo(window, m_player, m_level.levelPizzaAmount());
-	m_soundButton.setPosition(window.getView().getCenter());
+	m_soundButton.setPosition({ window.getView().getCenter().x + 450.f, window.getView().getCenter().y - 330.f });
 	m_soundButton.draw(window);
+	m_helpButton.setPosition({ window.getView().getCenter().x - 450.f, window.getView().getCenter().y -330.f});
+	m_helpButton.draw(window);
 
 	if (m_isPause) {
 		sf::RectangleShape blurBG;
@@ -121,7 +134,7 @@ void InGameState::readNewLevel()
 
 void InGameState::endGame(sf::RenderWindow& window)
 {
-	std::string outputMessege = m_player.getHearts() == 0 ? "Better Luck Next Time!!" : "levels comlete succefully!!!";
+	std::string outputMessege = m_player.getHearts() == 0 ? "Better Luck Next Time!!" : "levels complete succefully!!";
 	m_ui.showFinelScore(window, outputMessege, m_player.getCoins(), m_levelNum);
 }
 

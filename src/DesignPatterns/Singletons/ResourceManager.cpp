@@ -119,6 +119,7 @@ void ResourceManager::initAnimations()
                                                                               sf::IntRect({ 1015,57,187,138 })}));
 
  }
+
 /*================== getAnimation =================*/
 std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation type)
 {
@@ -138,7 +139,7 @@ void ResourceManager::initTextures()
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
     { "playerSpriteSheet", "background", "frameBackground", "menuBackground",
        "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage", "friend", "loading",
-        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza","fatPerson","ladder", "pause", "GameOverBG"};
+        "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza","fatPerson","ladder", "pause", "GameOverBG", "howToPlay"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
     {

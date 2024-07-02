@@ -2,13 +2,15 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Command/SwitchScreenCommand.h"
 
-HelpState::HelpState(GameController& controller, GameState& state) :
+HelpState::HelpState(GameController& controller, GameState& state, const std::string background) :
 	m_goBackButton(std::make_pair(sf::IntRect(38, 425, 95, 28), sf::IntRect(38, 493, 95, 28)),
-		std::make_unique<SwitchScreenCommand>(controller, state), {560.f, 710.f})
+		std::make_unique<SwitchScreenCommand>(controller, state), {560.f, 710.f}), m_curBackground(0)
 {
-	m_background.setTexture(&ResourceManager::instance().getTexture("controls"));
+	m_background.setTexture(&ResourceManager::instance().getTexture(background));
 	m_background.setSize({ static_cast<float>(WIDTH), static_cast<float>(HEIGHT) });
+	m_background.setOrigin({ static_cast<float>(WIDTH / 2), static_cast<float>(HEIGHT / 2) });
 }
+
 
 void HelpState::handleEvent(sf::Event& event, sf::RenderWindow& window)
 {
@@ -28,11 +30,8 @@ void HelpState::handleEvent(sf::Event& event, sf::RenderWindow& window)
 
 void HelpState::render(sf::RenderWindow& window)
 {
+	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
+	m_goBackButton.setPosition({ window.getView().getCenter().x-44.5f, window.getView().getCenter().y +310.f});
 	m_goBackButton.draw(window);
-}
-
-void HelpState::setBackground(const std::string string)
-{
-	m_background.setTexture(&ResourceManager::instance().getTexture(string));
 }

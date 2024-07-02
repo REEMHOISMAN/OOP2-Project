@@ -6,7 +6,7 @@
 #include "Button.h"
 
 
-MenuState::MenuState(GameController& controller, GameState& InGameState, GameState& helpState, Button& button): m_soundButton(button)
+MenuState::MenuState(GameController& controller, GameState& InGameState, GameState& HelpStateControls, GameState& HelpStateHowToPlay, Button& button): m_soundButton(button)
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture("menuBackground"));
 	m_background.setSize({ WIDTH, HEIGHT });
@@ -17,8 +17,12 @@ MenuState::MenuState(GameController& controller, GameState& InGameState, GameSta
 						   sf::Vector2f{ 530.f, 250.f });
 
 	m_buttons.emplace_back(std::make_pair(sf::IntRect(36, 304, 118, 23), sf::IntRect(36, 365, 118, 23)),
-						   std::make_unique<SwitchScreenCommand>(controller, helpState), 
+						   std::make_unique<SwitchScreenCommand>(controller, HelpStateControls),
 						   sf::Vector2f{ 530.f, 360.f });
+
+	m_buttons.emplace_back(std::make_pair(sf::IntRect(36, 176, 171, 26), sf::IntRect(36, 240, 171, 26)),
+						   std::make_unique<SwitchScreenCommand>(controller, HelpStateHowToPlay),
+						   sf::Vector2f{ 525.f, 455.f });
 
 }
 
@@ -49,7 +53,7 @@ void MenuState::render(sf::RenderWindow&window)
 {
 	m_background.setPosition(window.getView().getCenter());
 	window.draw(m_background);
-	m_soundButton.setPosition(window.getView().getCenter());
+	m_soundButton.setPosition({ window.getView().getCenter().x + 450.f, window.getView().getCenter().y - 330.f });
 	m_soundButton.draw(window);
 	std::for_each(m_buttons.begin(), m_buttons.end(), [&window](auto& button) {button.draw(window); });
 }

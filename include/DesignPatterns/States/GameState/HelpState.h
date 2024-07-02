@@ -7,13 +7,13 @@ class GameController;
 class HelpState : public GameState
 {
 public:
-	HelpState(GameController& controller, GameState& state);
+	HelpState(GameController& controller, GameState& state, const std::string);
 	virtual void handleEvent(sf::Event&, sf::RenderWindow& window) override;
 	virtual void update(sf::Time) {};
 	virtual void render(sf::RenderWindow& window) override;
-	void setBackground(const std::string);
 
 private:
 	sf::RectangleShape m_background;
 	Button m_goBackButton;
+	int m_curBackground;
 };

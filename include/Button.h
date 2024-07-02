@@ -6,7 +6,7 @@
 class Button
 {
 public:
-	Button(std::pair<sf::IntRect, sf::IntRect>, std::unique_ptr<Command>, const sf::Vector2f);
+	Button(std::pair<sf::IntRect, sf::IntRect>, std::unique_ptr<Command>, const sf::Vector2f, float scale =1.f);
 	void draw(sf::RenderWindow&)const;
 	void handleClick(const sf::Vector2f& pos);
 	void markButton(const sf::Vector2f& pos);

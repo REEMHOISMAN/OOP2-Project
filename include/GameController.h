@@ -25,7 +25,8 @@ private:
 	GameState* m_state;
 	InGameState m_inGameState;
 	MenuState m_menuState;
-	HelpState m_helpState;
+	HelpState m_helpStateControls;
+	HelpState m_helpStateHowToPlay;
 	GameOverState m_gameOver;
 	Button m_soundButton;
 };
