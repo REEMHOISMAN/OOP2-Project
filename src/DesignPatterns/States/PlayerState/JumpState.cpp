@@ -1,3 +1,4 @@
+#pragma region Includes
 #include"DesignPatterns/States/PlayerState/JumpState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
@@ -9,14 +10,17 @@
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
+#pragma endregion 
 
+
+/*================== JumpState Constructor =================*/
 JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)), 
 								m_jumpSpeed(0.f), m_rightLeftSpeed(0.f), m_jumpTimer(0.f)
 {
 	ResourceManager::instance().playSound("jumpSound");
 }
 
-//---------------------------------------------------------
+/*================== JumpState handleEvent =================*/
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
 	int pizzaAmount = player.getPizzasAmount();
@@ -32,6 +36,7 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player
 	if (m_jumpTimer >= 1.1f && sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player.isBlockedFromSide()&&player.getPizzasAmount()==0)
 		return std::make_unique<DivingState>(PLAYER_DIVE);
 
+	// fro here conditions to manage movment in the air 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !player.isBlockedFromSide())
 		m_rightLeftSpeed = 150.f;
 	
@@ -43,19 +48,25 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player
 	
 	return nullptr;
 }
+/*================== JumpState update =================*/
+/*---------------------------------------------------------
+* this state as his name allow to the player to jump fro this state 
+you can exit to dive state(make sure you dont holding pizza)
+or to stand state
+-----------------------------------------------------------*/
 
 void JumpState::update(sf::Time elapsedTime, Player& player)
 {
 	float sec = elapsedTime.asSeconds();
-	m_jumpSpeed = sec * 700.f;
-	player.activateGravity(0.2f);
+	m_jumpSpeed = sec * PLAYER_JUMP_ACCELERATION;
+	player.activateGravity(GRAVITY-0.1f);
     sf::Vector2f newPos;
 	player.setClimb(false);
 
 	float gravity = player.getGravity();
     player.isBlockedFromSide() ? newPos.x = 0.f :newPos.x = sec*m_rightLeftSpeed;
     newPos.y = -m_jumpSpeed+gravity;
-    player.setObjectPosition(player.getObjectSprite().getPosition()+newPos);
+    player.setObjectPosition(player.getPosition()+newPos);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) m_jumpTimer += sec;
 	

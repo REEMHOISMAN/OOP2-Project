@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
@@ -7,14 +8,17 @@
 #include "DesignPatterns/States/PlayerState/ClimbingState.h"
 #include "GameObject/MovingObject/Player.h"
 #include <iostream>
+#pragma endregion 
 
+/*================== StandState Constructor =================*/
 StandState::StandState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)) {}
 
+/*================== StandState handleEvent =================*/
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
 {
     int pizzaAmount = player.getPizzasAmount();
     if (player.isOnGround()) {  // Check if the player is on the ground
-        if (input == SPACE/* && pizzaAmount == 0*/) {
+        if (input == SPACE) {
             player.setOnGround(false);
             return pizzaAmount == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
         }
@@ -40,11 +44,18 @@ std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player
     return nullptr;
 }
 
+/*================== StandState update =================*/
+/*---------------------------------------------------------
+This is the player's default state from which you can reach
+most of the player's states in the game, this state literally
+is when the player does nothing
+-----------------------------------------------------------*/
+
 void StandState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;
     player.setClimb(false);
-    player.activateGravity(0.3);
+    player.activateGravity(GRAVITY);
     float gravity = player.getGravity();
     newPos.x = 0;
     newPos.y = gravity;

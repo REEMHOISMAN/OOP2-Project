@@ -143,7 +143,7 @@ void pizzaEnemyObstacle(GameObject& object1, GameObject& object2)
 {
 	PizzaEnemy& pizzaEnemy = dynamic_cast<PizzaEnemy&>(object1);
 	enemyObstacle(object1, object2);
-	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>(220.f));
+	pizzaEnemy.setStrategy(std::make_unique<SideToSideStrategy>(OBJECT_SPEED));
 }
 
 /*================== PlayerStaticBomb =================*/

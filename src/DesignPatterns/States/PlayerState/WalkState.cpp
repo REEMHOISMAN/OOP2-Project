@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
@@ -6,9 +7,12 @@
 #include "DesignPatterns/States/PlayerState/BombState.h"
 #include "Macros.h"
 #include "GameObject/MovingObject/Player.h"
+#pragma endregion 
 
+/*================== WalkState Constructor =================*/
 WalkState::WalkState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)), m_walkTimer(0.f){}
 
+/*================== WalkState handleEvent =================*/
 std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 {
     int pizzaAmount = player.getPizzasAmount();
@@ -35,16 +39,22 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
     return nullptr;
 }
 
+/*================== WalkState update =================*/
+/*---------------------------------------------------------
+This is the player's movment on the world from this state you 
+can exit to jump state or run state or to cheesed state
+-----------------------------------------------------------*/
+
 void WalkState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;
    float sec = time.asSeconds();
-   player.activateGravity(0.3f); 
+   player.activateGravity(GRAVITY);
    player.setClimb(false);
    float gravity = player.getGravity();
    newPos.y = gravity;
    
-   newPos.x  = gravity < 2.f? sec * 220.f: 0;
+   newPos.x  = gravity < 2.f? sec * OBJECT_SPEED : 0;
 
 
    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

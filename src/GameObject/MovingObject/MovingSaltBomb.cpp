@@ -17,7 +17,7 @@ void MovingSaltBomb::move(const sf::Time& time)
 		return;
 	}
 	if (!m_toExplode)
-		activateGravity(0.2f);
+		activateGravity(GRAVITY-0.1f);
 
 	Weapon::move(time);
 }

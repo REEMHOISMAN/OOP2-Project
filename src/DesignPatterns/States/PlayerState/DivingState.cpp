@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/DivingState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
@@ -6,12 +7,15 @@
 #include "CollisionHandling.h"
 #include "GameObject/MovingObject/Player.h"
 #include "Macros.h"
+#pragma endregion 
 
+/*================== DivingState Constructor =================*/
 DivingState::DivingState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)), m_rightLeftSpeed(0.f)
 {
 	ResourceManager::instance().playSound("flySound");
 }
-//---------------------------------------------------------
+
+/*================== DivingState handleEvent =================*/
 std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& player)
 {
 	if (input != SPACE || player.isOnGround() || player.isBlockedFromSide()) {
@@ -25,15 +29,20 @@ std::unique_ptr<PlayerState> DivingState::handleEvent(Input input , Player& play
 	
 	return nullptr;
 }
-//---------------------------------------------------------
+/*================== DivingState update =================*/
+/*---------------------------------------------------------
+* this state alow to the player do a sky diving ,this state 
+activated when player jumped and hold the space
+-----------------------------------------------------------*/
+
 void DivingState::update(sf::Time time, Player& player)
 {
 	sf::Vector2f newPos;
-	player.activateGravity(0.4f);
+	player.activateGravity(GRAVITY+0.1f);
 	auto gravity = player.getGravity();
 	newPos.x = m_rightLeftSpeed;
 	newPos.y = gravity*time.asSeconds();
-	player.setObjectPosition(newPos + player.getObjectSprite().getPosition());
+	player.setObjectPosition(newPos + player.getPosition());
 	if ((newPos.x < 0 && player.isHeadDirectionRight()) ||
 		(newPos.x > 0 && !player.isHeadDirectionRight()))
 	{

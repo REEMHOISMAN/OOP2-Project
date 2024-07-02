@@ -14,7 +14,7 @@ bool FatMan::m_register = MovingObjectFactory::registerMovingObject (sf::Color(3
 		sprite.setScale(0.7f, 0.7f);
 		sprite.setPosition(x, y+30);
 		sprite.setOrigin(animation[0].width / 2, animation[0].height / 2);
-		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(200.f), animation, *level);
+		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(OBJECT_SPEED-20.f), animation, *level);
 	});
 
 /*================== FatMan Constructor =================*/
@@ -26,6 +26,12 @@ FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Ani
 }
 
 /*================== move =================*/
+/**----------------------------------------------
+ * the "FatMan" is not moving consistently
+ * it moves only when he doesnt have ineraction with the player
+   (what make him happy if he has all pizzas / else angry)
+ *---------------------------------------------**/
+
 void FatMan::move(const sf::Time& time)
 {
 	if (m_isAngry || m_isHappy) {
@@ -34,7 +40,7 @@ void FatMan::move(const sf::Time& time)
 	}
 	if (!m_isHappy && !m_isAngry)
 	{
-		activateGravity(0.3f);
+		activateGravity(GRAVITY);
 		activateStrategy(time);
 		loadAnimationFrame(time);
 		setOnGround(false);

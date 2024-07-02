@@ -1,8 +1,11 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/ClimbingState.h"
 #include "DesignPatterns/States/PlayerState/JumpState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "GameObject/MovingObject/Player.h"
+#pragma endregion 
+
 
 /*================== ClimbingState Constructor =================*/
 ClimbingState::ClimbingState(const ObjectAnimation type)
@@ -28,10 +31,14 @@ std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& pla
 	return nullptr;
 }
 
-/*================== update =================*/
+/*================== ClimbingState update =================*/
+/*---------------------------------------------------------
+* this state activate when the player want to climb a ladder and he can climb 
+-----------------------------------------------------------*/
+
 void ClimbingState::update(sf::Time elapsed, Player& player)
 {
-	m_climbSpeed = elapsed.asSeconds() * 200.f;
+	m_climbSpeed = elapsed.asSeconds() * OBJECT_SPEED;
 	sf::Vector2f newPos;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		newPos.y = -m_climbSpeed;

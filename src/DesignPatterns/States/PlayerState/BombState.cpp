@@ -1,3 +1,4 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/BombState.h"
 #include "DesignPatterns/States/PlayerState/WalkState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
@@ -7,6 +8,8 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "GameObject/MovingObject/MovingSaltBomb.h"
 #include "GameObject/MovingObject/Player.h"
+#pragma endregion 
+
 
 /*================== BombState Constructor =================*/
 BombState::BombState(const ObjectAnimation animation)
@@ -29,15 +32,15 @@ std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 	return nullptr;
 }
 
-/*================== update =================*/
+/*================== BombState update =================*/
 /*----------------------------------------------------------
 player throwing salt bomb, he insert to the list moving salt 
-bomb wuth sude to side strategy and manageing key realease with booleans
+bomb with side to side strategy and manageing key realease with booleans
 ------------------------------------------------------------*/
+
 void BombState::update(sf::Time elapsed, Player& player)
 {
     auto pos = player.getPosition();
-    player.activateGravity(0.1f);
     m_saltBomb.setTexture(ResourceManager::instance().getTexture("salt"));
     m_saltBomb.setScale(2.f, 2.f);
     m_saltBomb.setPosition(pos);

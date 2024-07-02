@@ -1,9 +1,12 @@
+#pragma region Includes
 #include "DesignPatterns/States/PlayerState/CrouchState.h"
 #include "DesignPatterns/States/PlayerState/StandState.h"
 #include "GameObject/StaticObject/Pizza.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "GameObject/MovingObject/Player.h"
 #include "GameObject/StaticObject/Pizza.h"
+#pragma endregion 
+
 
 /*================== CrouchState Constructor =================*/
 CrouchState::CrouchState(const ObjectAnimation animation)
@@ -26,6 +29,7 @@ std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& playe
 Opening a timer until the next pizza can be taken->Prevents detection 
 of a collision with the pizza straight away when taking down a pizza
 -----------------------------------------------------------*/
+
 void CrouchState::update(sf::Time time, Player& player)
 {
 	if (!player.dropPizza()) {
@@ -36,10 +40,10 @@ void CrouchState::update(sf::Time time, Player& player)
 	{
 		for (int i = 0;i < player.getPizzasAmount();++i)
 		{
-			auto prevPos = player.getObjectSprite().getPosition();
+			auto prevPos = player.getPosition();
 			sf::Sprite sprite(ResourceManager::instance().getTexture("pizza"));
 			sprite.setTextureRect(sf::IntRect(42, 0, 42, 10));
-			sprite.setPosition(prevPos.x, prevPos.y + player.getObjectSprite().getGlobalBounds().height / 2 - 20-(i*10));
+			sprite.setPosition(prevPos.x, prevPos.y + player.getGlobalBounds().height / 2 - 20-(i*10));
 			sprite.scale(1.7f, 1.7f);
 			player.insertNewPizza(std::make_unique<Pizza>(sprite));
 		}
