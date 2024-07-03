@@ -61,7 +61,7 @@ void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string s
 	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y-55.f/* + offset.y*/);
 	auto sprite = sf::Sprite(ResourceManager::instance().getTexture("coin"));
 	sprite.setScale(4.f, 4.f);
-	sprite.setPosition(text.getPosition().x + 550.f, text.getPosition().y+12);
+	sprite.setPosition(text.getPosition().x + 620.f, text.getPosition().y+12);
 	window.draw(text);
 	window.draw(sprite);
 

@@ -4,7 +4,7 @@
 
 HelpState::HelpState(GameController& controller, GameState& state, const std::string background) :
 	m_goBackButton(std::make_pair(sf::IntRect(38, 425, 95, 28), sf::IntRect(38, 493, 95, 28)),
-		std::make_unique<SwitchScreenCommand>(controller, state), {560.f, 710.f}), m_curBackground(0)
+		std::make_unique<SwitchScreenCommand>(controller, state), {560.f, 710.f})
 {
 	m_background.setTexture(&ResourceManager::instance().getTexture(background));
 	m_background.setSize({ static_cast<float>(WIDTH), static_cast<float>(HEIGHT) });

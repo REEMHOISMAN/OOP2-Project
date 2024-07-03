@@ -9,6 +9,7 @@ class SwitchScreenCommand : public Command
 public:
 	SwitchScreenCommand(GameController&, GameState&);
 	virtual void execute() override;
+	void setState(GameState&);
 
 private:
 	GameController& m_controller;
