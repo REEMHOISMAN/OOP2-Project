@@ -32,6 +32,7 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
         player.setOnGround(false);
         return pizzaAmount == 0 ? std::make_unique<JumpState>(PLAYER_JUMP) : std::make_unique<JumpState>(PLAYER_JUMP_PIZZA);
     }
+
     if (m_walkTimer >= 1.1f && player.isOnGround()) {
         return pizzaAmount == 0 ? std::make_unique<RunState>(PLAYER_RUN) : std::make_unique<RunState>(PLAYER_RUN_PIZZA);
     }
@@ -41,10 +42,9 @@ std::unique_ptr<PlayerState> WalkState::handleEvent(Input input, Player&player)
 
 /*================== WalkState update =================*/
 /*---------------------------------------------------------
-This is the player's movment on the world from this state you 
-can exit to jump state or run state or to cheesed state
+ * This is the player's movment on the world from this state you 
+ * can exit to jump state or run state or to cheesed state
 -----------------------------------------------------------*/
-
 void WalkState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;

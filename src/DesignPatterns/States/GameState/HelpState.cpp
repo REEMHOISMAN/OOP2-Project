@@ -2,6 +2,12 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Command/SwitchScreenCommand.h"
 
+/*================== HelpState  =================*/
+/*---------------------------------------------------------
+* this state representing two different states "helpStateControls"
+* and "helpStateHowToPlay" -> 2 different buttons: "controls"
+* and "how to play" both held in the menu (next to each other)
+-----------------------------------------------------------*/
 HelpState::HelpState(GameController& controller, GameState& state, const std::string background) :
 	m_goBackButton(std::make_pair(sf::IntRect(38, 425, 95, 28), sf::IntRect(38, 493, 95, 28)),
 		std::make_unique<SwitchScreenCommand>(controller, state), {560.f, 710.f})
@@ -11,7 +17,7 @@ HelpState::HelpState(GameController& controller, GameState& state, const std::st
 	m_background.setOrigin({ static_cast<float>(WIDTH / 2), static_cast<float>(HEIGHT / 2) });
 }
 
-
+/*================== handleEvent  =================*/
 void HelpState::handleEvent(sf::Event& event, sf::RenderWindow& window)
 {
 	if (event.type == sf::Event::MouseButtonReleased)
@@ -28,6 +34,7 @@ void HelpState::handleEvent(sf::Event& event, sf::RenderWindow& window)
 
 }
 
+/*================== handleEvent  =================*/ 
 void HelpState::render(sf::RenderWindow& window)
 {
 	m_background.setPosition(window.getView().getCenter());

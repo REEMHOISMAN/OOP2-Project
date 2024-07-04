@@ -16,7 +16,6 @@ public:
 	void changeState(GameState&);
 	void run();
 	void controlSound();
-	void close();
 
 private:
 	sf::RenderWindow m_window;

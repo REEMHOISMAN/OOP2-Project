@@ -8,5 +8,5 @@ public:
 	virtual void handleEvent(sf::Event&,sf::RenderWindow& window) = 0;
 	virtual void update(sf::Time) = 0;
 	virtual void render(sf::RenderWindow& window) = 0;
-	//virtual void init() = 0;
+
 };

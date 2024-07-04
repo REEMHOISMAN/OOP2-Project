@@ -23,7 +23,6 @@ JumpState::JumpState(const ObjectAnimation animation) : PlayerState(animation, s
 /*================== JumpState handleEvent =================*/
 std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player)
 {	
-	int pizzaAmount = player.getPizzasAmount();
 	if (player.isCheesed())
 		return std::make_unique<CheesedState>(PLAYER_CHEESED);
 	
@@ -48,13 +47,13 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Input input , Player& player
 	
 	return nullptr;
 }
+
 /*================== JumpState update =================*/
 /*---------------------------------------------------------
 * this state as his name allow to the player to jump fro this state 
 you can exit to dive state(make sure you dont holding pizza)
 or to stand state
 -----------------------------------------------------------*/
-
 void JumpState::update(sf::Time elapsedTime, Player& player)
 {
 	float sec = elapsedTime.asSeconds();

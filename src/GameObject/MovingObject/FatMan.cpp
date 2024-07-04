@@ -12,8 +12,8 @@ bool FatMan::m_register = MovingObjectFactory::registerMovingObject (sf::Color(3
 		sf::Sprite sprite(ResourceManager::instance().getTexture("fatPerson"));
 		sprite.setTextureRect(animation[0]);
 		sprite.setScale(0.7f, 0.7f);
-		sprite.setPosition(x, y+30);
-		sprite.setOrigin(animation[0].width / 2, animation[0].height / 2);
+		sprite.setPosition(x, y+ 30.f);
+		sprite.setOrigin(static_cast<float>(animation[0].width / 2), static_cast<float>(animation[0].height / 2));
 		return std::make_unique<FatMan>(sprite, std::make_unique<SideToSideStrategy>(OBJECT_SPEED-20.f), animation, *level);
 	});
 
@@ -31,14 +31,14 @@ FatMan::FatMan(sf::Sprite& sprite, std::unique_ptr<MovingStrategy> strategy, Ani
  * it moves only when he doesnt have ineraction with the player
    (what make him happy if he has all pizzas / else angry)
  *---------------------------------------------**/
-
 void FatMan::move(const sf::Time& time)
 {
-	if (m_isAngry || m_isHappy) {
+	if (m_isAngry || m_isHappy){ //if he's angry or happy he doesn't move so return
 		m_isAngry = false;
 		return;
 	}
-	if (!m_isHappy && !m_isAngry)
+
+	if (!m_isHappy && !m_isAngry) //so he is moving right now
 	{
 		activateGravity(GRAVITY);
 		activateStrategy(time);
@@ -59,7 +59,7 @@ void FatMan::move(const sf::Time& time)
 
 }
 
-/*================== move =================*/
+/*================== setIsHappy =================*/
 void FatMan::setIsHappy()
 {
 	m_animationIndex = -1;
@@ -68,7 +68,7 @@ void FatMan::setIsHappy()
 	m_isHappy = true;
 }
 
-/*================== move =================*/
+/*================== setIsAngry =================*/
 void FatMan::setIsAngry()
 {
 	m_animationIndex = -1;
@@ -77,19 +77,25 @@ void FatMan::setIsAngry()
 	m_isAngry = true;
 }
 
-/*================== move =================*/
+/*================== isHappy =================*/
 bool FatMan::isHappy() const
 {
 	return m_isHappy;
 }
 
-/*================== move =================*/
+/*================== getTotalPizzas =================*/
+/**----------------------------------------------
+ * this function being called from Collusion handling
+ * when the player collide with the "fat man".
+ * the goal of each level is to give the "fat man"
+ * that the level holds
+ *---------------------------------------------**/
 int FatMan::getTotalPizzas() const
 {
 	return m_level.levelPizzaAmount();
 }
 
-/*================== move =================*/
+/*================== loadAnimationFrame =================*/
 void FatMan::loadAnimationFrame(sf::Time deltaTime)
 {
 	m_elapsed += deltaTime;

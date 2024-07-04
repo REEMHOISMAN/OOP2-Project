@@ -20,4 +20,4 @@ void playerLadder(GameObject&, GameObject&);
 void friendCage(GameObject&, GameObject&);
 void friendObstacle(GameObject&, GameObject&);
 
-sf::Sprite& proccessExplotion(const sf::Vector2f&);
+sf::Sprite proccessExplotion(const sf::Vector2f&);

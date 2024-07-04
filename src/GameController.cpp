@@ -3,6 +3,13 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "DesignPatterns/Command/ControlSoundCommand.h"
 
+/*================== GameController =================*/
+/*---------------------------------------------------------
+ * as the name represent: this class responsible to control all 
+ * game, therefore its holds as members all game states, window
+ * the sound button as well being vreated here
+ * the button is the exact same button or both MenuState and InGameState
+-----------------------------------------------------------*/
 GameController::GameController(): m_soundButton(std::make_pair(sf::IntRect(79, 576, 17, 13),
 												sf::IntRect(44, 576, 21, 13)),
 												std::make_unique<ControlSoundCommand>(*this),
@@ -22,12 +29,22 @@ GameController::GameController(): m_soundButton(std::make_pair(sf::IntRect(79, 5
 	m_music.play();
 }
 
-
+/*================== changeState =================*/
+/*---------------------------------------------------------
+ * after some button was pressed on. 
+ * switch screen command being executing : in called this function
+ * in order to switch to the wanted screen (State)
+-----------------------------------------------------------*/
 void GameController::changeState(GameState& state)
 {
 	m_state = &state;
 }
 
+/*================== run =================*/
+/*---------------------------------------------------------
+ * being called from main().
+ * runs all program, catch events as switch states depend on user choice
+-----------------------------------------------------------*/
 void GameController::run()
 {
 	sf::Event event;
@@ -51,6 +68,11 @@ void GameController::run()
 	}
 }
 
+/*================== controlSound =================*/
+/*---------------------------------------------------------
+ * if "soundButton" was press (from MenuState/InGameState)
+ * this function is being calld in order switch it current status
+-----------------------------------------------------------*/
 void GameController::controlSound()
 {
 	if (m_music.getStatus() == sf::Music::Status::Playing)
@@ -62,9 +84,4 @@ void GameController::controlSound()
 		m_music.play();
 	}
 	ResourceManager::instance().setSoundStatus();
-}
-
-void GameController::close()
-{
-	m_window.close();
 }

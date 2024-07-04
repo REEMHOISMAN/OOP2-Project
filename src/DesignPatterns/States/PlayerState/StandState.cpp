@@ -11,7 +11,7 @@
 #pragma endregion 
 
 /*================== StandState Constructor =================*/
-StandState::StandState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1)) {}
+StandState::StandState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.1f)) {}
 
 /*================== StandState handleEvent =================*/
 std::unique_ptr<PlayerState> StandState::handleEvent(Input input, Player& player)
@@ -50,7 +50,6 @@ This is the player's default state from which you can reach
 most of the player's states in the game, this state literally
 is when the player does nothing
 -----------------------------------------------------------*/
-
 void StandState::update(sf::Time time, Player& player)
 {
     sf::Vector2f newPos;

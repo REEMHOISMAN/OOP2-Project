@@ -6,7 +6,7 @@ SideToSideStrategy::SideToSideStrategy(float speed,float height): m_speed(speed)
 }
 
 /*================== SideToSideStrategy move =================*/
-sf::Vector2f& SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,float gravity)
+const sf::Vector2f SideToSideStrategy::move(sf::Time deltaTime, bool rightDirection,float gravity)
 {
 	sf::Vector2f newPos;
 	float newX;

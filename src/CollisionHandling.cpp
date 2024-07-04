@@ -39,14 +39,10 @@ void initCollisionFunctions()
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(BasicEnemy), &playerEnemy);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(PizzaEnemy), &playerEnemy);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
-	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Pizza), &playerPizza);
-	GameCollisions::instance().addCollusionFunc(typeid(Pizza), typeid(Player), &playerPizza);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(FatMan), &playerFatMan);
 	GameCollisions::instance().addCollusionFunc(typeid(Player), typeid(Ladder), &playerLadder);
 	GameCollisions::instance().addCollusionFunc(typeid(Cage), typeid(Friend), &friendCage);
 	GameCollisions::instance().addCollusionFunc(typeid(Friend), typeid(Obstacle), &friendObstacle);
-
-
 }
 
 /*================== playerObstacle =================*/
@@ -291,6 +287,7 @@ void playerFatMan(GameObject& object1, GameObject& object2)
 		}
 		else {
 			player.resetPizzaAmount();
+			ResourceManager::instance().playSound("levelUpSound");
 			fatMan.setIsHappy();
 			player.rescueFriend();
 		}
@@ -307,7 +304,7 @@ void playerLadder(GameObject& object1, GameObject& object2)
 	Ladder& ladder = dynamic_cast<Ladder&>(object2);
 	sf::FloatRect intersect;
 	
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !player.isClimb()) return;
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !player.isOnGround()) return;
 
 	auto playerBounds = player.getGlobalBounds();
 	auto ladderBounds = ladder.getGlobalBounds();
@@ -358,11 +355,11 @@ void friendObstacle(GameObject& object1, GameObject& object2)
 }
 
 /*================== proccessExplotion =================*/
-sf::Sprite& proccessExplotion(const sf::Vector2f& pos)
+sf::Sprite proccessExplotion(const sf::Vector2f& pos)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture("explosionSpriteSheet"));
 	sprite.setTextureRect(sf::IntRect({ 34,115,116,61 }));
-	sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
+	sprite.setOrigin(static_cast<float>(sprite.getTextureRect().width / 2), static_cast<float>(sprite.getTextureRect().height / 2));
 	sprite.setPosition(pos);
 	return sprite;
 }

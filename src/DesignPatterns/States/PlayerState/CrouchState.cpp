@@ -7,7 +7,6 @@
 #include "GameObject/StaticObject/Pizza.h"
 #pragma endregion 
 
-
 /*================== CrouchState Constructor =================*/
 CrouchState::CrouchState(const ObjectAnimation animation)
 	:PlayerState(animation, sf::seconds(0.f)),m_pizzaHeight(0.f),m_wasPicked(false),m_stand(false), m_DownWasPressed(false)
@@ -23,13 +22,13 @@ std::unique_ptr<PlayerState> CrouchState::handleEvent(Input input, Player& playe
 	}
 	return nullptr;
 }
+
 /*================== CrouchState update =================*/
 /*---------------------------------------------------------
 * this state is to take pizzas after killing enemy pizza 
-Opening a timer until the next pizza can be taken->Prevents detection 
-of a collision with the pizza straight away when taking down a pizza
+* Opening a timer until the next pizza can be taken->Prevents detection 
+* of a collision with the pizza straight away when taking down a pizza
 -----------------------------------------------------------*/
-
 void CrouchState::update(sf::Time time, Player& player)
 {
 	if (!player.dropPizza()) {
@@ -58,6 +57,7 @@ void CrouchState::update(sf::Time time, Player& player)
 	setAnimationFrame(player, time);
 }
 
+/*================== handleColiisionWithPizza =================*/
 void CrouchState::handleColiisionWithPizza(Pizza& pizza, Player& player)
 {
 	pizza.setToErase();

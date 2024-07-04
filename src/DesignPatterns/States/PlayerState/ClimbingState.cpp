@@ -33,9 +33,8 @@ std::unique_ptr<PlayerState> ClimbingState::handleEvent(Input input, Player& pla
 
 /*================== ClimbingState update =================*/
 /*---------------------------------------------------------
-* this state activate when the player want to climb a ladder and he can climb 
+* this state activate when the player want to climb a ladder 
 -----------------------------------------------------------*/
-
 void ClimbingState::update(sf::Time elapsed, Player& player)
 {
 	m_climbSpeed = elapsed.asSeconds() * OBJECT_SPEED;
@@ -44,7 +43,7 @@ void ClimbingState::update(sf::Time elapsed, Player& player)
 		newPos.y = -m_climbSpeed;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		newPos.y = m_climbSpeed;
-	auto prevPos = player.getObjectSprite().getPosition();
+	sf::Vector2f prevPos = player.getPosition();
 	newPos.x = m_xSpeed * elapsed.asSeconds();
 	setAnimationFrame(player, elapsed);
 	player.setObjectPosition(prevPos+newPos);

@@ -137,8 +137,8 @@ std::vector<sf::IntRect>& ResourceManager::getAnimation(const ObjectAnimation ty
 void ResourceManager::initTextures()
 {
     std::array<std::string, NUM_OF_TEXTURES> textureNames =
-    { "playerSpriteSheet", "background", "frameBackground", "menuBackground",
-       "mainGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage", "friend", "loading",
+    { "playerSpriteSheet", "gameBG", "gameFrameBG", "menuBG",
+       "grassGround", "ground", "basicEnemiesSheet","PizzaEnemySheet",  "buttons", "controls", "cage", "friend", "loading",
         "cheese","salt", "explosionSpriteSheet","heart","coin", "papaLoueiHead","pizza","fatPerson","ladder", "pause", "GameOverBG", "howToPlay"};
 
     for (int i = 0; i < NUM_OF_TEXTURES; ++i)
@@ -156,7 +156,7 @@ void ResourceManager::initSounds()
 {
     std::array<std::string, NUM_OF_SOUNDS>soundsName = 
     { "coinSound","explodeSound","flySound","jumpSound","levelUpSound"
-        ,"playerEnemySound","takeSaltSound" };
+        ,"playerEnemySound","takeSaltSound"};
     for (int i = 0; i < NUM_OF_SOUNDS; ++i)
     {
         sf::SoundBuffer sound;
@@ -180,9 +180,7 @@ void ResourceManager::playSound(const std::string& soundName)
     if (m_currentSound.getStatus() != sf::Sound::Playing) {
         m_currentSound.setBuffer(m_sounds[soundName]);
         m_currentSound.play();
-    }
-    
- 
+    } 
 }
 
 /*================== setSoundStatus =================*/

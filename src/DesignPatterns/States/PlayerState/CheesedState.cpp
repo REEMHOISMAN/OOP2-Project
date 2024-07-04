@@ -32,9 +32,8 @@ std::unique_ptr<PlayerState> CheesedState::handleEvent(Input input, Player& play
 /*================== CheesedState update =================*/
 /*---------------------------------------------------------
 * this state is is when the pizza enemy spit on the player and
-player need to get out of the state by pressing 3 times space
+* player need to get out of the state by pressing 3 times space
 -----------------------------------------------------------*/
-
 void CheesedState::update(sf::Time time, Player& player)
 {
 	if (!m_pressingOnSpace && m_wasPressedOnSpace)
@@ -43,7 +42,7 @@ void CheesedState::update(sf::Time time, Player& player)
 		setAnimationFrame(player, time);
 	}
 	
-	m_wasPressedOnSpace = m_pressingOnSpace;//manageing key realease with booleans
+	m_wasPressedOnSpace = m_pressingOnSpace;// manageing key realease with booleans
 	
 	player.activateGravity(GRAVITY); // if you were jumping -> fall
 	

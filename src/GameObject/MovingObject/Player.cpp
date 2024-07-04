@@ -62,8 +62,8 @@ Input Player::getUserInput()const
 /*================== draw =================*/
 void Player::draw(sf::RenderWindow& window)const
 {
-	auto center = sf::Vector2f(getPosition().x, HEIGHT/2);
-	if (getPosition().y < HEIGHT/2) {
+	auto center = sf::Vector2f(getPosition().x, static_cast<float>(HEIGHT/2));
+	if (getPosition().y < static_cast<float>(HEIGHT/2)) {
 
 		(!isOnGround() || m_climb|| window.getView().getCenter().y < getPosition().y ) ? 
 			center.y = getPosition().y : center.y = window.getView().getCenter().y;
@@ -138,7 +138,6 @@ void Player::setCollideWithEnemy()
 		m_hearts--;
 		ResourceManager::instance().playSound("playerEnemySound");
 	}
-
 }
 
 /*================== getHearts =================*/

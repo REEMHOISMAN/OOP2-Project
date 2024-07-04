@@ -9,6 +9,5 @@ public:
 	virtual void update(sf::Time, PizzaEnemy&)override;
 
 private:
-	int m_jumps;
 	sf::Time m_walkTime;
 };

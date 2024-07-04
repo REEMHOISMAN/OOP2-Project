@@ -13,8 +13,3 @@ void SwitchScreenCommand::execute()
 {
 	m_controller.changeState(m_state);
 }
-
-void SwitchScreenCommand::setState(GameState& state)
-{
-	m_state = state;
-}

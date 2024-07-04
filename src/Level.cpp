@@ -47,6 +47,7 @@ void Level::readLevelMap(const std::string levelImgName, Player& player)
 			{
 				m_staticObjects.emplace_back(std::move(staticObject));
 			}
+			//this is the cage's RGB color. only this object being readed sepertly but still being hold in moving object list
 			else if (color == sf::Color(127, 127, 127))
 			{
 				m_movingObjects.emplace_back(std::make_unique<Cage>(factor_x, factor_y - 205));
@@ -122,7 +123,7 @@ void Level::processCollisions(T1 begin1, T1 end1, T2 begin2, T2 end2)
 
 /*================== insertMovingObject =================*/
 /*---------------------------------------------------------
-when enemy pizza or player wants to attck they inserting new moving object(cheese,salt bomb)
+ * when enemy pizza or player wants to attck they inserting new moving object(cheese,salt bomb)
 ---------------------------------------------------------*/
 
 void Level::insertMovingObject(std::unique_ptr<MovingObject> object)
@@ -132,7 +133,7 @@ void Level::insertMovingObject(std::unique_ptr<MovingObject> object)
 
 /*================== insertStaticObject =================*/
 /*---------------------------------------------------------
-when enemy pizza die new static object inserted (pizza)
+ * when enemy pizza die new static object inserted (pizza)
 ---------------------------------------------------------*/
 
 void Level::insertStaticObject(std::unique_ptr<StaticObject> object)
@@ -159,11 +160,10 @@ void Level::setLevelFinished()
 	m_levelFinish = true;
 }
 
-/*================== StaticSaltBomb Register =================*/
+/*================== resetLevel =================*/
 /*---------------------------------------------------------
-the player saved his friend. new level is about to be loading->reset everything
+ * the player saved his friend. new level is about to be loading->reset everything
 ---------------------------------------------------------*/
-
 void Level::resetLevel()
 {
 	m_movingObjects.clear();

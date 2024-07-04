@@ -15,5 +15,3 @@ void Entity::setHeadDirection(bool val)
 {
 	m_RightDirection = val;
 }
-
-

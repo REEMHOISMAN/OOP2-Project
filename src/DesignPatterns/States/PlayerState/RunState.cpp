@@ -10,7 +10,7 @@
 
 
 /*================== RunState Constructor =================*/
-RunState::RunState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.08)), m_acceleration(0){}
+RunState::RunState(const ObjectAnimation animation) : PlayerState(animation, sf::seconds(0.08f)), m_acceleration(0){}
 
 /*================== RunState handleEvent =================*/
 std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
@@ -33,7 +33,6 @@ std::unique_ptr<PlayerState> RunState::handleEvent(Input input, Player& player)
 * this state activated when player hold the left or right arrows after 
   walking after a certain amount of time
 -----------------------------------------------------------*/
-
 void RunState::update(sf::Time delta, Player& player)
 {
 	sf::Vector2f newPos;

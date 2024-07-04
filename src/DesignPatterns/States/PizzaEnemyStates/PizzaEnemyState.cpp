@@ -11,7 +11,7 @@ PizzaEnemyState::PizzaEnemyState(const ObjectAnimation animation, const sf::Time
 
 
 /*================== setAnimationFrame =================*/
-bool PizzaEnemyState::setAnimationFrame(PizzaEnemy& pizzaEnemy, sf::Time delta)
+bool PizzaEnemyState::setAnimationFrame(PizzaEnemy& pizzaEnemy, const sf::Time delta)
 {
 	m_elapsed += delta;
 	if (m_elapsed >= m_animationTime)

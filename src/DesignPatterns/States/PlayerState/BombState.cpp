@@ -37,7 +37,6 @@ std::unique_ptr<PlayerState> BombState::handleEvent(Input input, Player& player)
 player throwing salt bomb, he insert to the list moving salt 
 bomb with side to side strategy and manageing key realease with booleans
 ------------------------------------------------------------*/
-
 void BombState::update(sf::Time elapsed, Player& player)
 {
     auto pos = player.getPosition();

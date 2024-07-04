@@ -22,12 +22,9 @@ after the pizza monster died new static object insert to the list of static obje
 which is the pizza the player need to pick up moved by strategy, 
 from this state the pizza not exist any more(deleted from the list)
 ------------------------------------------------------------*/
-
 void DieState::update(sf::Time time, PizzaEnemy& pizzaEnemy)
 {
-	
 	bool end = false;
-
 	// here we make sure the pizza enemy die on the ground 
 	if (!pizzaEnemy.isOnGround()) {
 		auto sprite = pizzaEnemy.getObjectSprite();

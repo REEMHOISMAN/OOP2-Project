@@ -2,7 +2,7 @@
 #include "DesignPatterns/Factories/StaticObjectFactory.h"
 #include "DesignPatterns/Singletons/ResourceManager.h"
 
-
+/*================== Ladder register =================*/
 bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,31,31),
 	[](float x, float y)->std::unique_ptr<StaticObject>
 	{
@@ -25,6 +25,7 @@ bool Ladder::m_register=StaticObjectFactory::registerStaticObject(sf::Color(63,3
 		return std::make_unique<Ladder>(sprite);
 	});
 
+/*================== Ladder Constructor =================*/
 Ladder::Ladder(sf::Sprite& sprite)
 	:StaticObject(sprite)
 {

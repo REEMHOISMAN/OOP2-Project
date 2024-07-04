@@ -21,5 +21,5 @@ void Enemy::setEnemySprite(sf::Sprite& sprite, float factor)
 void Enemy::activateStrategy(sf::Time time)
 {
 	auto newPos= m_moveStrategy->move(time, isHeadDirectionRight(), getGravity());
-	setObjectPosition(newPos + getObjectSprite().getPosition());
+	setObjectPosition(newPos + getPosition());
 }

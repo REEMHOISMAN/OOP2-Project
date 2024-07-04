@@ -9,7 +9,7 @@
 /*================== BasicEnemy Register =================*/
 bool BasicEnemy::m_register =
 	MovingObjectFactory::registerMovingObject(sf::Color(255, 127, 39),
-	[](float x, float y, Level* inGameState)->std::unique_ptr<Enemy>
+	[](float x, float y, Level*)->std::unique_ptr<Enemy>
 	{
 		Animation animation = ResourceManager::instance().getAnimation(ORANGE_ENEMY);
 		sf::Sprite sprite(ResourceManager::instance().getTexture("basicEnemiesSheet"));
@@ -57,7 +57,7 @@ void BasicEnemy::move(const sf::Time& time)
 	activateGravity(0.3f);
 	activateStrategy(time);
 	loadAnimationFrame(time);
-	setOnGround(false); //<--------- if you put this in "note" the basic enemies movement is being without bugs... 					//           but the orange one jumps to the sky
+	setOnGround(false);
 	setBlockedOnSide(false);
 }
 

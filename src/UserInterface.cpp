@@ -2,36 +2,38 @@
 #include "DesignPatterns/Singletons/ResourceManager.h"
 #include "GameObject/MovingObject/Player.h"
 
+/*================== UserInterface =================*/
 UserInterface::UserInterface()
 {
-	m_userInterface.setTexture(&ResourceManager::instance().getTexture("frameBackground"));
-	m_userInterface.setSize({ float(WIDTH), float(HEIGHT) });
-	m_userInterface.setOrigin(m_userInterface.getSize().x / 2, m_userInterface.getSize().y / 2);
-	m_userInterface.setPosition(WIDTH / 2, HEIGHT / 2);
+	m_userInterface.setTexture(&ResourceManager::instance().getTexture("gameFrameBG"));
+	m_userInterface.setSize({ static_cast<float>(WIDTH), static_cast<float>(HEIGHT) });
+	m_userInterface.setOrigin(m_userInterface.getSize().x / 2.f, m_userInterface.getSize().y / 2.f);
+	m_userInterface.setPosition(static_cast<float>(WIDTH / 2), static_cast<float>((HEIGHT / 2)));
 }
 
+/*==================showGameInfo =================*/
 void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int maxPizzas)
 {
 	m_userInterface.setPosition(window.getView().getCenter());
 	window.draw(m_userInterface);
 	sf::Text score;
 
-	drawSpriteInfo(window, { window.getView().getCenter().x - 660, window.getView().getCenter().y + 290 }, "papaLoueiHead", 1.8f);
-	drawHeartSprites(window, { window.getView().getCenter().x - 550, window.getView().getCenter().y + 320 }, "heart", 2.f, player.getHearts());
+	drawSpriteInfo(window, { window.getView().getCenter().x - 660.f, window.getView().getCenter().y + 290.f }, "papaLoueiHead", 1.8f);
+	drawHeartSprites(window, { window.getView().getCenter().x - 550.f, window.getView().getCenter().y + 320.f }, "heart", 2.f, player.getHearts());
 
-	drawSpriteInfo(window,{ window.getView().getCenter().x - 150, window.getView().getCenter().y + 300 }, "salt", 2.5f);
-	drawInfo(window, { window.getView().getCenter().x-70, window.getView().getCenter().y + 300 }, player.getSaltBombsAmount());
+	drawSpriteInfo(window,{ window.getView().getCenter().x - 150.f, window.getView().getCenter().y + 300.f }, "salt", 2.5f);
+	drawInfo(window, { window.getView().getCenter().x-70.f, window.getView().getCenter().y + 300.f }, player.getSaltBombsAmount());
 	
-	drawSpriteInfo(window, { window.getView().getCenter().x+140, window.getView().getCenter().y + 315 }, "coin", 2.9f);
-	drawInfo(window, { window.getView().getCenter().x + 200, window.getView().getCenter().y + 300 }, player.getCoins());
+	drawSpriteInfo(window, { window.getView().getCenter().x+140.f, window.getView().getCenter().y + 315.f }, "coin", 2.9f);
+	drawInfo(window, { window.getView().getCenter().x + 200.f, window.getView().getCenter().y + 300.f }, player.getCoins());
 
-	drawSpritesPizza(window, { window.getView().getCenter().x + 550, window.getView().getCenter().y + 345 }, 
+	drawSpritesPizza(window, { window.getView().getCenter().x + 550.f, window.getView().getCenter().y + 345.f }, 
 						"pizza", 2.9f, player.getPizzasAmount(), maxPizzas);
 
 	score.setString(std::to_string(player.getPizzasAmount()) + " / " + std::to_string(maxPizzas));
-	score.setPosition(window.getView().getCenter().x + 440, window.getView().getCenter().y + 310);
+	score.setPosition(window.getView().getCenter().x + 440.f, window.getView().getCenter().y + 310.f);
 	score.setCharacterSize(55);
-	score.setOutlineThickness(0.7);
+	score.setOutlineThickness(0.7f);
 	score.setStyle(score.Bold);
 	score.setFont(ResourceManager::instance().getFont());
 	score.setFillColor(sf::Color::White);
@@ -39,12 +41,12 @@ void UserInterface::showGameInfo(sf::RenderWindow& window, Player& player, int m
 
 }
 
-
+/*================== showFinelScore =================*/
 void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string string, int coins, int level)
 {
 	sf::Text text;
 	text.setString(string);
-	text.setPosition(window.getView().getCenter().x -600, /*offset.x*/ window.getView().getCenter().y -205/* + offset.y*/);
+	text.setPosition(window.getView().getCenter().x -600, window.getView().getCenter().y -205);
 	text.setCharacterSize(65);
 	text.setLetterSpacing(1.2f);
 	text.setOutlineThickness(2.5);
@@ -54,11 +56,11 @@ void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string s
 	window.draw(text);
 
 	text.setString("Reached level:  " + std::to_string(level));
-	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y - 135.f/* + offset.y*/);
+	text.setPosition(window.getView().getCenter().x - 600.f, window.getView().getCenter().y - 135.f);
 	window.draw(text);
 
 	text.setString("Total Coins:  " + std::to_string(coins) + " x");
-	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y-55.f/* + offset.y*/);
+	text.setPosition(window.getView().getCenter().x - 600.f, window.getView().getCenter().y-55.f);
 	auto sprite = sf::Sprite(ResourceManager::instance().getTexture("coin"));
 	sprite.setScale(4.f, 4.f);
 	sprite.setPosition(text.getPosition().x + 620.f, text.getPosition().y+12);
@@ -69,10 +71,11 @@ void UserInterface::showFinelScore(sf::RenderWindow& window, const std::string s
 	text.setCharacterSize(85);
 	text.setLetterSpacing(2.1f);
 	text.setOutlineThickness(3.5f);
-	text.setPosition(window.getView().getCenter().x - 600.f, /*offset.x*/ window.getView().getCenter().y + 45.f/* + offset.y*/);
+	text.setPosition(window.getView().getCenter().x - 600.f, window.getView().getCenter().y + 45.f);
 	window.draw(text);
 }
 
+/*================== drawSpriteInfo =================*/
 void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));
@@ -81,12 +84,12 @@ void UserInterface::drawSpriteInfo(sf::RenderWindow& window, const sf::Vector2f&
 	window.draw(sprite);
 }
 
-
+/*================== drawInfo =================*/
 void UserInterface::drawInfo(sf::RenderWindow& window, const sf::Vector2f& pos, int val)
 {
 	sf::Text info;
 	info.setCharacterSize(55);
-	info.setOutlineThickness(0.7);
+	info.setOutlineThickness(0.7f);
 	info.setStyle(info.Bold);
 	info.setFont(ResourceManager::instance().getFont());
 	info.setFillColor(sf::Color::White);
@@ -96,6 +99,7 @@ void UserInterface::drawInfo(sf::RenderWindow& window, const sf::Vector2f& pos, 
 	window.draw(info);
 }
 
+/*================== drawHeartSprites =================*/
 void UserInterface::drawHeartSprites(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));
@@ -121,7 +125,7 @@ void UserInterface::drawHeartSprites(sf::RenderWindow& window, const sf::Vector2
 
 }
 
-//--------------------------------------------------------------------
+/*================== drawSpritesPizza =================*/
 void UserInterface::drawSpritesPizza(sf::RenderWindow& window, const sf::Vector2f& pos, const std::string texture, float scaleFactor, int val, int maxPizzas)
 {
 	sf::Sprite sprite(ResourceManager::instance().getTexture(texture));

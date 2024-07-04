@@ -25,6 +25,9 @@ void Cage::move(const sf::Time& delta)
 }
 
 /*================== setLiftCage =================*/
+/*---------------------------------------------------------
+* set from lock cage texture to unlocked cage texture
+-----------------------------------------------------------*/
 void Cage::setLiftCage()
 {
 	m_liftCage = true;

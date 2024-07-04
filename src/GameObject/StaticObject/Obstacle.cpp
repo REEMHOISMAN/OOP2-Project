@@ -6,7 +6,7 @@
 bool Obstacle::m_register = StaticObjectFactory::registerStaticObject(sf::Color::Green, 
 	[](float x, float y)->std::unique_ptr<StaticObject> 
 	{
-		sf::Sprite sprite(ResourceManager::instance().getTexture("mainGround"));
+		sf::Sprite sprite(ResourceManager::instance().getTexture("grassGround"));
 		sprite.setPosition(x, y );
 		return std::make_unique<Obstacle>(sprite);
 	}) 

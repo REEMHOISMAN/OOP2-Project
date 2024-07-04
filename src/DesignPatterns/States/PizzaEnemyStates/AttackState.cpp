@@ -10,10 +10,9 @@
 
 
 /*================== AttackState Constructor =================*/
-AttackState::AttackState(const ObjectAnimation animation, const sf::Time& frameTimer) :
+AttackState::AttackState(const ObjectAnimation animation, const sf::Time frameTimer) :
 	PizzaEnemyState(animation, frameTimer), m_generateCheese(false)
 {
-
 }
 
 /*================== AttackState handleTime =================*/
@@ -28,12 +27,11 @@ std::unique_ptr<PizzaEnemyState> AttackState::handleTime(PizzaEnemy& pizzaEnemy,
 
 /*================== AttackState update =================*/
 /*----------------------------------------------------------
-This state comes into action when the pizza monster wants to attack,
-when a pizza monster attacks a new moving object is created 
-which is the cheese moved by strategy
+ * This state comes into action when the pizza monster wants to attack,
+ * when a pizza monster attacks a new moving object is created 
+ * which is the cheese moved by strategy
 ------------------------------------------------------------*/
-
-void AttackState::update(sf::Time deltaTime, PizzaEnemy& pizzaEnemy)
+void AttackState::update(const sf::Time deltaTime, PizzaEnemy& pizzaEnemy)
 {
 	m_generateCheese = setAnimationFrame(pizzaEnemy, deltaTime);
 	if (!m_generateCheese) return;

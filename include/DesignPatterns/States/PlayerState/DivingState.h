@@ -10,5 +10,4 @@ public:
 	void update(sf::Time, Player&)override;
 private:
 	float m_rightLeftSpeed;
-	bool m_scaled;
 };
