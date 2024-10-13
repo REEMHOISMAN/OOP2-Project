@@ -1,6 +1,6 @@
 /*=============== PROJECT - Papa Louie: When Pizza Attack ==============*/
 /**----------------------------------------------
- * Re'em Hoisman - 211694146 
+ * Re'em Hoisman, Alon Zargari
  *---------------------------------------------**/
 #include <iostream>
 #include "GameController.h"

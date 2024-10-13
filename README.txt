@@ -1,6 +1,5 @@
 ====== OOP2 PROJECT - PAPA LOUIE: WHEN PIZZAS ATTACK =====
 names: Re'em Hoisman , Alon Zargari
-ids: 2111694146 , 208626515
 
 ---- Program info ----
 This project is a clone of the game papa louie when pizzas attack, 
